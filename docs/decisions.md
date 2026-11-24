@@ -593,3 +593,11 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
   where the bank ends; the two systems overlap, and the sharpest contrasts in formal credit are by holding size and by where loans
   are recorded. Policy implications are hedged ("may be insufficient").
 - No geographic unit was dropped, merged or renamed; no number changed.
+
+## D047 (2026-11-24, DONE): Plainer, more direct prose in the paper
+- **Style.** Abstract, introduction, discussion and conclusion rewritten in a plainer, more direct voice: the introduction opens with
+  the puzzle already in the paper (farmers with bank accounts who still borrow from arhtis at a far higher implicit cost, Haq et al.
+  2013), states the simple substitution story and the answer early, and the discussion and conclusion use short declarative
+  sentences. Literature, methods, results and limitations are unchanged apart from removing one repeated sentence.
+- **Unchanged:** hypotheses, tests, numbers, hedges and descriptive language. Body plus references still end on page 12 (limit:
+  12 pages excluding figures).

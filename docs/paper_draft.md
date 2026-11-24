@@ -4,35 +4,43 @@ Ahmed Raza Khan Lodhi and Hasnain Akram, PPHA 38520, University of Chicago. Dece
 
 ## Abstract
 
-Agricultural credit in Punjab, Pakistan, is supplied through overlapping formal banking and informal commission-agent (arhti)
-networks. Using village-level reports of credit availability from the Mouza Census 2020 (23,130 rural populated mouzas in 137
-tehsils), State Bank of Pakistan (SBP) lending records for FY2023-24 and the Agricultural Census 2024, we examine the spatial
-distribution of credit availability and of recorded agricultural lending. Arhti credit availability is strongly clustered (Moran's
-I = 0.536). In exploratory models it is positively associated with proximity to grain markets, an association that persists under
-spatial error modelling, whereas its positive correlation with cropland does not. Within tehsils, arhti credit is more likely to be
-reported alongside commercial, cooperative and microfinance bank credit, while associations with ZTBL and with formal credit as a
-whole are statistically inconclusive; 79.9% of arhti-reporting mouzas also report at least one formal source, which challenges a
-general reading of arhtis as substitutes for formal finance. Across Punjab's 36 districts, subsistence holdings are 94.2% of farms
-and account for 90.9% of borrower records but 37.0% of recorded disbursement. Five large-city districts record 59.6% of
-above-economic disbursement with 13.3% of cultivated area, a concentration that persists under alternative district definitions
-and exclusion tests. Differences in data vintages, reporting conventions and the absence of household borrowing data limit the
-findings to descriptive, area-level associations.
+Who can borrow in rural Punjab, and from whom? A farmer can go to a bank, or to the arhti, the commission agent who sells the crop
+in the grain market and lends against it. A natural view is that the arhti fills the gap the bank leaves. We test that view with
+village reports of credit availability from the Mouza Census 2020 (23,130 rural populated mouzas in 137 tehsils), State Bank of
+Pakistan (SBP) lending records for FY2023-24 and the Agricultural Census 2024. The gap-filling view does not fit. Arhti credit is
+strongly clustered (Moran's I = 0.536) and sits close to grain markets, an association that persists under spatial error modelling,
+whereas its correlation with cropland does not. It is reported alongside formal credit, not instead of it: 79.9% of arhti-reporting
+mouzas also report a formal source, and within tehsils arhti credit is more likely where commercial, cooperative or microfinance
+credit is reported; for ZTBL and for formal credit as a whole the results are inconclusive. The sharper divide is inside the formal
+system. Across Punjab's 36 districts, subsistence holdings are 94.2% of farms and 90.9% of borrower records, yet they receive 37.0%
+of recorded disbursement. Five large-city districts record 59.6% of above-economic disbursement with 13.3% of cultivated area, and
+the concentration persists under alternative district definitions and exclusion tests. The data describe places, not people, and come from different years; the findings are descriptive.
 
 ## 1. Introduction and problem statement
 
-Punjab's farmers borrow from two worlds. One is formal: commercial banks, the Zarai Taraqiati Bank (ZTBL), the Punjab
-Provincial Cooperative Bank, microfinance banks and, since late 2024, a provincial interest-free card for small farmers. The
-other is the arhti, the commission agent who sells farmers' crops in the grain market (mandi) and who, in many villages, also
-advances them money before the harvest. Banks lend through branches, arhtis through markets. Where each system reaches, and whom
-it reaches, shapes what farmers pay for credit, when they must sell, and how much bargaining power they keep at harvest.
+Start with a puzzle. Most of the Punjabi farmers interviewed for an International Growth Centre study had bank accounts, yet they
+preferred to borrow from arhtis because it was easier (Haq et al. 2013). That study put the implicit annual cost of arhti credit at
+61.9% to 80.7%, depending on the crop; the same farmers reported bank rates of 9 to 18 percent. Why would anyone pay several times
+the bank's price when the bank is there?
+
+The question matters because credit is not a side issue for a farmer. It is about who can buy seed and fertilizer on time, who
+can wait for a better price after the harvest, and who must sell through the agent who financed the crop. Punjab's farmers borrow from
+two systems. One is formal: commercial banks, the Zarai Taraqiati Bank (ZTBL), the Punjab Provincial Cooperative Bank, microfinance
+banks and, since late 2024, a provincial interest-free card for small farmers. The other is the arhti, who sells farmers' crops in
+the grain market (mandi) and, in many villages, advances them money before the harvest. Banks lend through branches; arhtis lend
+through markets.
+
+The simplest story is that the two are substitutes: where the bank ends, the arhti begins. If that were right, the policy answer
+would be equally simple: open more branches. This paper asks whether the map of Punjab agrees. It does not. Across a whole
+province, using village-level census data and spatial statistics, we find the arhti working alongside the bank rather than in its
+absence. Inside the formal system the divide is sharper: by farm size, and by where loans are recorded.
 
 **Thesis.** Agricultural credit in Punjab has distinct and overlapping geographies. Reported arhti credit availability is
 spatially concentrated and associated with proximity to grain markets, while its relationship with formal credit varies across
 institutions and places. Recorded formal agricultural lending is concentrated by holding size and in a few city districts.
 
-Earlier work, notably the International Growth Centre study of arhtis (Haq et al. 2013), already found that farmers with bank
-accounts keep borrowing from arhtis. Our contribution is to test how far that coexistence extends across a whole province, with
-village-level census data and spatial statistics, and to compare where formal lending is recorded with where farms are.
+Haq et al. (2013) documented this coexistence among the farmers they interviewed. Our contribution is to test how far it extends
+across a whole province, and to compare where formal lending is recorded with where farms are.
 
 We ask two research questions and test three hypotheses. The tests for H1 and H2 were fixed before the analysis was run and are
 recorded in our project log; H3 and every other method in the paper are exploratory.
@@ -73,8 +81,7 @@ brokers the sale of farmers' crops and advances inputs or cash before the harves
 through the same market. Haq and colleagues (2013) describe the arhti as the largest source of informal agricultural credit in
 Punjab, operating from the province's 325 commodity markets. From a purposive sample (18 arhtis in 8 locations, interviews in
 2012) they estimated implicit annualized interest, from input-price premiums and extra commission, of 61.9% for cotton, 71.48%
-for maize, 80.7% for rice and 67.1% for wheat. The same study reports bank rates of 9 to 18 percent from the farmers it
-interviewed, most of whom had bank accounts yet preferred arhtis because borrowing was easier. These are small studies whose
+for maize, 80.7% for rice and 67.1% for wheat, against the bank rates quoted in Section 1. These are small studies whose
 figures are given by crop; we treat them as context, not as local estimates.
 
 **Who formal credit reaches.** Pakistani evidence has long found formal credit skewed towards larger farms. Malik, Mushtaq and
@@ -318,25 +325,22 @@ reach is 0.428, and the H2 and H3 headlines change as reported above (Table B8).
 
 ## 6. Discussion
 
-Several mechanisms are consistent with published work; we present them as possibilities, not findings. *Interlinked marketing
-and credit:* arhtis lend against the crop they will market (Bell 1988; Aleem 1990; Haq et al. 2013), so their lending would be
-expected near markets and marketed surplus, as the market-distance results suggest, and in villages that also report formal credit.
-The arhti then looks less like a substitute for a missing bank than a market agent whose lending travels with the harvest. *Speed
-and collateral:* most farmers interviewed by the IGC had bank accounts yet preferred arhtis because borrowing was easier; if speed
-and the absence of collateral matter more than the rate (Hoff and Stiglitz 1990), arhti credit can persist beside cheaper formal
-credit, and local differences in ease of use would show up as the heterogeneity we find. *Booking practices:* if large loans are
-arranged at city branches, high location quotients in Lahore and Rawalpindi follow (compare Mian 2006). *Ecological fallacy:* that
-villages reporting bank credit are more likely to report arhti credit does not mean that the same farmers use both (Robinson
-1950).
+What could lie behind these patterns? Our data cannot say, but published work suggests three possibilities. *The arhti is a market
+agent, not a missing bank.* Arhtis lend against the crop they will sell (Bell 1988; Aleem 1990; Haq et al. 2013), so their lending
+would be expected near markets and marketed surplus, as the market-distance results suggest, and in villages that also have formal
+credit. *Convenience can be worth more than price.* As the IGC farmers suggest, if speed and the absence of collateral matter more than the rate (Hoff and Stiglitz 1990), arhti credit can persist beside cheaper
+formal credit, and local differences in ease of use would show up as the heterogeneity we find. *Big loans may be booked in big
+cities.* If large loans are arranged at city branches, the high location quotients in Lahore and Rawalpindi follow (compare Mian
+2006). One warning applies to all three: that villages reporting bank credit are more likely to report arhti credit does not mean
+that the same farmers use both (Robinson 1950).
 
-**Policy implications.** Because arhti credit coexists with formal credit, branch expansion alone may be insufficient to reduce
-reliance on informal finance; products that match cash flows and harvest timing may matter as much as proximity. Because arhti
-availability is associated with proximity to grain markets, consistent with, but not proof of, market-linked lending, pilots of
-market-linked formal products such as warehouse-receipt or value-chain finance could be tried in high-arhti clusters. The 3,810
-mouzas reporting neither source (Figure 7B) are a place to check whether low reported availability reflects low demand or unmet
-need. Better
-SBP location reporting (lending branch and financed farm) would make district targeting possible, products that do not rely solely
-on land ownership would matter where tenant farms are common, and our FY2023-24 baseline predates the Kissan Card.
+**Policy implications.** If the arhti coexists with the bank, building more branches alone may be insufficient to reduce reliance on
+informal finance; formal products that match harvest cash flows may matter as much as proximity. If arhti credit is part of the
+grain trade, the natural place to try market-linked formal products, such as warehouse-receipt or value-chain finance, is where arhti
+clusters are, and competition among traders and lenders is worth watching as closely as branch counts (compare Smith, Stockbridge
+and Lohano 1999). The 3,810 mouzas reporting neither source (Figure 7B) are where to check for unmet need. And no one can target what no one measures: SBP reporting by both lending branch and financed
+farm would make district targeting possible. Products that do not rely solely on land ownership would matter where tenant farms are
+common; our FY2023-24 baseline predates the Kissan Card.
 
 ## 7. Limitations
 
@@ -352,22 +356,21 @@ associations.
 
 ## 8. Conclusion
 
-We conclude that agricultural credit in Punjab runs on two different geographies. **Informal credit follows the market and overlaps
-formal credit:** arhti credit is strongly clustered (Moran's I 0.536; 0.470 to 0.568 across weighting specifications), it is most
-consistently associated with proximity to grain markets, and the evidence favours coexistence over gap-filling (H1): within tehsils
-it is more likely where commercial, cooperative or microfinance credit is reported, and no formal source shows a significant negative
-association; 79.9% of arhti-reporting villages also report a formal source. **Formal money concentrates by farm size and by place:**
-formal lending is disproportionate (H2), with small holdings holding 90.9% of borrower records but receiving 37.0% of disbursement in
-the 36 districts, and recorded lending is concentrated (H3), with five city districts recording 59.6% of above-economic disbursement on
-13.3% of cultivated area, a pattern that survives dropping any one of them or defining the group by urban population.
+Punjab's agricultural credit runs on two geographies. **Informal credit follows the market and overlaps formal credit.** Arhti
+credit is strongly clustered (Moran's I 0.536; 0.470 to 0.568 across weighting specifications) and most consistently associated with
+proximity to grain markets. The evidence favours coexistence over gap-filling (H1): within tehsils arhti credit is more likely where
+commercial, cooperative or microfinance credit is reported, no formal source shows a significant negative association, and 79.9% of
+arhti-reporting villages also report a formal source. **Formal money concentrates by farm size and by place.** Formal lending is
+disproportionate (H2): small holdings hold 90.9% of borrower records in the 36 districts but receive 37.0% of disbursement. Recorded
+lending is concentrated (H3): five city districts record 59.6% of above-economic disbursement on 13.3% of cultivated area, and the
+pattern survives dropping any one of them or defining the group by urban population.
 
-The answer to our title is that the arhti does not begin where the bank ends: the two systems overlap in the same places. The
-sharpest contrasts in formal credit are not between places where it is reported and places where it is not, but between small and
-large holdings, and between where farms are and where loans are recorded. Reported availability is therefore a poor guide to who
-receives formal money. For policy, this suggests that expanding formal availability alone may be insufficient; loan size by
-holding class, finance linked to grain markets where arhti credit clusters, and SBP reporting by the location of financed land may
-matter as much. Confirming SBP's district attribution, and observing how farmers combine arhti, bank and Kissan Card credit, are
-the next steps.
+So the arhti does not begin where the bank ends. The two systems overlap in the same places. The sharpest contrasts in formal credit
+are not between places where it is reported and places where it is not, but between small and large holdings, and between where
+farms are and where loans are recorded. Counting where formal credit is available tells us little about who receives formal money.
+Expanding formal availability alone may therefore be insufficient; loan size by holding class, finance linked to grain markets, and
+SBP reporting by the location of financed land may matter as much. Two questions come next: where SBP attributes its loans, and how
+farmers combine arhti, bank and Kissan Card credit.
 
 **Data and code availability.** All data are public; sources, access dates and checksums, and the scripts that rebuild every
 number, table and figure from the raw downloads, are at https://github.com/ahmedrazakhanlodhi/arhti-project.
