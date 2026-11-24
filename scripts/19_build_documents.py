@@ -470,9 +470,49 @@ def build_slides():
     print(f"slides: {path.relative_to(ROOT)} ({len(slides)} slides)")
 
 
+WPM = 130          # speaking pace used for the time estimates
+
+
+def build_script():
+    """Speaker script from the Notes of docs/slide_text.md: one section per slide with speaker, estimated time and the words to say."""
+    slides = parse_slides((ROOT / "docs" / "slide_text.md").read_text())
+    doc = Document()
+    sec = doc.sections[0]
+    sec.page_width, sec.page_height = Inches(8.5), Inches(11)
+    for side in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
+        setattr(sec, side, Inches(1))
+    st_ = doc.styles["Normal"]; st_.font.name = "Times New Roman"; st_.font.size = Pt(12); st_.paragraph_format.line_spacing = 1.3
+    total = sum(len(re.sub(r"^\[\w+\]\s*", "", x["notes"]).split()) for x in slides)
+    t = doc.add_paragraph(); r = t.add_run("Speaker script: Where the Bank Ends and the Arhti Begins"); r.bold = True; r.font.size = Pt(15)
+    m = doc.add_paragraph()
+    runs(m, f"Ahmed Raza Khan Lodhi and Hasnain Akram · PPHA 38520 · November 30, 2026 · {len(slides)} slides · {total:,} words, about "
+            f"{total / WPM:.1f} minutes at {WPM} words per minute", 10, MUTED)
+    md = [f"# Speaker script: Where the Bank Ends and the Arhti Begins", "",
+          f"{len(slides)} slides · {total:,} words · about {total / WPM:.1f} minutes at {WPM} words per minute. Built from the Notes in "
+          "`docs/slide_text.md` by `scripts/19_build_documents.py`; the same text is in the deck's speaker notes.", ""]
+    clock = 0.0
+    for i, x in enumerate(slides, 1):
+        mm = re.match(r"^\[(\w+)\]\s*(.*)$", x["notes"])
+        who, text_ = (mm.group(1), mm.group(2)) if mm else ("", x["notes"])
+        sec_ = len(text_.split()) / WPM * 60
+        start = f"{int(clock // 60)}:{int(clock % 60):02d}"
+        clock += sec_
+        h = doc.add_paragraph(); h.paragraph_format.space_before = Pt(10); h.paragraph_format.keep_with_next = True
+        r = h.add_run(f"Slide {i}. {x['title']}"); r.bold = True; r.font.size = Pt(13)
+        info = doc.add_paragraph(); info.paragraph_format.keep_with_next = True
+        runs(info, f"{who} · about {round(sec_ / 5) * 5:.0f} seconds · starts at {start}", 10, MUTED)
+        doc.add_paragraph(text_)
+        md += [f"## Slide {i}. {x['title']}", f"*{who} · about {round(sec_ / 5) * 5:.0f} seconds · starts at {start}*", "", text_, ""]
+    OUT_S.mkdir(parents=True, exist_ok=True)
+    doc.save(OUT_S / "speaker_script.docx")
+    (OUT_S / "speaker_script.md").write_text("\n".join(md))
+    print(f"script: outputs/slides/speaker_script.docx and .md ({total:,} words, about {total / WPM:.1f} min)")
+
+
 def main() -> int:
     build_paper()
     build_slides()
+    build_script()
     return 0
 
 

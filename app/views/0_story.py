@@ -28,8 +28,9 @@ STEPS = [
     ("Reporting geography", f"{k('five_credit_share_abv')} vs {k('five_area_share')}", "Recorded lending concentrates in city districts.",
      f"Five city districts' share of above-economic disbursement vs cultivated area ({ui.ATTRIBUTION}). Robust to leaving out any one city.",
      "story_6_cities.png", "Figure R2. Five city districts' shares of lending, farmland, farms and branches."),
-    ("Where policy could look", f"{k('all_any_neither')} villages", "Where might financial policy intervene?",
-     f"{k('all_any_neither_share')} of villages report neither arhti nor formal credit. Branch expansion alone may be insufficient; "
+    ("Conclusion", f"{k('all_any_neither')} villages", "The two systems overlap; formal money concentrates.",
+     f"The arhti does not begin where the bank ends: the sharpest contrasts are by farm size and booking place. Yet "
+     f"{k('all_any_neither_share')} of villages report neither source. Expanding formal availability alone may be insufficient; "
      "market-linked products and better location reporting are candidate directions.", "story_7_neither.png",
      "Figure S13. Share of villages reporting neither source (limited reported availability, not exclusion)."),
 ]

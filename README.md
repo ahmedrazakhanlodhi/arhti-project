@@ -5,8 +5,10 @@ Chicago. Ahmed Raza Khan Lodhi and Hasnain Akram. **Descriptive, not causal.**
 
 **Thesis:** agricultural credit in Punjab has distinct and overlapping geographies. Reported arhti credit availability is
 clustered and associated with proximity to grain markets, while its relationship with formal credit varies across institutions and
-places (H1, gap-filling: not supported); formal credit reaches small farms approximately in proportion by count but not by amount
-(H2: not supported); recorded lending concentrates in a few city districts, above all for large holdings (H3: not supported).
+places; the evidence favours coexistence with formal credit over gap-filling (H1). Formal lending is disproportionate (H2): small
+farms appear in borrower records roughly in proportion to their number but receive a much smaller share of the money. Recorded
+lending is concentrated (H3) in a few city districts, above all for large holdings. **Conclusion:** the arhti does not begin where
+the bank ends; the two systems overlap, and the sharpest contrasts in formal credit are by farm size and by where loans are recorded.
 Data: Mouza Census 2020 (137 rural tehsils); SBP FY2023-24 lending records and the Agricultural Census 2024 (36 districts);
 separate datasets and periods, never treated as contemporaneous.
 

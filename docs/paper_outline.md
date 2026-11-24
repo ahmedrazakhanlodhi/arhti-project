@@ -27,6 +27,6 @@ as reported by SBP (attribution under verification)" until the attribution is co
 ## 5. Robustness and the MAUP (weights; scale effect, Figure S2; zoning effect, Cholistan; flagged districts)
 ## 6. Discussion (mechanisms as possibilities; pattern vs process; ecological fallacy; map design choices)
 ## 7. Limitations
-## 8. Conclusion (verdict on each hypothesis)
+## 8. Conclusion (verdicts: H1 coexistence over gap-filling; H2 formal lending disproportionate; H3 recorded lending concentrated; answer to the title)
 ## References (`docs/references.md`)
 ## Appendix: Figures S1–S12, R2; tables A1–A5; methods appendix, decisions, validation, key numbers, checklist

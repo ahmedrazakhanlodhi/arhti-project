@@ -584,3 +584,12 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
 - **Design:** finding-first overview (six equal-height cards), collapsible data-vintage notes, authors once plus a page footer, shared
   chart style, district tiles and comparison, and a guided seven-screen story in presentation mode. Internal notes and file paths
   removed from the Cost page; the PMN/MEDA focus-group markup is no longer shown there.
+
+## D046 (2026-11-24, DONE): Verdict wording and conclusion
+- **Wording.** Verdicts now state what the evidence shows instead of "not supported": H1, "the evidence favours coexistence
+  (H1-alt) over gap-filling"; H2, "formal lending is disproportionate"; H3, "recorded lending is concentrated". The hypotheses,
+  tests and numbers are unchanged; the hypotheses are not restated after the fact.
+- **Conclusion.** The paper, slides, speaker notes, README and app now end on one stated conclusion: the arhti does not begin
+  where the bank ends; the two systems overlap, and the sharpest contrasts in formal credit are by holding size and by where loans
+  are recorded. Policy implications are hedged ("may be insufficient").
+- No geographic unit was dropped, merged or renamed; no number changed.

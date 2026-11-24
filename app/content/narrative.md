@@ -10,9 +10,10 @@ Does arhti credit fill the gaps left by formal credit (H1), does formal credit r
 lending recorded where farmland is (H3)?
 
 ## Main conclusion
-Agricultural credit in Punjab has distinct and overlapping geographies. Arhti credit clusters near grain markets and sits alongside
-formal credit rather than in its gaps; formal lending is approximately proportional to small farms by count but not by amount, and it
-is recorded heavily in a few city districts.
+The arhti does not begin where the bank ends: the two overlap. Arhti credit clusters near grain markets and sits alongside formal
+credit rather than in its gaps (H1: coexistence, not gap-filling). Formal lending is disproportionate (H2): small holdings are close to
+their share of farms in borrower records but receive a much smaller share of the money. Recorded lending is concentrated (H3) in a few
+city districts.
 
 ## Introduction
 Punjab's farmers borrow from banks and from arhtis, the commission agents who sell their crops in grain markets. The app follows four
@@ -64,8 +65,13 @@ Splitting districts at the median of arhti availability and of small-farm reach 
 high reach and 7 high arhti with low reach; Lahore is not classified. The groups are descriptive, not rankings.
 
 ## Conclusion
-Where the bank ends, the arhti has not simply begun: the two systems overlap. Confirming where SBP attributes loans, and observing how
-farmers combine arhti, bank and Kissan Card credit, are the next steps for understanding why.
+Agricultural credit in Punjab runs on two geographies. Informal credit follows grain markets and overlaps formal credit: 79.9% of
+arhti-reporting villages also report a formal source, and no formal source shows a significant negative association. Formal money
+concentrates by farm size and by place: small holdings hold 90.9% of borrower records but receive 37.0% of disbursement (36 districts),
+and five city districts record 59.6% of above-economic disbursement with 13.3% of cultivated area. The sharpest contrasts in formal
+credit are therefore not between places where it is reported and places where it is not, but between small and large holdings, and
+between where farms are and where loans are recorded. Expanding formal availability alone may be insufficient. Confirming where SBP
+attributes loans, and observing how farmers combine arhti, bank and Kissan Card credit, are the next steps.
 
 ## Limitations
 - The Mouza Census records whether respondents report a credit source as serving the village, not whether households borrow from it.

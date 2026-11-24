@@ -242,9 +242,9 @@ better (λ = 0.715; AIC −22.2 against 34.2). Non-spatial inference is limited:
 the binomial model is heavily overdispersed (dispersion 58.9). The planned spatial error model (Table B5) adds two borderline
 results, higher arhti availability where commercial-bank credit is reported (0.193, p = 0.045) and lower where more mouzas are over
 25 km from an online bank branch (−0.442, p = 0.036), neither of which holds in the other models; we read them as consistent with
-arhtis working inside market and banking networks, not as established effects. **H1 is not supported:** the results undermine a
-generalized gap-filling hypothesis but do not rule out substitution in particular places, and coexistence is most clearly linked to
-proximity to grain markets.
+arhtis working inside market and banking networks, not as established effects. **Verdict on H1: the evidence favours coexistence (H1-alt)
+over gap-filling.** No formal source shows a significant negative association, so a general gap-filling account does not fit, although
+substitution in particular places cannot be ruled out; coexistence is most clearly linked to proximity to grain markets.
 
 ### 4.2 H2: small holdings are approximately proportionately represented in borrower records, but not in disbursement
 
@@ -270,9 +270,9 @@ where small farms are (a synthetic redistribution, not farm locations), and perc
 borrower records are reported. The index of dissimilarity between the two distributions is 0.216, and 0.182 without the five
 flagged districts (Table B8). Ordering districts by reach, the concentration coefficient is 0.297 (Figure S6). Small-farm reach is
 higher where tenant farms are a larger share of farms (Spearman ρ = 0.39, adjusted p 0.018); this describes districts, not
-tenants, whose own borrowing these data cannot show. **H2 is not supported:** small holdings are close to proportionally
-represented in borrower records but receive a much smaller share of disbursement, and borrower records are spread unevenly
-relative to small farms. Without the flagged districts the subsistence share of disbursement is 39.7%, so the finding does not
+tenants, whose own borrowing these data cannot show. **Verdict on H2: formal lending is disproportionate.** Small holdings are
+close to proportionally represented in borrower records but receive a much smaller share of disbursement, and borrower records are
+spread unevenly relative to small farms. Without the flagged districts the subsistence share of disbursement is 39.7%, so the finding does not
 depend on them.
 
 ### 4.3 H3: recorded lending concentrates in city districts, above all for large holdings
@@ -292,8 +292,8 @@ still record 4.41 to 5.65 times their area share of above-economic lending (1.33
 group of the five districts with the largest urban populations in the 2023 census (Lahore, Faisalabad, Rawalpindi, Gujranwala,
 Multan) records 43.5% of
 above-economic disbursement with 11.2% of cultivated area. Without the flagged districts, three of which are city districts (leaving
-only Multan and Rahim Yar Khan in the group), the above-economic share of all disbursement falls from 47.8% to 42.0%. **H3 is not supported:** recorded lending is concentrated in
-city districts for every class, most strongly for large holdings. Until SBP's district attribution is confirmed, a high location
+only Multan and Rahim Yar Khan in the group), the above-economic share of all disbursement falls from 47.8% to 42.0%. **Verdict on H3: recorded lending is concentrated.** It is
+concentrated in city districts for every class, most strongly for large holdings. Until SBP's district attribution is confirmed, a high location
 quotient in a city district may reflect where loans are booked rather than where the financed land is.
 
 ### 4.4 Cost in context and district typology
@@ -352,16 +352,22 @@ associations.
 
 ## 8. Conclusion
 
-Agricultural credit in Punjab has distinct and overlapping geographies. **H1 is not supported:** arhti credit is clustered (Moran's
-I 0.536; 0.470 to 0.568 across weighting specifications) and no formal source shows a significant negative association with it; within
-tehsils it is more likely where commercial, cooperative or microfinance credit is reported, and the results for ZTBL and for formal
-credit as a whole are inconclusive. Proximity to grain markets is its most consistent correlate; the link with cropland does not
-survive spatial error modelling. **H2 is not supported:** small holdings hold 90.9% of borrower records but 37.0% of disbursement in
-the 36 districts, and borrower records are spread unevenly relative to small farms (D = 0.216). **H3 is not supported:** five city
-districts record 59.6% of above-economic disbursement with 13.3% of cultivated area, and the concentration survives dropping any
-one of them or defining the group by urban population. Where the bank ends, the arhti has not simply begun: the two systems overlap.
-The geography of agricultural credit is not accounted for by where bank branches are, by formal availability or by landholding structure alone.
-Confirming where SBP attributes loans, and observing how farmers combine sources, are the next steps for understanding why.
+We conclude that agricultural credit in Punjab runs on two different geographies. **Informal credit follows the market and overlaps
+formal credit:** arhti credit is strongly clustered (Moran's I 0.536; 0.470 to 0.568 across weighting specifications), it is most
+consistently associated with proximity to grain markets, and the evidence favours coexistence over gap-filling (H1): within tehsils
+it is more likely where commercial, cooperative or microfinance credit is reported, and no formal source shows a significant negative
+association; 79.9% of arhti-reporting villages also report a formal source. **Formal money concentrates by farm size and by place:**
+formal lending is disproportionate (H2), with small holdings holding 90.9% of borrower records but receiving 37.0% of disbursement in
+the 36 districts, and recorded lending is concentrated (H3), with five city districts recording 59.6% of above-economic disbursement on
+13.3% of cultivated area, a pattern that survives dropping any one of them or defining the group by urban population.
+
+The answer to our title is that the arhti does not begin where the bank ends: the two systems overlap in the same places. The
+sharpest contrasts in formal credit are not between places where it is reported and places where it is not, but between small and
+large holdings, and between where farms are and where loans are recorded. Reported availability is therefore a poor guide to who
+receives formal money. For policy, this suggests that expanding formal availability alone may be insufficient; loan size by
+holding class, finance linked to grain markets where arhti credit clusters, and SBP reporting by the location of financed land may
+matter as much. Confirming SBP's district attribution, and observing how farmers combine arhti, bank and Kissan Card credit, are
+the next steps.
 
 **Data and code availability.** All data are public; sources, access dates and checksums, and the scripts that rebuild every
 number, table and figure from the raw downloads, are at https://github.com/ahmedrazakhanlodhi/arhti-project.
