@@ -22,7 +22,7 @@ from qgis.core import (Qgis, QgsApplication, QgsCategorizedSymbolRenderer, QgsFi
                        QgsLayoutItemMapOverview, QgsLayoutItemPicture, QgsLayoutItemScaleBar, QgsLayoutItemShape, QgsLayoutPoint,
                        QgsLayoutSize, QgsLegendStyle, QgsMarkerSymbol, QgsPrintLayout, QgsProject, QgsProperty, QgsRectangle,
                        QgsRendererCategory, QgsSingleSymbolRenderer, QgsSizeScaleTransformer, QgsSymbolLayer, QgsTextFormat,
-                       QgsVectorLayer, QgsCoordinateTransform, QgsRenderContext)
+                       QgsVectorLayer, QgsCoordinateTransform, QgsRenderContext, QgsGraduatedSymbolRenderer, QgsRendererRange)
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QColor, QFont
 
@@ -395,6 +395,53 @@ def main():
                  "Dots are a synthetic redistribution: placed at random within each district's cropland in proportion to cropland fraction (seed 20261031); "
                  "they show density, not farm locations. 36 districts; the census Cholistan Area is excluded."])
     ok &= export(lay, "fig6_dasymetric_farms_borrowers")
+
+
+    # ---------------------------------------------------------------- Figure 7 (two panels)
+    lay = page(prj, "Figure 7 – markets and limited availability", "Figure 7. Proximity to grain markets and limited reported credit availability, by tehsil",
+               "A: share of rural populated mouzas with a grain market within 10 km (incl. in the mouza). B: share reporting neither arhti nor any formal source")
+    base7 = add_gpkg(prj, g6, "F7 tehsils (course layer)", "course_tehsils_gistar_trend")
+    pa = add_gpkg(prj, g6, "F7A grain market within 10 km (share of mouzas)", "course_tehsils_gistar_trend")
+    pb = add_gpkg(prj, g6, "F7B neither arhti nor formal credit reported (share of mouzas)", "course_tehsils_gistar_trend")
+    base7.setRenderer(QgsSingleSymbolRenderer(QgsFillSymbol.createSimple({"color": "#ffffff", "outline_color": "#8a8984", "outline_width": "0.15"})))
+
+    def fixed(layer, field, breaks, colors, labels):
+        """Classes include their lower bound (same convention as Figure S13): QGIS ranges are (lower, upper], so shift each upper bound down."""
+        rngs, lo = [], -1e-9
+        for b, c, l in zip(breaks, colors, labels):
+            up = b - 1e-9
+            rngs.append(QgsRendererRange(lo, up, QgsFillSymbol.createSimple({"color": c, "outline_color": "#ffffff", "outline_width": "0.1"}), l))
+            lo = up
+        layer.setRenderer(QgsGraduatedSymbolRenderer(field, rngs))
+        with_counts(layer)
+    fixed(pa, "mkt_grain_within10_share", [0.2, 0.4, 0.6, 0.8, 1.0000001], ["#e7f0f7", "#b6d2ea", "#7aaedb", "#3a7fc0", "#0d366b"],
+          ["< 20%", "20–40%", "40–60%", "60–80%", "≥ 80%"])
+    fixed(pb, "share_neither", [0.05, 0.10, 0.20, 0.40, 1.0000001], ["#f6f1e7", "#f2d3b6", "#e9a46c", "#c9531f", "#6b280b"],
+          ["< 5%", "5–10%", "10–20%", "20–40%", "≥ 40%"])
+    rect = punjab_extent(prj)
+    for i, (lyr_, title_, x0) in enumerate([(pa, "A. Grain market within 10 km", 5.0), (pb, "B. Neither arhti nor formal credit", 87.0)]):
+        mm_ = QgsLayoutItemMap(lay); mm_.attemptMove(QgsLayoutPoint(x0, 30, MM)); mm_.attemptResize(QgsLayoutSize(78, 112, MM))
+        mm_.setCrs(prj.crs()); mm_.setLayers([outline, lyr_, base7]); mm_.setKeepLayerSet(True); mm_.zoomToExtent(rect)
+        mm_.setFrameEnabled(True); mm_.setFrameStrokeColor(QColor(INK)); mm_.setFrameStrokeWidth(QgsLayoutMeasurementMM(0.3)); lay.addLayoutItem(mm_)
+        label(lay, title_, x0, 25.5, 78, 4.5, 8.2, True)
+        sb = QgsLayoutItemScaleBar(lay); sb.setStyle("Single Box"); sb.setLinkedMap(mm_); sb.applyDefaultSize()
+        sb.setUnits(Qgis.DistanceUnit.Kilometers); sb.setUnitLabel("km"); sb.setSegmentSizeMode(Qgis.ScaleBarSegmentSizeMode.Fixed)
+        sb.setUnitsPerSegment(50); sb.setNumberOfSegments(2); sb.setNumberOfSegmentsLeft(0); sb.setHeight(1.4); sb.setTextFormat(tfmt(6))
+        sb.attemptMove(QgsLayoutPoint(x0 + 40, 132, MM)); lay.addLayoutItem(sb)
+        na = QgsLayoutItemPicture(lay); na.setPicturePath(svg_north()); na.setLinkedMap(mm_); na.setNorthMode(QgsLayoutItemPicture.NorthMode.TrueNorth)
+        na.attemptMove(QgsLayoutPoint(x0 + 68, 116, MM)); na.attemptResize(QgsLayoutSize(6, 11, MM)); lay.addLayoutItem(na)
+        lg = QgsLayoutItemLegend(lay); lg.setTitle(""); lg.setLinkedMap(mm_); lg.setSyncMode(Qgis.LegendSyncMode.Manual)
+        root7 = lg.model().rootGroup(); root7.clear()
+        n7 = root7.addLayer(lyr_); n7.setUseLayerName(False); n7.setName("Share of rural populated mouzas")
+        for comp, size, bold in [(QgsLegendStyle.Style.Subgroup, 7.0, True), (QgsLegendStyle.Style.SymbolLabel, 6.8, False)]:
+            st = lg.style(comp); st.setTextFormat(tfmt(size, bold)); lg.setStyle(comp, st)
+        lg.setColumnCount(2); lg.setSplitLayer(True); lg.setSymbolWidth(5); lg.setSymbolHeight(3.0)
+        lg.attemptMove(QgsLayoutPoint(x0, 144, MM)); lay.addLayoutItem(lg); lg.adjustBoxSize()
+    footer(lay, [f"Data: {V_MC}. 137 tehsils; white = no rural populated mouzas. Fixed classes; each class includes its lower bound.",
+                 "A: Mouza Census distance bands (in the mouza or 1–10 km). B: formal = commercial bank, ZTBL, cooperative bank or microfinance bank; "
+                 "other sources (NGOs, rural support programmes, government) are not counted, so B shows limited reported availability, not exclusion.",
+                 "Exploratory: the within-10 km share is associated with arhti availability in OLS, quasi-binomial and spatial error models (Table B9)."])
+    ok &= export(lay, "fig7_markets_neither_tehsil")
 
     prj.writeEntry("Paths", "/Absolute", False)
     w = prj.write(str(QGZ))

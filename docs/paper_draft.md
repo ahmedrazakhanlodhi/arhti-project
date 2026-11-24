@@ -6,18 +6,17 @@ Ahmed Raza Khan Lodhi and Hasnain Akram, PPHA 38520, University of Chicago. Dece
 
 Agricultural credit in Punjab, Pakistan, is supplied through overlapping formal banking and informal commission-agent (arhti)
 networks. Using village-level reports of credit availability from the Mouza Census 2020 (23,130 rural populated mouzas in 137
-tehsils), State Bank of Pakistan (SBP) lending records for FY2023-24 and the Agricultural Census 2024 (36 districts), we test
-three hypotheses: that arhti credit fills the gaps left by formal credit (H1), that formal credit reaches small farms in
-proportion (H2), and that formal lending is recorded where farmland is (H3). Reported arhti credit availability is strongly
-clustered (Moran's I = 0.536) and is higher where more villages are near a grain market, an association that holds in a spatial
-error model; its positive correlation with cropland does not. Within tehsils, arhti credit is more likely to be reported alongside
-commercial, cooperative and microfinance bank credit, while associations with ZTBL and with formal credit as a whole are
-statistically inconclusive; no formal source shows a significant negative association, and local heterogeneity is large. Across
-the 36 districts, subsistence holdings are 94.2% of farms and account for 90.9% of recorded borrower records but 37.0% of
-disbursement, and borrower records are spread differently from small farms (index of dissimilarity 0.216). Five large-city
-districts record 59.6% of above-economic disbursement with 13.3% of cultivated area, a pattern that survives dropping any one of
-them. Differences in data vintages, reporting conventions and the absence of household borrowing data limit the results to
-descriptive, area-level associations.
+tehsils), State Bank of Pakistan (SBP) lending records for FY2023-24 and the Agricultural Census 2024, we examine the spatial
+distribution of credit availability and of recorded agricultural lending. Arhti credit availability is strongly clustered (Moran's
+I = 0.536). In exploratory models it is positively associated with proximity to grain markets, an association that persists under
+spatial error modelling, whereas its positive correlation with cropland does not. Within tehsils, arhti credit is more likely to be
+reported alongside commercial, cooperative and microfinance bank credit, while associations with ZTBL and with formal credit as a
+whole are statistically inconclusive; 79.9% of arhti-reporting mouzas also report at least one formal source, which challenges a
+general reading of arhtis as substitutes for formal finance. Across Punjab's 36 districts, subsistence holdings are 94.2% of farms
+and account for 90.9% of borrower records but 37.0% of recorded disbursement. Five large-city districts record 59.6% of
+above-economic disbursement with 13.3% of cultivated area, a concentration that persists under alternative district definitions
+and exclusion tests. Differences in data vintages, reporting conventions and the absence of household borrowing data limit the
+findings to descriptive, area-level associations.
 
 ## 1. Introduction and problem statement
 
@@ -27,9 +26,9 @@ other is the arhti, the commission agent who sells farmers' crops in the grain m
 advances them money before the harvest. Banks lend through branches, arhtis through markets. Where each system reaches, and whom
 it reaches, shapes what farmers pay for credit, when they must sell, and how much bargaining power they keep at harvest.
 
-**Thesis.** Agricultural credit in Punjab has distinct and overlapping geographies. Arhti credit is spatially concentrated near
-grain markets and is reported alongside formal credit rather than in its gaps, while recorded formal lending is concentrated by
-holding size and in a few city districts.
+**Thesis.** Agricultural credit in Punjab has distinct and overlapping geographies. Reported arhti credit availability is
+spatially concentrated and associated with proximity to grain markets, while its relationship with formal credit varies across
+institutions and places. Recorded formal agricultural lending is concentrated by holding size and in a few city districts.
 
 Earlier work, notably the International Growth Centre study of arhtis (Haq et al. 2013), already found that farmers with bank
 accounts keep borrowing from arhtis. Our contribution is to test how far that coexistence extends across a whole province, with
@@ -39,11 +38,11 @@ We ask two research questions and test three hypotheses. The tests for H1 and H2
 recorded in our project log; H3 and every other method in the paper are exploratory.
 
 - **Q1 (tehsil level, geographic exclusion).** Is reported arhti credit availability associated with weaker formal credit
-  availability, or does it concentrate where formal credit and farmland already are?
+  availability, or does it concentrate where formal credit, grain markets and farmland already are?
   - **H1 (gap-filling).** Arhti credit is reported where formal credit is not: a negative association between arhti and formal
     credit availability across tehsils and, within tehsils, an odds ratio below 1.
-  - **H1-alt (coexistence).** Arhti credit follows farmland and markets and is reported alongside formal credit (odds ratio of 1
-    or more), forming spatial clusters.
+  - **H1-alt (coexistence).** Arhti credit is reported alongside formal credit (an odds ratio significantly above 1) and near
+    markets and farmland, forming spatial clusters. Estimates indistinguishable from 1 are inconclusive, not evidence for either.
 - **Q2 (district level, economic exclusion).** Does formal agricultural credit reach smallholders and tenant-heavy areas in
   proportion to their share of farms?
   - **H2 (proportional reach).** Small holdings' shares of SBP borrower records and disbursement match their shares of farms and
@@ -52,8 +51,8 @@ recorded in our project log; H3 and every other method in the paper are explorat
     district shares of cultivated area (location quotients near 1).
 
 Proportionality is a benchmark, not an optimum: larger farms need larger loans, so departures from it describe how lending is
-distributed, not whether it is adequate. We use four public sources with different dates and units and never treat them as
-contemporaneous. Throughout, we keep three ideas apart: *presence* is where bank facilities physically are; *availability* is
+distributed, not whether it is adequate. We use four primary datasets with different dates and units, plus ancillary spatial datasets, and never
+treat them as contemporaneous. Throughout, we keep three ideas apart: *presence* is where bank facilities physically are; *availability* is
 whether a credit source is reported as serving a village; *allocation* is whom formal credit reaches, as SBP records it.
 
 ## 2. Literature and background
@@ -98,9 +97,10 @@ for spatial autocorrelation. We use global and local Moran's I (Anselin 1995) an
 Openshaw and Taylor 1979; Openshaw 1984), and associations between areas need not hold for the individuals in them, the
 ecological fallacy (Robinson 1950). We measure unevenness with the index of dissimilarity (Duncan and Duncan 1955).
 
-**Post-period context.** In 2024 Punjab introduced the CM Kissan Card, an interest-free input loan for holdings of 1 to 12.5
-acres (initial limit Rs 30,000 per acre, capped at Rs 150,000 per season). Cards became operational on 15 October 2024, after our
-lending data.
+**Post-period context.** In 2024 Punjab introduced the CM Kissan Card, an interest-free input loan for holdings of up to 12.5
+acres (initial limit Rs 30,000 per acre, capped at Rs 150,000 per season). The initial scheme required applicants to own land with
+records in the Punjab Land Records Authority (PLRA) system, which may restrict access for tenants without qualifying ownership
+(Government of Punjab, Special Monitoring Unit). Cards became operational on 15 October 2024, after our lending data.
 
 ## 3. Data and GIS methods
 
@@ -154,8 +154,8 @@ branch and grain market in bands (in the mouza, 1–10, 11–25, 26–50, over 5
 contiguity (which gives the same neighbours for these polygons), geodesic k-nearest neighbours (k = 5; not symmetrized), a
 geodesic distance band (73.6 km, the smallest distance that leaves no tehsil without a neighbour, so there are no islands) and
 inverse-distance weights within that band. All permutation tests use 999 permutations with seed 20261031 and report one-sided
-pseudo p-values in the direction of the observed statistic (the PySAL default, fixed before the analysis); since H1 predicts
-negative associations and the observed ones are positive or near zero, no test in H1's direction could support it. We report global Moran's I and Geary's C, the Moran scatterplot
+pseudo p-values in the direction of the observed statistic (the PySAL default, fixed before the analysis; the reference distribution comes from randomly
+permuting values across units, so it is not a prespecified directional test). We report global Moran's I and Geary's C, the Moran scatterplot
 (Figure S7), local Moran's I (LISA) and Gi* (Queen contiguity including each tehsil itself, binary weights) at p < 0.05 and after
 false-discovery-rate correction (Benjamini–Hochberg cutoff 0.0117 for LISA), and a second-order trend surface, the OLS fit of
 arhti_share on centroid coordinates x, y, x², xy and y², with its residual map (Figure S9).
@@ -170,7 +170,8 @@ confidence intervals assume independent mouzas and are not adjusted for spatial 
 spatial error model, Table B5) relate arhti_share to commercial and ZTBL availability, distance to an online bank branch, travel
 time, cropland and metalled roads. An exploratory model added later replaces roads with distance to grain markets and is fitted by
 OLS, by a binomial model on mouza counts with quasi-binomial standard errors, and by a spatial error model (Table B3); Table B9
-repeats it with three market-distance bands (within 10 km, within 25 km, over 50 km).
+repeats it with three market-distance bands (within 10 km, including markets in the mouza; within 25 km; over 50 km), adjusting the
+spatial error p-values across the three.
 
 **Allocation and reporting geography (H2, H3).** Province comparisons use the 36 districts on both sides: SBP's 36 district rows
 (banks; Islamabad and the 74,494 microfinance borrower records that SBP reports only for Punjab as a whole are excluded) against
@@ -186,7 +187,7 @@ disbursement per borrower record is above 5 or below 0.2 times the Punjab median
 farm-sector disbursement; the five flagged districts are marked, not dropped (Table B4), and every headline is rerun without them
 (Table B8). The five city districts used for H3 (Lahore, Rawalpindi, Multan, Faisalabad, Rahim Yar Khan) were chosen without a
 stated rule, so we treat them as an exploratory group and repeat the comparison with a rule-based group, the five districts with
-the largest urban population in the 2023 Population Census, and with each city left out in turn.
+the largest urban populations in the 2023 Population Census (PBS 2023, Table 1; Table B10), and with each city left out in turn.
 
 **Typology.** As an exploratory complement to a median split, we group 35 districts with k-means on six standardized
 attributes (arhti and commercial-bank availability, small-farm reach, rural branches per 10,000 farms, tenant share, cropland
@@ -198,64 +199,61 @@ in Python (GeoPandas, PySAL) and QGIS 4.2.3; the main maps (Figures 2–6) are Q
 
 ### 4.1 H1: arhti credit clusters near markets and coexists with formal credit
 
-Arhti credit is reported available in 31.5% of Punjab's rural populated mouzas (Figure 2). Tehsil shares span the full range,
-from 0.0% to 100.0%, with a median of 19.2%, and 15 tehsils report none. Formal sources are reported more widely: ZTBL in 73.5% of
-mouzas, commercial banks in 38.2%, the cooperative bank in 24.9% and microfinance banks in 15.2%.
+Arhti credit is reported available in 31.5% of Punjab's rural populated mouzas (Figure 2); tehsil shares run from 0.0% to 100.0%
+(median 19.2%), and 15 tehsils report none. Formal sources are reported more widely: ZTBL in 73.5% of mouzas, commercial banks in
+38.2%, the cooperative bank in 24.9% and microfinance banks in 15.2%.
 
-The pattern is strongly clustered. Global Moran's I for arhti availability is 0.536 (p = 0.001), against 0.297 for
-commercial-bank credit, and Geary's C is 0.458 (p = 0.001). The Moran scatterplot (Figure S7) places most tehsils in the
-High-High and Low-Low quadrants. The LISA map (Figure 4) identifies 25 High-High and 32 Low-Low tehsils at p < 0.05, of which 15
-and 17 survive the false-discovery-rate correction; 3 tehsils are Low-High outliers. High-High clusters lie mainly in Sheikhupura,
-Gujranwala, Hafizabad, Sialkot and Nankana Sahib, with two in Bahawalnagar and Bahawalpur; Low-Low clusters lie mainly in
-Rawalpindi, Attock, Jhelum and Chakwal. Gi* finds the same places (Figure S8): 28 hot spots and 33 cold spots at p < 0.05 (15 and
-18 after correction), and every LISA High-High tehsil is a Gi* hot spot. A smooth province-wide gradient does not account for the
-clusters: a second-order trend surface reaches R² = 0.40, and its residuals remain clustered (Moran's I = 0.234, p = 0.002), so
-there is significant spatial autocorrelation beyond the fitted trend. Arhti availability is also less evenly spread than formal
-availability: the index of dissimilarity between arhti-reporting mouzas and all rural populated mouzas is 0.380, against 0.234
-for commercial banks and 0.115 for ZTBL.
+The pattern is strongly clustered. Global Moran's I is 0.536 (p = 0.001; 0.470 to 0.568 across five weighting specifications),
+against 0.297 for commercial-bank credit; Geary's C is 0.458, and the Moran scatterplot places most tehsils in the High-High and
+Low-Low quadrants (Figure S7). LISA (Figure 4) finds 25 High-High and 32 Low-Low tehsils at p < 0.05, 15 and 17 after the
+false-discovery-rate correction: High-High mainly in Sheikhupura, Gujranwala, Hafizabad, Sialkot and Nankana Sahib, Low-Low mainly in
+Rawalpindi, Attock, Jhelum and Chakwal. Gi* finds the same places (28 hot and 33 cold spots; Figure S8). A second-order trend surface
+(R² = 0.40) leaves clustered residuals (Moran's I = 0.234, p = 0.002), so the clustering is local rather than a province-wide
+gradient. Arhti availability is also less even than formal availability (index of dissimilarity 0.380, against 0.234 for
+commercial banks and 0.115 for ZTBL).
 
-**The H1 test (Tables B1, B2).** Gap-filling predicts negative associations. None of the examined formal sources shows a
-statistically significant negative association with reported arhti availability. Across tehsils, arhti_share correlates positively
-with commercial-bank (ρ = 0.245), cooperative (ρ = 0.391) and microfinance (ρ = 0.380) availability; the correlations with ZTBL
-(ρ = 0.166) and with any formal source (ρ = 0.136) are positive but not significant after adjustment. The bivariate Moran's I
-between a tehsil's arhti share and its neighbours' commercial-bank share is 0.112 (p = 0.062) and is positive for ZTBL (0.170) and
-the cooperative bank (0.156). Within tehsils, the odds that a mouza reports arhti credit are 18% higher where commercial-bank credit
-is also reported (odds ratio 1.18, 95% CI 1.09–1.27; 21,674 mouzas in 120 tehsils) and higher still where cooperative (1.72) or
-microfinance (1.76) credit is reported, all with adjusted p < 0.001. Against ZTBL (0.98, 95% CI 0.90–1.07) and against any formal
-source (0.95, 95% CI 0.87–1.04) the results are statistically inconclusive: the point estimates are slightly below 1, but the
-analysis cannot distinguish them from no association. The pooled odds ratios are averages over very different tehsils: for
-commercial banks the Breslow–Day test rejects a common odds ratio (p < 0.001), and of the 120 informative tehsils 67 report the
-two sources together more often than independence implies and 53 less often.
+**The H1 test (Tables B1, B2).** None of the examined formal sources shows a statistically significant negative association with
+reported arhti availability. Across tehsils, arhti_share correlates positively with commercial-bank (ρ = 0.245), cooperative
+(ρ = 0.391) and microfinance (ρ = 0.380) availability; for ZTBL (ρ = 0.166) and any formal source (ρ = 0.136) the correlations are
+not significant after adjustment. The bivariate Moran's I with neighbours' commercial-bank availability is 0.112 (unadjusted
+p = 0.062; 0.077 adjusted). Within tehsils, the odds that a mouza reports arhti credit are 18% higher where commercial-bank credit is
+also reported (odds ratio 1.18, 95% CI 1.09–1.27; 21,674 mouzas in 120 tehsils) and higher still for cooperative (1.72) and
+microfinance (1.76) credit, all with adjusted p < 0.001 under conventional stratified inference. For ZTBL (0.98, 95% CI 0.90–1.07)
+and any formal source (0.95, 95% CI 0.87–1.04) the results are statistically inconclusive. Scale matters: ignoring tehsils, the
+province-wide odds ratio for arhti and any formal source is 1.26, so much of the aggregate association reflects which tehsils have
+both sources rather than which villages within them do. The pooled estimates also average over very different tehsils (Breslow–Day
+p < 0.001 for commercial banks; 67 of 120 tehsils above independence, 53 below).
 
-Over all 23,130 rural populated mouzas (Table B2), 5,825 report both arhti credit and at least one formal source, 1,465 arhti
-credit only, 12,030 formal credit only, and 3,810 neither. The median tehsil has 9.8% of its mouzas in the last group, and in some
-tehsils every mouza is (Figure S13). This is limited reported availability of the sources examined, not financial exclusion: the
-census also lists NGOs, rural support programmes and government schemes, which are not counted here.
+Over all 23,130 rural populated mouzas (Table B2), 5,825 report both arhti credit and a formal source, 1,465 arhti credit only,
+12,030 formal credit only and 3,810 (16.5%) neither. Four in five arhti-reporting mouzas (79.9%) also report a formal source; only
+6.3% of mouzas report arhti credit as their only examined source. Mouzas reporting neither (median tehsil 9.8%) concentrate in the
+north and west (Figure 7B); this is limited reported availability of the sources examined, not financial exclusion, since NGOs,
+rural support programmes and government schemes are not counted.
 
-**What arhti availability follows.** Arhti availability is higher where more land is cropland (Spearman ρ = 0.49) and lower where
-more villages have an online commercial-bank branch, a measure of presence (ρ = −0.40). Market proximity matters more consistently
-than cropland. Arhti availability is higher where more mouzas have a grain market within 10 km (ρ = 0.336; 40.4% of mouzas) or
-within 25 km (ρ = 0.377; 81.1%), and these associations hold in OLS, in the quasi-binomial model and in the spatial error model
-(p = 0.013 and 0.028; Table B9). The coarser measure used first, the share over 50 km from a market, covers only 3.2% of mouzas and
-is not significant once other variables are included. Cropland, by contrast, is associated with arhti availability in the
-non-spatial models of Table B3 (OLS p = 0.039; quasi-binomial p = 0.021) but not in the spatial error model, where its coefficient
-is near zero (−0.026, p = 0.413) and spatial dependence is strong (λ = 0.715; AIC −22.2 against 34.2 for OLS). The non-spatial
-inference is limited: OLS residuals remain clustered (Moran's I = 0.418) and the binomial model is heavily overdispersed
-(dispersion 58.9), so mouzas within a tehsil are far from independent. The planned spatial error model (Table B5) adds two
-borderline results: arhti availability is higher where commercial-bank credit is reported (0.193, p = 0.045) and lower where more
-mouzas are over 25 km from an online bank branch (−0.442, p = 0.036). Neither holds in OLS or the spatial lag model (Table B5), so
-we read them as consistent with arhtis working inside established market and banking networks, not as established effects.
-**H1 is not supported:** the results undermine a generalized gap-filling hypothesis but do not rule out substitution in particular
-places. They fit H1-alt on average, with coexistence most clearly linked to proximity to grain markets.
+**What arhti availability follows.** Arhti availability is higher where more land is cropland (ρ = 0.49) and lower where more
+villages have an online commercial-bank branch, a measure of presence (ρ = −0.40). Market proximity is the more consistent
+correlate: arhti availability is higher where more mouzas have a grain market within 10 km (ρ = 0.336; Figure 7A) or 25 km
+(ρ = 0.377), and both hold in OLS, the quasi-binomial model and the spatial error model (Table B9). In the spatial error model, one
+standard deviation more of mouzas within 10 km of a market goes with 5.5 percentage points more arhti availability (95% CI 0.012
+to 0.098; p = 0.013, 0.039 adjusted across the three bands); the 25 km result survives Benjamini–Hochberg (0.042) but not Holm
+(0.056). The coarse share over 50 km from a market (3.2% of mouzas) is not significant. Cropland, by contrast, is associated in the
+non-spatial models (OLS p = 0.039; quasi-binomial p = 0.021) but not in the spatial error model (−0.026, p = 0.413), which fits far
+better (λ = 0.715; AIC −22.2 against 34.2). Non-spatial inference is limited: OLS residuals stay clustered (Moran's I = 0.418) and
+the binomial model is heavily overdispersed (dispersion 58.9). The planned spatial error model (Table B5) adds two borderline
+results, higher arhti availability where commercial-bank credit is reported (0.193, p = 0.045) and lower where more mouzas are over
+25 km from an online bank branch (−0.442, p = 0.036), neither of which holds in the other models; we read them as consistent with
+arhtis working inside market and banking networks, not as established effects. **H1 is not supported:** the results undermine a
+generalized gap-filling hypothesis but do not rule out substitution in particular places, and coexistence is most clearly linked to
+proximity to grain markets.
 
-### 4.2 H2: small holdings appear in borrower records in proportion, but not in disbursement
+### 4.2 H2: small holdings are approximately proportionately represented in borrower records, but not in disbursement
 
 On the 36-district basis (Figure A1; reconciliation in Table B6), subsistence holdings are 94.2% of farms and account for 90.9%
 of farm-sector borrower records but 37.0% of the amount disbursed. Dividing each class's share by its share of farms gives a
 simple representation ratio (1 = proportional): 0.97 for subsistence holdings' borrower records and 0.39 for their disbursement;
 2.35 and 92.11 for above-economic holdings, which are over-represented even in the count of borrower records. Disbursement per
-borrower record is Rs 0.52 million for subsistence holdings and Rs 50.62 million for above-economic holdings; this is not the
-average loan, since records may count repeat transactions. SBP's All Punjab row, which adds the 74,494 microfinance records and
+borrower record is Rs 0.52 million for subsistence holdings and Rs 50.62 million for above-economic holdings, about 97 times as
+much; this is not the average loan, since records may count repeat transactions. SBP's All Punjab row, which adds the 74,494 microfinance records and
 Islamabad, gives the same picture (91.9% of records and 35.9% of disbursement for subsistence holdings). The census's class areas
 are questionable (Table B7): in three classes below 12.5 acres the published area implies an average farm larger than the class
 limit (5.38, 9.08 and 15.02 acres), so the area-based benchmark (68.7% of operated area for subsistence holdings) is provisional
@@ -291,9 +289,10 @@ rural branches; the index of dissimilarity against farms is 0.356 for all branch
 
 The pattern does not hinge on the choice of districts or on extreme values (Table B8). Leaving out any one city, the remaining four
 still record 4.41 to 5.65 times their area share of above-economic lending (1.33 to 1.97 times for subsistence). The rule-based
-group of the five most urban districts in the 2023 census (Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan) records 43.5% of
-above-economic disbursement with 11.2% of cultivated area. Without the flagged districts, three of which are city districts, the
-above-economic share of all disbursement falls from 47.8% to 42.0%. **H3 is not supported:** recorded lending is concentrated in
+group of the five districts with the largest urban populations in the 2023 census (Lahore, Faisalabad, Rawalpindi, Gujranwala,
+Multan) records 43.5% of
+above-economic disbursement with 11.2% of cultivated area. Without the flagged districts, three of which are city districts (leaving
+only Multan and Rahim Yar Khan in the group), the above-economic share of all disbursement falls from 47.8% to 42.0%. **H3 is not supported:** recorded lending is concentrated in
 city districts for every class, most strongly for large holdings. Until SBP's district attribution is confirmed, a high location
 quotient in a city district may reflect where loans are booked rather than where the financed land is.
 
@@ -334,7 +333,8 @@ villages reporting bank credit are more likely to report arhti credit does not m
 reliance on informal finance; products that match cash flows and harvest timing may matter as much as proximity. Because arhti
 availability is associated with proximity to grain markets, consistent with, but not proof of, market-linked lending, pilots of
 market-linked formal products such as warehouse-receipt or value-chain finance could be tried in high-arhti clusters. The 3,810
-mouzas reporting neither source are a place to check whether low reported availability reflects low demand or unmet need. Better
+mouzas reporting neither source (Figure 7B) are a place to check whether low reported availability reflects low demand or unmet
+need. Better
 SBP location reporting (lending branch and financed farm) would make district targeting possible, products that do not rely solely
 on land ownership would matter where tenant farms are common, and our FY2023-24 baseline predates the Kissan Card.
 
@@ -353,7 +353,7 @@ associations.
 ## 8. Conclusion
 
 Agricultural credit in Punjab has distinct and overlapping geographies. **H1 is not supported:** arhti credit is clustered (Moran's
-I 0.536 across five weighting specifications) and no formal source shows a significant negative association with it; within
+I 0.536; 0.470 to 0.568 across weighting specifications) and no formal source shows a significant negative association with it; within
 tehsils it is more likely where commercial, cooperative or microfinance credit is reported, and the results for ZTBL and for formal
 credit as a whole are inconclusive. Proximity to grain markets is its most consistent correlate; the link with cropland does not
 survive spatial error modelling. **H2 is not supported:** small holdings hold 90.9% of borrower records but 37.0% of disbursement in
@@ -443,6 +443,12 @@ State Bank of Pakistan. District-wise agricultural credit disbursement, FY2023-2
 https://archive.sbp.org.pk/acd/DistrictWise-Detail-Jul-Jun-2024.xlsx (accessed 31 October 2026). Also: list of bank branches as
 on 30 June 2024; *Monthly Statistical Bulletin*, Table 3.33 (June 2024 and September 2026 editions).
 
+Government of Punjab, Special Monitoring Unit. CM Punjab Kissan Card. https://smu.punjab.gov.pk/kissan-card (accessed 24 November
+2026).
+
+Pakistan Bureau of Statistics. *Population Census 2023*, Table 1: area, population, urban proportion, Punjab districts.
+https://www.pbs.gov.pk/wp-content/uploads/2020/07/table_1_punjab_districts.xlsx (accessed 31 October 2026).
+
 OCHA. Pakistan subnational administrative boundaries (COD-AB), valid_on 2022-09-09. https://data.humdata.org/dataset/cod-ab-pak
 (accessed 31 October 2026).
 
@@ -450,7 +456,8 @@ OCHA. Pakistan subnational administrative boundaries (COD-AB), valid_on 2022-09-
 
 - Tables B1 (arhti against each formal source), B2 (all mouzas by reported sources), B3 (exploratory model of arhti
   availability), B4 (districts flagged by the SBP data-quality screen), B5 (planned regressions), B6 (SBP coverage
-  reconciliation), B7 (census class-area check), B8 (H2 and H3 sensitivity) and B9 (grain-market distance bands).
-- Figures S1 to S13 and R2: classification comparison; district LISA; published-study locations (context only); village-level
+  reconciliation), B7 (census class-area check), B8 (H2 and H3 sensitivity), B9 (grain-market distance bands) and B10 (districts
+  with the largest urban populations).
+- Figures S1 to S12 and R2: classification comparison; district LISA; published-study locations (context only); village-level
   co-reporting; three-panel Figure 5; concentration curve; Moran scatterplot; Gi*; trend surface; k-means typology; Tissot
-  indicatrix; classification histograms; mouzas reporting neither source; city-district shares.
+  indicatrix; classification histograms; city-district shares.

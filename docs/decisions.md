@@ -552,3 +552,20 @@ All new analyses are EXPLORATORY. No geographic unit was dropped, merged or rena
   in each cell.
 - **Not added:** a land-record (PLRA) eligibility condition for the Kissan Card; it could not be confirmed from an official page
   (checklist N6).
+
+## D044 (2026-11-24, DONE): Revisions after a third external review
+No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
+- **Kissan Card eligibility** confirmed on the official Special Monitoring Unit page (smu.punjab.gov.pk/kissan-card, accessed
+  2026-11-24): "Famers who own land and whose land record is available in PLRA will be entitled for loan"; holdings up to 12.5 acres;
+  Rs 30,000 per acre up to Rs 150,000 per season. Added to the paper with the source. (Bank of Punjab and punjab.gov.pk pages did
+  not load.)
+- **Table B9 diagnostics:** n, coefficient SE and 95% CI, λ, AIC and residual Moran's I for each spatial error model;
+  Benjamini-Hochberg and Holm adjustments across the three distance bands.
+- **Aggregation:** the province-wide (unstratified) odds ratio for arhti × any formal source (1.26) is reported beside the
+  within-tehsil Mantel-Haenszel estimate (0.95); overlap shares (79.9% of arhti-reporting mouzas also report a formal source).
+- **City group wording:** "the five districts with the largest urban populations" (absolute urban population, Population Census
+  2023, Table 1), not "most urban"; Table B10 lists them; the flagged-exclusion row of Table B8 keeps only Multan and Rahim Yar Khan.
+- **Figures:** new QGIS Figure 7 (A: share of mouzas within 10 km of a grain market; B: share reporting neither arhti nor any formal
+  source; classes include their lower bound, as in S13, which is now superseded in the paper); Figure R2 adds the subsistence
+  disbursement series.
+- **Document:** appendix tables on landscape pages with repeated header rows, integer formatting, renamed columns.

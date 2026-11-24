@@ -102,6 +102,7 @@ def holding_classes(a, special, rows36):
               "share_operated_area_36", "share_borrower_records_36", "share_disbursement_36"]:
         assert abs(d[c].sum() - 1) < 1e-6, c
     d["ratio_records_to_farms_36"] = d.share_borrower_records_36 / d.share_farms_36
+    d["per_record_ratio_to_subsistence_36"] = d.disbursement_per_record_mn_36 / d.loc[d.holding_class == "subsistence", "disbursement_per_record_mn_36"].iloc[0]
     d["ratio_disbursement_to_farms_36"] = d.share_disbursement_36 / d.share_farms_36
     d["sbp_scope"] = ("*_36 (primary) = 36 district rows, banks only (no Islamabad, no MFIs); unsuffixed = All Punjab row (banks + MFIs); "
                      "*_banks_only = district rows incl. Islamabad, no MFIs")
@@ -317,13 +318,14 @@ def fig_r2(rg):
     order = [n for n in s.adm2_name if str(n).startswith("Five")] + CITIES
     s = s.set_index("adm2_name").loc[order]
     bars = [("credit_share_tot", "Share of disbursement (all holdings)", figs.ORANGE5[1]),
+            ("credit_share_sub", "Share of subsistence disbursement", figs.ORANGE5[0]),
             ("credit_share_abv", "Share of above-economic disbursement", figs.ORANGE5[3]),
             ("area_share", "Share of cultivated area", figs.BLUE5[3]), ("farm_share", "Share of farms", figs.BLUE5[1]),
             ("rural_branch_share", "Share of rural bank branches", figs.CAT["aqua"]), ("total_branch_share", "Share of all bank branches", "#0e6b4a")]
     fig, ax = plt.subplots(figsize=(11, 5.8))
-    x = np.arange(len(s)); w = 0.13
+    x = np.arange(len(s)); w = 0.115
     for i, (c, lab, col) in enumerate(bars):
-        ax.bar(x + (i - 2.5) * w, 100 * s[c], w * 0.9, color=col, label=lab, edgecolor="white", linewidth=0.8)
+        ax.bar(x + (i - (len(bars) - 1) / 2) * w, 100 * s[c], w * 0.9, color=col, label=lab, edgecolor="white", linewidth=0.8)
     ax.set_xticks(x, [n if not n.startswith("Five") else "Five cities combined" for n in s.index], fontsize=8)
     ax.set_ylabel("Percent of the 36-district Punjab total")
     for sp in ["top", "right"]:

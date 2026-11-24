@@ -346,9 +346,12 @@ def mouza_cooccurrence():
         # all rural populated mouzas (descriptive, D043): reported sources, no strata dropped
         for xn, col in [("commercial", "n_commercial"), ("any formal (commercial, ZTBL, cooperative or MFB)", "n_anyformal")]:
             x = d[col].astype(bool)
+            nb_, na_, no_, nn_ = int((a & x).sum()), int((a & ~x).sum()), int((~a & x).sum()), int((~a & ~x).sum())
             rows.append(dict(record="all mouzas (descriptive)", scenario=scen, pair=f"arhti x {xn}", n_mouzas=len(d),
-                             n_both_sources=int((a & x).sum()), n_arhti_only=int((a & ~x).sum()), n_other_only=int((~a & x).sum()),
-                             n_neither=int((~a & ~x).sum())))
+                             n_both_sources=nb_, n_arhti_only=na_, n_other_only=no_, n_neither=nn_,
+                             unadjusted_or=(nb_ * nn_) / (na_ * no_),                       # province-wide, no strata
+                             share_arhti_mouzas_with_other=nb_ / (nb_ + na_), share_other=(nb_ + no_) / len(d),
+                             share_either=(nb_ + na_ + no_) / len(d), share_arhti_only=na_ / len(d), share_neither_all=nn_ / len(d)))
         # per tehsil, arhti x any formal source (descriptive): shares for maps and same-tehsil correlations
         for pc, g in d.groupby("pcode"):
             ga, gf = g.n_arhti.astype(bool), g.n_anyformal.astype(bool)

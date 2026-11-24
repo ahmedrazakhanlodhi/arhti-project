@@ -601,7 +601,7 @@ def urban_top(n=URBAN_TOP5_N):
 
 
 def sensitivity():
-    """Flagged-district exclusions for H2/H3 headline measures, two city groups (the paper's five; the five most urban by the 2023
+    """Flagged-district exclusions for H2/H3 headline measures, two city groups (the paper's five; the five districts with the largest urban populations, 2023
     census), leave-one-out for each city, and class-specific benchmarks using the district distribution of farms in the class."""
     rg = pd.read_csv(T / "reporting_geography.csv")
     d = rg[rg.record_type == "district"].copy()
@@ -628,13 +628,16 @@ def sensitivity():
         return r
 
     paper5 = ["Lahore", "Rawalpindi", "Multan", "Faisalabad", "Rahim Yar Khan"]
-    urban5 = list(urban_top().district)
+    ut = urban_top(8)
+    ut.assign(rank=range(1, len(ut) + 1), source="PBS, Population Census 2023, Table 1 (Punjab districts): population 2023 x urban proportion",
+              url="https://www.pbs.gov.pk/wp-content/uploads/2020/07/table_1_punjab_districts.xlsx").to_csv(T / "course_urban_population_top.csv", index=False)
+    urban5 = list(ut.head(URBAN_TOP5_N).district)
     missing = [n for n in urban5 if n not in set(d.adm2_name)]
     assert not missing, f"census district names not in the district table: {missing}"
     flagged = list(d[d.flagged == 1].adm2_name)
     rows.append(measures(d, "all 36 districts", paper5))
     rows.append(measures(d[d.flagged != 1], "excluding the 5 flagged districts", [c for c in paper5 if c not in flagged]))
-    rows.append(measures(d, "all 36 districts; five most urban districts (Population Census 2023)", urban5))
+    rows.append(measures(d, "all 36 districts; five districts with the largest urban populations (Population Census 2023)", urban5))
     for c in paper5:
         rows.append(dict(measures(d[d.adm2_name != c], f"leave out {c}", [x for x in paper5 if x != c]), kind="leave-one-out"))
     out = pd.DataFrame(rows).assign(flagged_districts=", ".join(flagged), note="EXPLORATORY (D043); counts and SBP district rows as reported "
@@ -675,11 +678,19 @@ def market_bands(g):
         se = glm.bse[b] * np.sqrt(phi)
         sem = spreg.ML_Error(g.arhti_share.values.reshape(-1, 1), Z.values, w=wq, name_x=list(Z.columns))
         j = 1 + list(Z.columns).index(b)
-        rows.append(dict(band=b, label=lab, mean_share=float((g[b] * g.rp_mouzas).sum() / g.rp_mouzas.sum()), spearman_rho=rho, spearman_p=pv,
+        bse = float(sem.std_err[j])
+        mres = moran(np.asarray(sem.e_filtered).ravel(), wq)            # spatially filtered residuals
+        rows.append(dict(band=b, label=lab, n_tehsils=len(g), mean_share=float((g[b] * g.rp_mouzas).sum() / g.rp_mouzas.sum()),
+                         spearman_rho=rho, spearman_p=pv,
                          ols_coef_per_sd=ols.params[b], ols_p=ols.pvalues[b], glm_coef_per_sd=glm.params[b],
-                         glm_p=2 * norm.sf(abs(glm.params[b] / se)), sem_coef_per_sd=float(sem.betas[j][0]), sem_p=float(sem.z_stat[j][1])))
+                         glm_p=2 * norm.sf(abs(glm.params[b] / se)), sem_coef_per_sd=float(sem.betas[j][0]), sem_se=bse,
+                         sem_ci95_low=float(sem.betas[j][0]) - 1.96 * bse, sem_ci95_high=float(sem.betas[j][0]) + 1.96 * bse,
+                         sem_p=float(sem.z_stat[j][1]), sem_lambda=float(sem.lam), sem_aic=float(sem.aic), ols_aic=sm.OLS(
+                             g.arhti_share.values, sm.add_constant(Z)).fit().aic, sem_resid_moran_I=mres.I, sem_resid_moran_p=mres.p_sim))
     out = pd.DataFrame(rows)
     out["spearman_p_bh"] = multipletests(out.spearman_p, method="fdr_bh")[1]
+    out["sem_p_bh"] = multipletests(out.sem_p, method="fdr_bh")[1]          # family = the three band definitions
+    out["sem_p_holm"] = multipletests(out.sem_p, method="holm")[1]
     out.assign(controls="; ".join(base), status="EXPLORATORY (D043)", vintage=V_MC).to_csv(T / "course_market_bands.csv", index=False)
     return out
 
@@ -700,8 +711,11 @@ def main() -> int:
     neither_map(g)
     mb = market_bands(g)
     sv = sensitivity()
+    nb = pd.read_csv(T / "course_neither_source_tehsil.csv")[["pcode", "share_neither"]]
+    g = g.merge(nb, on="pcode", how="left", validate="one_to_one")
+    g["mkt_grain_within10_share"] = (g.n_mkt_grain_in_mouza + g.n_mkt_grain_1_10) / g.rp_mouzas
     keep = ["pcode", "unit", "adm2_name", "rp_mouzas", "arhti_share", "gistar_z", "gistar_p", "gistar_p05", "gistar_fdr05",
-            "lisa_queen_p05", "trend2_fitted", "trend2_resid", "geometry"]
+            "lisa_queen_p05", "trend2_fitted", "trend2_resid", "share_neither", "mkt_grain_within10_share", "geometry"]
     save_layer(gpd.GeoDataFrame(g[keep].rename(columns={"pcode": "adm3_pcode", "unit": "adm3_name"}), crs=g.crs).assign(vintage=V_MC),
                "course_tehsils_gistar_trend")
     save_layer(typ[["adm2_pcode", "adm2_name", "type_attr", "type_attr_loc", "geometry"]].assign(vintage=V_ALL), "course_districts_typology")

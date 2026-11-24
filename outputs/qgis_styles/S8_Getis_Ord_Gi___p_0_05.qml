@@ -29,7 +29,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{e59db193-0739-4ce8-b516-92ea0d41326e}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{64901fe1-4a09-40cc-a209-9b23932b6203}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"/>
             <Option name="capstyle" type="QString" value="square"/>
@@ -41,7 +41,7 @@
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
             <Option name="draw_inside_polygon" type="QString" value="0"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
-            <Option name="line_color" type="QString" value="122,83,139,255,hsv:0.78333336114883423,0.40000000596046448,0.54509806632995605,1"/>
+            <Option name="line_color" type="QString" value="100,139,135,255,hsv:0.48333331942558289,0.28235295414924622,0.54509806632995605,1"/>
             <Option name="line_style" type="QString" value="solid"/>
             <Option name="line_width" type="QString" value="0.6"/>
             <Option name="line_width_unit" type="QString" value="MM"/>
@@ -78,15 +78,15 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{278bfc4a-0c32-4cb8-a5bc-79e9ae5b251e}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{1de22988-2671-46be-8a50-296c5795680f}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
-            <Option name="color" type="QString" value="122,83,139,255,hsv:0.78333336114883423,0.40000000596046448,0.54509806632995605,1"/>
+            <Option name="color" type="QString" value="100,139,135,255,hsv:0.48333331942558289,0.28235295414924622,0.54509806632995605,1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="87,60,99,255,hsv:0.78333336114883423,0.40000000596046448,0.38934919238090515,1"/>
+            <Option name="outline_color" type="QString" value="71,99,96,255,hsv:0.48333331942558289,0.28235295414924622,0.38934919238090515,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_unit" type="QString" value="MM"/>
@@ -111,18 +111,18 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{ceb46a1f-86d9-4d1f-b38d-8b9a06f4ba93}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{9b0f80b8-5c64-4c1e-a10d-1bedce6e83dd}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"/>
             <Option name="cap_style" type="QString" value="square"/>
-            <Option name="color" type="QString" value="122,83,139,255,hsv:0.78333336114883423,0.40000000596046448,0.54509806632995605,1"/>
+            <Option name="color" type="QString" value="100,139,135,255,hsv:0.48333331942558289,0.28235295414924622,0.54509806632995605,1"/>
             <Option name="horizontal_anchor_point" type="QString" value="1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="name" type="QString" value="diamond"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="87,60,99,255,hsv:0.78333336114883423,0.40000000596046448,0.38934919238090515,1"/>
+            <Option name="outline_color" type="QString" value="71,99,96,255,hsv:0.48333331942558289,0.28235295414924622,0.38934919238090515,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
@@ -146,9 +146,9 @@
   </elevation>
   <renderer-v2 attr="gistar_p05" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="Hot spot" render="true" symbol="0" type="string" uuid="{df8af653-a549-4ceb-bf2d-f7691adeeba1}" value="Hot spot"/>
-      <category label="Cold spot" render="true" symbol="1" type="string" uuid="{1ce0f3ef-6a24-4ec9-8837-1a22828b3040}" value="Cold spot"/>
-      <category label="not significant" render="true" symbol="2" type="string" uuid="{b75b4590-07b7-46b2-befe-9062ecc4113b}" value="not significant"/>
+      <category label="Hot spot" render="true" symbol="0" type="string" uuid="{986bbfc5-0021-4d2a-8fcd-4a8c5a927239}" value="Hot spot"/>
+      <category label="Cold spot" render="true" symbol="1" type="string" uuid="{f7d615b0-c697-4834-9c54-db825972c193}" value="Cold spot"/>
+      <category label="not significant" render="true" symbol="2" type="string" uuid="{e7112735-fa6d-4845-aa57-55d11012d7ca}" value="not significant"/>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
@@ -159,7 +159,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{4532d0c7-e959-4622-8a7b-76cd5dd02715}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{1335bd78-9502-48aa-ad1a-2cfc80d5367b}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="198,47,46,255,rgb:0.7764706,0.1843137,0.1803922,1"/>
@@ -190,7 +190,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{2d8d9dac-a270-4a31-893e-c06f25ba7044}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{e7c857d8-d58b-46cb-9b90-23d5cd56ce81}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="28,92,171,255,rgb:0.1098039,0.3607843,0.6705883,1"/>
@@ -221,7 +221,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{d22d2cef-3a2e-4338-9759-75e73d35e874}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{987b4f15-fe30-40e0-8c8c-4805e70c0044}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="240,239,236,255,rgb:0.9411765,0.9372549,0.9254902,1"/>
@@ -365,6 +365,20 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="0" name="share_neither">
+      <editWidget type="">
+        <config>
+          <Option/>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="0" name="mkt_grain_within10_share">
+      <editWidget type="">
+        <config>
+          <Option/>
+        </config>
+      </editWidget>
+    </field>
     <field configurationFlags="0" name="vintage">
       <editWidget type="">
         <config>
@@ -387,7 +401,9 @@
     <alias field="lisa_queen_p05" index="10" name=""/>
     <alias field="trend2_fitted" index="11" name=""/>
     <alias field="trend2_resid" index="12" name=""/>
-    <alias field="vintage" index="13" name=""/>
+    <alias field="share_neither" index="13" name=""/>
+    <alias field="mkt_grain_within10_share" index="14" name=""/>
+    <alias field="vintage" index="15" name=""/>
   </aliases>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"/>
@@ -403,6 +419,8 @@
     <default applyOnUpdate="0" expression="" field="lisa_queen_p05"/>
     <default applyOnUpdate="0" expression="" field="trend2_fitted"/>
     <default applyOnUpdate="0" expression="" field="trend2_resid"/>
+    <default applyOnUpdate="0" expression="" field="share_neither"/>
+    <default applyOnUpdate="0" expression="" field="mkt_grain_within10_share"/>
     <default applyOnUpdate="0" expression="" field="vintage"/>
   </defaults>
   <constraints>
@@ -419,6 +437,8 @@
     <constraint constraints="0" exp_strength="0" field="lisa_queen_p05" notnull_strength="0" unique_strength="0"/>
     <constraint constraints="0" exp_strength="0" field="trend2_fitted" notnull_strength="0" unique_strength="0"/>
     <constraint constraints="0" exp_strength="0" field="trend2_resid" notnull_strength="0" unique_strength="0"/>
+    <constraint constraints="0" exp_strength="0" field="share_neither" notnull_strength="0" unique_strength="0"/>
+    <constraint constraints="0" exp_strength="0" field="mkt_grain_within10_share" notnull_strength="0" unique_strength="0"/>
     <constraint constraints="0" exp_strength="0" field="vintage" notnull_strength="0" unique_strength="0"/>
   </constraints>
   <constraintExpressions>
@@ -435,6 +455,8 @@
     <constraint desc="" exp="" field="lisa_queen_p05"/>
     <constraint desc="" exp="" field="trend2_fitted"/>
     <constraint desc="" exp="" field="trend2_resid"/>
+    <constraint desc="" exp="" field="share_neither"/>
+    <constraint desc="" exp="" field="mkt_grain_within10_share"/>
     <constraint desc="" exp="" field="vintage"/>
   </constraintExpressions>
   <expressionfields/>

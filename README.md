@@ -3,11 +3,12 @@
 The geography of arhti credit in rural Punjab, Pakistan. PPHA 38520 (GIS Applications in the Social Sciences), University of
 Chicago. Ahmed Raza Khan Lodhi and Hasnain Akram. **Descriptive, not causal.**
 
-**Thesis:** agricultural credit in Punjab has distinct and overlapping geographies. Arhti credit clusters near grain markets
-and is reported alongside formal credit rather than in its gaps (H1, gap-filling: not supported); formal credit reaches small
-farms in proportion by count but not by amount (H2, proportional reach: not supported); recorded lending concentrates in a few
-city districts, above all for large holdings (H3: not supported). Data: Mouza Census 2020 (137 rural tehsils); SBP FY2023-24
-lending records and the Agricultural Census 2024 (36 districts); separate datasets and periods, never treated as contemporaneous.
+**Thesis:** agricultural credit in Punjab has distinct and overlapping geographies. Reported arhti credit availability is
+clustered and associated with proximity to grain markets, while its relationship with formal credit varies across institutions and
+places (H1, gap-filling: not supported); formal credit reaches small farms approximately in proportion by count but not by amount
+(H2: not supported); recorded lending concentrates in a few city districts, above all for large holdings (H3: not supported).
+Data: Mouza Census 2020 (137 rural tehsils); SBP FY2023-24 lending records and the Agricultural Census 2024 (36 districts);
+separate datasets and periods, never treated as contemporaneous.
 
 ## Deliverables
 | File | Contents |
@@ -42,7 +43,7 @@ Scripts 12 and 16 run with QGIS's own Python (`run_all.sh` does this automatical
 `docs/app_screenshots/`.
 
 ## Figures
-Main maps are QGIS Print Layouts (`*_qgis.png/pdf`, `scripts/16_qgis_layouts.py`); charts and appendix maps are matplotlib.
+Main maps (Figures 2–7) are QGIS Print Layouts (`*_qgis.png/pdf`, `scripts/16_qgis_layouts.py`); charts and appendix maps are matplotlib.
 
 | Figure | File | Where |
 |---|---|---|
@@ -52,6 +53,7 @@ Main maps are QGIS Print Layouts (`*_qgis.png/pdf`, `scripts/16_qgis_layouts.py`
 | 4. LISA clusters of arhti credit availability | `fig4_lisa_arhti_tehsil_qgis` | H1 |
 | 5. Small-farm reach by district | `fig5_small_farm_reach_qgis` | H2 |
 | 6. Dasymetric dots of small farms and proportional circles of borrower records | `fig6_dasymetric_farms_borrowers_qgis` | H2 |
+| 7. Grain-market proximity and mouzas reporting neither source (two panels) | `fig7_markets_neither_tehsil_qgis` | H1 |
 | A1, R1, P1. Holding-class shares; location quotients; price ladder | `figA1_…`, `figR1_…`, `figP1_…` | H2, H3, cost |
 | S1–S13. Classification comparison; district LISA; published-study locations (context); village co-reporting; three-panel Figure 5; concentration curve; Moran scatterplot; Gi*; trend surface; k-means typology; Tissot indicatrix; classification histograms; mouzas reporting neither source | `figS1_…` – `figS13_…` | Appendix |
 

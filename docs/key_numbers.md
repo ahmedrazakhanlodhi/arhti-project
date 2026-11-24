@@ -243,6 +243,8 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `kmeans_t1_arhti` | k-means type 1 (attributes): median arhti_share | **63%** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 1 | `arhti_share` |
 | `kmeans_t1_reach` | k-means type 1 (attributes): median small-farm reach | **106** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 1 | `small_farm_reach` |
 | `kmeans_t2_reach` | k-means type 2 (attributes): median small-farm reach | **215** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 2 | `small_farm_reach` |
+| `ws_moran_min` | Lowest Moran's I across five weighting specifications | **0.470** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I (min over 5 rows) | `value` |
+| `ws_moran_max` | Highest Moran's I across five weighting specifications | **0.568** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I (max over 5 rows) | `value` |
 | `dots_total` | Dasymetric dots (1 dot = 1,000 farms under 12.5 acres) | **4,738** | `outputs/tables/course_dasymetric_dots.csv` | all rows (sum over 36 rows) | `dots` |
 
 ## Literature (quoted)
@@ -287,6 +289,7 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `rep_economic_disb` | economic: disbursement share / farm share (36 districts) | **2.87** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `ratio_disbursement_to_farms_36` |
 | `rep_above_economic_records` | above_economic: borrower-record share / farm share (36 districts) | **2.35** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `ratio_records_to_farms_36` |
 | `rep_above_economic_disb` | above_economic: disbursement share / farm share (36 districts) | **92.11** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `ratio_disbursement_to_farms_36` |
+| `hc36_abv_ratio_sub` | Above-economic disbursement per record / subsistence (36 districts) | **97** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `per_record_ratio_to_subsistence_36` |
 
 ## H1 by source
 
@@ -393,6 +396,11 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `all_any_n` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_mouzas | **23,130** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_mouzas` |
 | `neither_median` | Median tehsil share of mouzas reporting neither arhti nor any formal source | **9.8%** | `outputs/tables/course_neither_source_tehsil.csv` | all rows (median over 137 rows) | `share_neither` |
 | `neither_max` | Highest tehsil share reporting neither | **100.0%** | `outputs/tables/course_neither_source_tehsil.csv` | all rows (max over 137 rows) | `share_neither` |
+| `all_any_unadj_or` | Province-wide unadjusted odds ratio, arhti x any formal source (all mouzas, no strata) | **1.26** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `unadjusted_or` |
+| `all_any_overlap` | Share of arhti-reporting mouzas that also report a formal source | **79.9%** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `share_arhti_mouzas_with_other` |
+| `all_any_either` | Share of mouzas reporting arhti or a formal source | **83.5%** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `share_either` |
+| `all_any_arhti_only_share` | Share of mouzas reporting arhti credit only | **6.3%** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `share_arhti_only` |
+| `all_any_neither_share` | Share of mouzas reporting neither | **16.5%** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `share_neither_all` |
 
 ## Market bands
 
@@ -416,6 +424,28 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `mb_o50_ols_p` | ols p-value of the market term (mkt_grain_51plus_share) | **0.397** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `ols_p` |
 | `mb_o50_glm_p` | glm p-value of the market term (mkt_grain_51plus_share) | **0.061** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `glm_p` |
 | `mb_o50_sem_p` | sem p-value of the market term (mkt_grain_51plus_share) | **0.417** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_p` |
+| `mb_w10_sem_coef` | Spatial error coefficient per SD (mkt_grain_within10_share) | **0.055** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_coef_per_sd` |
+| `mb_w10_sem_lo` | Spatial error 95% CI low (mkt_grain_within10_share) | **0.012** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_ci95_low` |
+| `mb_w10_sem_hi` | Spatial error 95% CI high (mkt_grain_within10_share) | **0.098** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_ci95_high` |
+| `mb_w10_sem_bh` | BH-adjusted spatial error p across three bands (mkt_grain_within10_share) | **0.039** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_p_bh` |
+| `mb_w10_sem_holm` | Holm-adjusted spatial error p across three bands (mkt_grain_within10_share) | **0.039** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_p_holm` |
+| `mb_w10_sem_lambda` | Spatial error lambda (mkt_grain_within10_share) | **0.703** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_lambda` |
+| `mb_w10_sem_resid_I` | Moran's I of filtered residuals (mkt_grain_within10_share) | **-0.032** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_resid_moran_I` |
+| `mb_w25_sem_coef` | Spatial error coefficient per SD (mkt_grain_within25_share) | **0.052** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_coef_per_sd` |
+| `mb_w25_sem_lo` | Spatial error 95% CI low (mkt_grain_within25_share) | **0.006** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_ci95_low` |
+| `mb_w25_sem_hi` | Spatial error 95% CI high (mkt_grain_within25_share) | **0.099** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_ci95_high` |
+| `mb_w25_sem_bh` | BH-adjusted spatial error p across three bands (mkt_grain_within25_share) | **0.042** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_p_bh` |
+| `mb_w25_sem_holm` | Holm-adjusted spatial error p across three bands (mkt_grain_within25_share) | **0.056** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_p_holm` |
+| `mb_w25_sem_lambda` | Spatial error lambda (mkt_grain_within25_share) | **0.701** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_lambda` |
+| `mb_w25_sem_resid_I` | Moran's I of filtered residuals (mkt_grain_within25_share) | **-0.032** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_resid_moran_I` |
+| `mb_o50_sem_coef` | Spatial error coefficient per SD (mkt_grain_51plus_share) | **-0.018** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_coef_per_sd` |
+| `mb_o50_sem_lo` | Spatial error 95% CI low (mkt_grain_51plus_share) | **-0.063** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_ci95_low` |
+| `mb_o50_sem_hi` | Spatial error 95% CI high (mkt_grain_51plus_share) | **0.026** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_ci95_high` |
+| `mb_o50_sem_bh` | BH-adjusted spatial error p across three bands (mkt_grain_51plus_share) | **0.417** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_p_bh` |
+| `mb_o50_sem_holm` | Holm-adjusted spatial error p across three bands (mkt_grain_51plus_share) | **0.417** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_p_holm` |
+| `mb_o50_sem_lambda` | Spatial error lambda (mkt_grain_51plus_share) | **0.715** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_lambda` |
+| `mb_o50_sem_resid_I` | Moran's I of filtered residuals (mkt_grain_51plus_share) | **-0.037** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_resid_moran_I` |
+| `mb_w10_sem_pp` | Spatial error coefficient, within 10 km, in percentage points of arhti_share per SD | **5.5** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_coef_per_sd` |
 
 ## Prespecified models
 
@@ -462,10 +492,10 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `sv_ex_D` | Excluding flagged: dissimilarity, borrower records vs small farms | **0.182** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `D_sub_borrowers_vs_small_farms` |
 | `sv_ex_sub_disb` | Excluding flagged: subsistence share of disbursement | **39.7%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `sub_share_of_disbursement` |
 | `sv_ex_abv_disb` | Excluding flagged: above-economic share of disbursement | **42.0%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `abv_share_of_disbursement` |
-| `sv_ur_group` | Five most urban districts (Population Census 2023) | **Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group` |
-| `sv_ur_abv` | Five most urban districts: share of above-economic disbursement | **43.5%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_abv_disbursement_share` |
-| `sv_ur_cult` | Five most urban districts: share of cultivated area | **11.2%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_cultivated_share` |
-| `sv_ur_sub` | Five most urban districts: share of subsistence disbursement | **17.3%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_sub_disbursement_share` |
+| `sv_ur_group` | Five districts with the largest urban populations (Population Census 2023) | **Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five districts with the largest urban populations (Population Census 2023) | `group` |
+| `sv_ur_abv` | Five districts with the largest urban populations: share of above-economic disbursement | **43.5%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five districts with the largest urban populations (Population Census 2023) | `group_abv_disbursement_share` |
+| `sv_ur_cult` | Five districts with the largest urban populations: share of cultivated area | **11.2%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five districts with the largest urban populations (Population Census 2023) | `group_cultivated_share` |
+| `sv_ur_sub` | Five districts with the largest urban populations: share of subsistence disbursement | **17.3%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five districts with the largest urban populations (Population Census 2023) | `group_sub_disbursement_share` |
 | `sv_al_abv_ratio` | Five city districts: above-economic disbursement share / cultivated share | **4.49** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_abv_ratio_to_cultivated` |
 | `sv_al_sub_ratio` | Five city districts: subsistence disbursement share / cultivated share | **1.69** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_sub_ratio_to_cultivated` |
 | `sv_al_abv_cls` | Five city districts: above-economic disbursement share / share of farms of 50+ acres | **3.32** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_abv_ratio_to_class_farms` |
@@ -474,3 +504,13 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `sv_loo_abv_max` | Leave one city out: highest above-economic ratio to cultivated share | **5.65** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (max over 5 rows) | `group_abv_ratio_to_cultivated` |
 | `sv_loo_sub_min` | Leave one city out: lowest subsistence ratio to cultivated share | **1.33** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (min over 5 rows) | `group_sub_ratio_to_cultivated` |
 | `sv_loo_sub_max` | Leave one city out: highest subsistence ratio to cultivated share | **1.97** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (max over 5 rows) | `group_sub_ratio_to_cultivated` |
+| `urban_rank1` | Rank 1 district by urban population, 2023 | **Lahore** | `outputs/tables/course_urban_population_top.csv` | rank = 1 | `district` |
+| `urban_rank1_pop` | Urban population 2023, rank 1 | **13,004,135** | `outputs/tables/course_urban_population_top.csv` | rank = 1 | `urban_pop` |
+| `urban_rank2` | Rank 2 district by urban population, 2023 | **Faisalabad** | `outputs/tables/course_urban_population_top.csv` | rank = 2 | `district` |
+| `urban_rank2_pop` | Urban population 2023, rank 2 | **4,392,979** | `outputs/tables/course_urban_population_top.csv` | rank = 2 | `urban_pop` |
+| `urban_rank3` | Rank 3 district by urban population, 2023 | **Rawalpindi** | `outputs/tables/course_urban_population_top.csv` | rank = 3 | `district` |
+| `urban_rank3_pop` | Urban population 2023, rank 3 | **4,210,785** | `outputs/tables/course_urban_population_top.csv` | rank = 3 | `urban_pop` |
+| `urban_rank4` | Rank 4 district by urban population, 2023 | **Gujranwala** | `outputs/tables/course_urban_population_top.csv` | rank = 4 | `district` |
+| `urban_rank4_pop` | Urban population 2023, rank 4 | **3,593,971** | `outputs/tables/course_urban_population_top.csv` | rank = 4 | `urban_pop` |
+| `urban_rank5` | Rank 5 district by urban population, 2023 | **Multan** | `outputs/tables/course_urban_population_top.csv` | rank = 5 | `district` |
+| `urban_rank5_pop` | Urban population 2023, rank 5 | **2,499,871** | `outputs/tables/course_urban_population_top.csv` | rank = 5 | `urban_pop` |

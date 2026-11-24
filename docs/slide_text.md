@@ -17,7 +17,7 @@ Headline: Does arhti credit fill the gaps banks leave, and does formal credit re
 - H1 gap-filling: arhti and formal credit negatively associated. H1-alt coexistence: they appear together, near markets.
 - Q2 (districts): does formal credit reach small farms in proportion to their share of farms?
 - H2 proportional reach (index of dissimilarity near 0). H3 (exploratory): lending recorded where farmland is (LQ near 1).
-- Thesis: credit has distinct, overlapping geographies. Descriptive, not causal.
+- Thesis: arhti credit clusters near grain markets; its link to formal credit varies by institution and place. Descriptive, not causal.
 Notes: H1 and H2 tests were fixed before the analysis; everything else is exploratory. Proportionality is a benchmark, not an optimum.
 
 ## Slide 3. What the literature says
@@ -50,8 +50,8 @@ Headline: Arhti credit appears alongside commercial, cooperative and microfinanc
 - Within tehsils, odds ratios: commercial 1.18, cooperative 1.72, microfinance 1.76 (adjusted p < 0.001); ZTBL 0.98, any formal 0.95.
 - Arhti availability is higher where more villages have a grain market within 10 km (ρ = 0.336) or 25 km (ρ = 0.377); holds in the spatial error model.
 - Cropland's link (ρ = 0.49) does not survive spatial error modelling.
-- Of 23,130 mouzas, 3,810 report neither arhti nor any formal source.
-Figures: fig3_bivariate_arhti_commercial_qgis.png
+- 79.9% of arhti-reporting mouzas also report a formal source; 3,810 of 23,130 mouzas report neither.
+Figures: fig7_markets_neither_tehsil_qgis.png
 Notes: Odds ratios compare odds, not probabilities. Large heterogeneity across tehsils (Breslow–Day p < 0.001): 67 above independence, 53 below. Co-reporting is about availability, not which source a farmer uses.
 
 ## Slide 7. H2: in proportion by count, not by amount
