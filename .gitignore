@@ -13,3 +13,6 @@ __pycache__/
 *.qgz~
 *.gpkg-shm
 *.gpkg-wal
+
+# course materials (instructor slides and rubric; not ours to publish)
+Course Slides and Final Project Guidelines/

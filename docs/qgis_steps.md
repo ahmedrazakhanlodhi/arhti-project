@@ -3,7 +3,7 @@
 **`outputs/arhti_project.qgz`** already contains every final layer, loaded from `outputs/arhti_project.gpkg` and styled to
 match `outputs/figures/`. It is built by `scripts/12_qgis_project.py` with QGIS's own Python (QGIS 4.2.3 here). The style of
 each layer is also saved as `.qml` in `outputs/qgis_styles/`, so you can re-apply it (Layer Properties → Symbology → Style →
-Load Style…). Field aliases display automatically (verified in QGIS 4.2.3). **Print layouts are not built: that is the group's job.**
+Load Style…). Field aliases display automatically (verified in QGIS 4.2.3). **Print layouts for Figures 2–6 are built by `scripts/16_qgis_layouts.py`** and saved in the same project (Project → Layout Manager); they are exported to `outputs/figures/*_qgis.png/pdf`, which the paper uses. The steps below are the GUI equivalent of what that script does.
 
 ## Open the project
 1. **Project → Open…** → `outputs/arhti_project.qgz`. Project CRS: custom Albers equal-area centred on Punjab
@@ -24,7 +24,10 @@ Load Style…). Field aliases display automatically (verified in QGIS 4.2.3). **
 
 Check the class breaks against `outputs/tables/classification_comparison.csv` after any rerun: the project reads them at build time.
 
-## Print Layout (each figure)
+## Print Layout (each figure): what `16_qgis_layouts.py` does, step by step in the GUI
+Page 170 × 206 mm (fits a Letter/A4 text block). Main map 112 × 150 mm with a neatline (Item Properties → Frame); Pakistan inset in the map's empty top-left corner with an **Overview** (Item Properties → Overviews → +, map frame = main map) drawing the main extent in red (figure-ground); legend, notes and (Figure 2) the denominator map in the right column; scale bar and **true-north** arrow (Add Picture → north arrow SVG → Image rotation: Sync with map, True north) in the map's empty bottom-right corner; sources with vintage, CRS and authors in the footer. Legend counts are written into the class labels (n = …).
+Figure 6: **Add Layer → dots** `course_dasymetric_small_farm_dots` (simple marker 0.45 mm) and `course_district_borrower_points` (Symbology → Size → data-defined → Assistant → Scale method **Flannery**, field `sub_borrowers`); the size key is drawn with three Ellipse shapes sized from the same scale.
+
 1. **Project → New Print Layout** (A4 landscape for the paper, 16:9 for slides). Tick only the group for that figure, then
    **Add Map** → Item Properties → **Lock layers** (and **Lock styles for layers**) so each map item keeps its own layers.
 2. **Figure 1 inset:** add a second Map item, tick only "Pakistan provinces (inset)" + "Punjab outline", lock layers; optionally
@@ -55,4 +58,4 @@ Presentation and paper: Figures 1–5 (Figure 5 is the single-panel version). Ap
 ## Rebuilding the project
 `bash run_all.sh` rebuilds it automatically when QGIS is installed in `/Applications`. Manually:
 `source scripts/qgis_env.sh && cd /tmp && "$QGIS_PY" -s "<project>/scripts/12_qgis_project.py"`. Rebuilding overwrites
-`arhti_project.qgz`: save your layouts in a **copy** (e.g. `arhti_project_layouts.qgz`), or export them as layout templates (.qpt).
+`arhti_project.qgz` (12) and re-adds the layouts (16): edit a layout in a **copy** of the project, or change `16_qgis_layouts.py`.

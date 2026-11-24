@@ -1,6 +1,6 @@
-"""16_export_web.py: copy the layers and tables the Streamlit app needs into app/data/ (no new analysis).
+"""18_export_web.py: copy the layers and tables the Streamlit app needs into app/data/ (no new analysis).
 
-    .venv/bin/python -I scripts/16_export_web.py
+    .venv/bin/python -I scripts/18_export_web.py
 
 - Layers are read from the FULL GeoPackage geometries, reprojected to EPSG:4326 and simplified with shapely.coverage_simplify
   (shared edges stay shared) until each file is < 3 MB. Only the fields the app shows are kept; feature counts are asserted.
@@ -95,7 +95,7 @@ def main() -> int:
                            bytes=(OUT / f).stat().st_size, sha256=sha(OUT / f)))
     for r in layers:
         print(f"{r['file']:24s} {r['features']:4d} features  {r['bytes'] / 1e6:5.2f} MB  tol={r['simplify_tolerance_deg']}")
-    man = dict(generated=dt.datetime.now().isoformat(timespec="seconds"), written_by="scripts/16_export_web.py",
+    man = dict(generated=dt.datetime.now().isoformat(timespec="seconds"), written_by="scripts/18_export_web.py",
                analysis_crs=common.CRS, web_crs="EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
                layers=layers, tables=tables)
     (OUT / "manifest.json").write_text(json.dumps(man, indent=1, ensure_ascii=False))

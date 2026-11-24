@@ -1,0 +1,4 @@
+scheme,k,breaks,counts,gadf,variable,n,note,vintage
+Equal interval,5,0.200; 0.400; 0.600; 0.800; 1.000,70; 24; 16; 19; 8,0.7809440536606926,arhti_share,137,GADF = 1 - ADCM / sum|y - median| (higher = better fit),"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+Quantiles,5,0.034; 0.139; 0.259; 0.574; 1.000,28; 27; 27; 27; 28,0.7814736999454281,arhti_share,137,GADF = 1 - ADCM / sum|y - median| (higher = better fit),"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+Natural breaks (Fisher-Jenks),5,0.121; 0.324; 0.551; 0.750; 1.000,53; 38; 17; 17; 12,0.8176140485285741,arhti_share,137,GADF = 1 - ADCM / sum|y - median| (higher = better fit),"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"

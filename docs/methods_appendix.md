@@ -46,8 +46,13 @@ All files were accessed on **31 October 2026** (`docs/download_log.csv` has URLs
 8. **`09_figures.py`**: Figures 1–5, S1, S2, S4–S6. **`10_export_qgis.py`**: `outputs/arhti_project.gpkg` with field aliases.
 9. **`11_literature_context.py`**: CONTEXT only. Geocodes published-study towns (OSM Nominatim), builds Figure S3 and a descriptive
    cluster-context table; no statistics on these points (D032–D033).
-10. **`12_qgis_project.py`** (QGIS Python): `outputs/arhti_project.qgz` + `.qml` styles. **`16_export_web.py`** writes simplified
-   web copies of the layers and tables the app uses (`app/data/`, with a checksum manifest).
+10. **`12_qgis_project.py`** (QGIS Python): `outputs/arhti_project.qgz` + `.qml` styles. **`13_reporting_geography.py`** and
+   **`14_cost_context.py`**: holding classes, LQs, scorecard; lending rates and price ladder.
+11. **`15_course_methods.py`**: EXPLORATORY extensions (A9). **`16_qgis_layouts.py`** (QGIS Python): Print Layouts for Figures 2–6,
+   exported to `outputs/figures/*_qgis.{png,pdf}` and saved in the project.
+12. **`17_key_numbers.py`**: every number in the text with its source file and row. **`18_export_web.py`** writes simplified web
+   copies for the app (`app/data/`, with a checksum manifest). **`19_build_documents.py`**: the paper (`outputs/paper/arhti_paper.docx`)
+   and the slides (`outputs/slides/arhti_slides.pptx`) from `docs/paper_draft.md` and `docs/slide_text.md`.
 
 ## A3. CRS, resolution and raster processing
 - **Analysis CRS (D025):** custom Albers equal-area centred on Punjab, `+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72
@@ -147,3 +152,31 @@ dropped (count reported). Per tehsil: observed share reporting both arhti and co
 mapped in fixed classes (Figure S4); not estimable if < 20 mouzas or zero in either source. Only tehsil aggregates and pooled
 statistics are published. These are availability reports, not borrowing; an association across mouzas is not substitution or
 complementarity in behaviour.
+
+## A9. Course-method extensions (EXPLORATORY; D041)
+All run on the Q1 tehsils (scenario A, n = 137) unless stated; 999 permutations, seed 20261031; FDR = Benjamini–Hochberg 0.05.
+- **Weights sensitivity:** Queen; Rook (identical neighbour sets to Queen for these polygons); geodesic kNN-5; geodesic distance band
+  (73.6 km = largest nearest-neighbour distance, so no unit lacks a neighbour); inverse distance (1/d, km) within that band. All
+  row-standardised. Global Moran's I for each, and Geary's C (Queen). Table `course_weights_sensitivity.csv`.
+- **Moran scatterplot** (Figure S7): z-scores of arhti_share against their Queen spatial lag; the OLS slope equals Moran's I.
+- **Getis–Ord Gi\*** (Figure S8): Queen contiguity including each unit itself, binary weights; hot spot if z > 0 and pseudo p < 0.05;
+  FDR survivors outlined. Cross-tabulated against LISA in `course_gistar_vs_lisa.csv`.
+- **Trend surface** (Figure S9): OLS of arhti_share on centroid coordinates (analysis CRS, km from the mean centroid), first order
+  (x, y) and second order (x, y, x², xy, y²); residual Moran's I with Queen weights. A global interpolator used for exploration only.
+- **Index of dissimilarity** D = ½ Σ |aᵢ/A − bᵢ/B|: tehsils (mouzas reporting each credit source vs all rural populated mouzas) and
+  districts (SBP subsistence-holding borrower records vs farms under 12.5 acres; rural and all scheduled-bank branches vs farms).
+  Counts only (rule 11). Table `course_dissimilarity.csv`.
+- **k-means typology** (Figure S10): 35 districts with all six variables (arhti_share, commercial_share, small_farm_reach, rural
+  branches per 10,000 farms, tenant share, cropland share), z-scores; second specification adds standardised centroid x, y. k = 2–6,
+  50 initialisations, seed 20261031; chosen k = highest silhouette among solutions whose smallest type has ≥ 3 districts. Types are
+  numbered by descending median arhti_share. Silhouettes of 0.25–0.26 indicate weak separation.
+- **Tissot indicatrix** (Figure S11): 40 km geodesic circles on a 1.5° grid drawn in ESRI:102028 and in the analysis CRS; distortion
+  from `pyproj.Proj.get_factors` (`course_tissot_distortion.csv`).
+- **Classification histograms** (Figure S12): equal interval, quantiles and Fisher–Jenks (k = 5) with GADF = 1 − ADCM / Σ|y − median|.
+- **Dasymetric dots** (Figure 6): for each district, round(farms under 12.5 acres / 1,000) points sampled with replacement among
+  WorldCover cells (~100 m) whose cropland fraction is ≥ 0.25, with probability proportional to cropland fraction, jittered within the
+  cell (seed 20261031). Proportional circles: SBP subsistence-holding borrower records (counts), Flannery scaling (exponent 0.57),
+  at each district's representative point.
+- **Distance measures:** no Euclidean buffer of cities or markets is drawn (no mandi coordinates; OCHA lists only provincial capitals).
+  The census distance bands to the nearest bank branch and grain market serve as multiple-ring buffer measures, and the MAP travel time
+  (cost distance) as the time-based measure.

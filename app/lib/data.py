@@ -1,5 +1,5 @@
 """Loading layer for the app. Everything on screen is read from app/data/ (copied from outputs/ by
-scripts/16_export_web.py), from docs/, or from app/content/. Nothing is estimated here."""
+scripts/18_export_web.py), from docs/, or from app/content/. Nothing is estimated here."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ def manifest() -> dict:
 
 
 def kn(kid: str) -> str:
-    """A key number as displayed (outputs/tables/key_numbers.csv, written by scripts/15_key_numbers.py)."""
+    """A key number as displayed (outputs/tables/key_numbers.csv, written by scripts/17_key_numbers.py)."""
     k = table("key_numbers").set_index("id")
     return str(k.loc[kid, "display"])
 

@@ -2,7 +2,7 @@
 
     streamlit run app/app.py          (from the project root; add ?present=1 for presentation mode)
 
-The app only displays finished outputs (app/data/, copied from outputs/ by scripts/16_export_web.py).
+The app only displays finished outputs (app/data/, copied from outputs/ by scripts/18_export_web.py).
 """
 
 from __future__ import annotations

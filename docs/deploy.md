@@ -1,6 +1,6 @@
 # Deploying the app (Streamlit Community Cloud)
 
-The app (`app/app.py`) reads only files in the repository: `app/data/` (written by `scripts/16_export_web.py`),
+The app (`app/app.py`) reads only files in the repository: `app/data/` (written by `scripts/18_export_web.py`),
 `app/content/*.md`, `docs/human_checklist.md` and `docs/data_inventory.md` (seven pages; district disbursement amounts are mapped only on the Reporting geography page). It needs no raw data, QGIS or API keys, and the
 maps use no third-party tiles.
 
@@ -22,7 +22,7 @@ Before the first push, check `git status` to confirm that no file from `private/
 4. Optional: set a custom subdomain under Settings → General.
 
 ## 4. Updating
-Rerun the pipeline (or `scripts/15_key_numbers.py` and `scripts/16_export_web.py`), run the tests, commit and push; the app
+Rerun the pipeline (or `scripts/17_key_numbers.py` and `scripts/18_export_web.py`), run the tests, commit and push; the app
 redeploys. Edits to `app/content/narrative.md` show up without code changes.
 
 ## 5. Before the presentation

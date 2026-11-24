@@ -421,7 +421,7 @@ script labels no unit FDR-significant and reports the cutoff as "none" (`bh_fall
 the fallback occurred only in bivariate LISA runs (tehsil Queen; district Queen and kNN-5) and had flagged no unit, so no
 earlier count changes.
 
-## D037 (2026-10-31, DONE): Outputs added for the companion app; web copies (`scripts/16_export_web.py`)
+## D037 (2026-10-31, DONE): Outputs added for the companion app; web copies (`scripts/18_export_web.py`)
 No geographic unit was dropped, merged or renamed. To keep every number in the app traceable to `outputs/`:
 - `08` now writes the concentration curve for BOTH samples (`concentration_curve.csv`, column `sample`) and
   `concentration_coefficients.csv` (previously the excluding-flagged curve and both coefficients existed only inside Figure 6).
@@ -430,7 +430,7 @@ No geographic unit was dropped, merged or renamed. To keep every number in the a
   `outputs/tables/figure_numbers.csv` (the same numbers as `docs/figure_numbers.md`).
 - `10` adds `q1_districts_mouza_census_2020_MAUP` and `q1_districts_cholistan_excluded_optB_MAUP` (district Q1 MAUP layers,
   with district LISA labels) to `outputs/arhti_project.gpkg`.
-- `16_export_web.py` writes EPSG:4326 GeoJSON copies with `shapely.coverage_simplify` (shared edges stay shared; tolerance 0.0005° for
+- `18_export_web.py` writes EPSG:4326 GeoJSON copies with `shapely.coverage_simplify` (shared edges stay shared; tolerance 0.0005° for
   tehsils/districts), each < 3 MB, feature counts asserted. Disbursement-amount and loan-size columns are dropped from every web
   table except `sbp_province_headline.csv` (rule 11). Web copies are for display only; statistics stay in the analysis CRS.
 - Scenario-B maps use the scenario-A class breaks (as in `cholistan_sensitivity.csv`). The bivariate map is shown for scenario A
@@ -442,8 +442,8 @@ No geographic unit was dropped, merged or renamed. To keep every number in the a
 - Figure 5 is now a single panel (small_farm_reach, flagged districts marked, province headline box with the booking-location
   caveat). The three-panel version is appendix Figure S5; the concentration curve is appendix Figure S6 (was Figure 6).
 - Figure credit on every figure: "Ahmed Raza Khan Lodhi and Hasnain Akram, PPHA 38520, University of Chicago".
-- `scripts/15_key_numbers.py` writes `outputs/tables/key_numbers.csv` and `docs/key_numbers.md`: every number used in the paper,
-  app and slides, with source file, row filter and column. `scripts/16_export_web.py` exports only what the five-page app needs.
+- `scripts/17_key_numbers.py` writes `outputs/tables/key_numbers.csv` and `docs/key_numbers.md`: every number used in the paper,
+  app and slides, with source file, row filter and column. `scripts/18_export_web.py` exports only what the five-page app needs.
 - Project rules for readers: `docs/project_rules.md`.
 
 ## D039 (2026-11-01, DONE, decided by Ahmed): Rule change for Part 3; new sources (ACCESS, ALLOCATION, REPORTING GEOGRAPHY, COST)
@@ -480,3 +480,28 @@ districts since 2022 (for example Murree, Talagang, Wazirabad, Kot Addu and Taun
 match the current administrative map. No unit was split or reallocated; maps and tables should state "36 districts (pre-split
 boundaries as used by SBP FY2023-24 and the Agricultural Census 2024)". The Cholistan Area of the Agricultural Census is not a
 district and is excluded from district ratios (as in D021); the SBP Islamabad row is reported separately.
+
+## D041 (2026-11-24, DONE): Course-method extensions, QGIS print layouts, script renumbering
+Added after the course slides and final-project rubric were reviewed. Every new analysis is **EXPLORATORY / post-hoc**
+(not part of the prespecified D018 / D021 analyses) and is labelled so in tables, figures and text. No geographic unit was
+dropped, merged or renamed.
+- **`scripts/15_course_methods.py`** (new): weights sensitivity for global Moran's I (Queen; Rook; geodesic kNN-5; geodesic
+  distance band = smallest threshold that leaves no tehsil without a neighbour; inverse distance within that band; all
+  row-standardised) and Geary's C; Moran scatterplot (Figure S7); Getis-Ord Gi* (Queen including self, binary; p < 0.05 and
+  Benjamini-Hochberg FDR 0.05; Figure S8); first- and second-order trend surfaces on tehsil centroids with a residual map and the
+  residuals' Moran's I (Figure S9); index of dissimilarity (Duncan & Duncan 1955) for tehsils (mouzas reporting each source vs all
+  rural populated mouzas) and districts (SBP subsistence borrower records vs farms under 12.5 acres; branches vs farms; counts
+  only, rule 11); k-means typology of 35 districts on six standardised attributes, with and without location, k in 2..6 chosen
+  by silhouette with a minimum type size of 3 (Figure S10); Tissot indicatrix for ESRI:102028 vs the analysis CRS (Figure S11);
+  classification histograms with GADF (Figure S12); dasymetric dot layer (1 dot = 1,000 farms under 12.5 acres, sampled within
+  each district's cropland cells with cropland fraction >= 0.25, seed 20261031) and a district point layer of SBP subsistence
+  borrower records for proportional symbols. All spatial statistics: 999 permutations, seed 20261031.
+- **`scripts/16_qgis_layouts.py`** (new, QGIS Python): Print Layouts for Figures 2-6 saved inside `outputs/arhti_project.qgz` and
+  exported to `outputs/figures/*_qgis.{png,pdf}`. These QGIS versions are the paper's map figures; the matplotlib versions
+  (09) stay for the app and the appendix. Figure 6 is new: dasymetric dots of small farms with Flannery-compensated proportional
+  circles of borrower records (counts, district as reported by SBP).
+- **Renumbering:** `15_key_numbers.py` → `17_key_numbers.py`; `16_export_web.py` → `18_export_web.py`, so scripts stay in run order.
+- **Why no Euclidean buffer of cities or markets:** the OCHA capitals file has only provincial capitals and no mandi coordinates
+  are available; geocoding them would add unverified locations. The Mouza Census distance bands to the nearest bank branch and
+  grain market (in mouza, 1-10, 11-25, 26-50, 51+ km) are used as the multiple-ring buffer measure, and MAP travel time (a
+  cost-distance surface) as the network/time measure.

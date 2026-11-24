@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-23T23:34:09",
- "written_by": "scripts/16_export_web.py",
+ "generated": "2026-11-24T00:35:16",
+ "written_by": "scripts/18_export_web.py",
  "analysis_crs": "+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72 +datum=WGS84 +units=m +no_defs",
  "web_crs": "EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
  "layers": [
@@ -74,9 +74,9 @@
   {
    "file": "key_numbers.csv",
    "source": "outputs/tables/key_numbers.csv",
-   "rows": 129,
-   "bytes": 50050,
-   "sha256": "b001a5d020aaeebe8eb63df7166795878fad6a231111da517c491a3c75726c16"
+   "rows": 186,
+   "bytes": 65990,
+   "sha256": "d44211ee8ec66563cc77ecde9af11225afb8abcb0a5c4d05b0bcf9ac2703e75d"
   },
   {
    "file": "classification_comparison.csv",

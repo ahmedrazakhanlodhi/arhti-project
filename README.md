@@ -3,17 +3,25 @@
 The geography of arhti credit in rural Punjab, Pakistan. PPHA 38520 (GIS Applications in the Social Sciences), University of
 Chicago. Ahmed Raza Khan Lodhi and Hasnain Akram. **Descriptive, not causal.**
 
-**Main question:** Where is arhti credit available in rural Punjab, and how does its geography compare with formal banking?
-Main analysis: Mouza Census 2020, 137 rural tehsils. Second lens (separate dataset and period): SBP FY2023-24 lending
-records and the Agricultural Census 2024, 36 districts.
+**Thesis:** agricultural finance in Punjab is organised around markets and towns more than around farms. We test three
+hypotheses: arhti credit fills the gaps left by banks (H1, rejected: it clusters with farmland and alongside bank credit);
+formal credit reaches small farms in proportion (H2, rejected: by count but not by amount); lending is recorded in proportion
+to farmland (H3, rejected for large holdings). Data: Mouza Census 2020 (137 rural tehsils); SBP FY2023-24 lending records and
+the Agricultural Census 2024 (36 districts); separate datasets and periods, never treated as contemporaneous.
+
+## Deliverables
+| File | Contents |
+|---|---|
+| `outputs/paper/arhti_paper.docx` | The paper (built from `docs/paper_draft.md` by `scripts/19_build_documents.py`) |
+| `outputs/slides/arhti_slides.pptx` | Presentation, Nov 30 (built from `docs/slide_text.md`; speaker notes included) |
+| `outputs/arhti_project.qgz` | QGIS project: every layer styled, plus Print Layouts for Figures 2–6 (Project → Layout Manager) |
 
 ## Read first
 | File | Contents |
 |---|---|
-| `docs/paper_draft.md` | The paper |
-| `docs/slide_text.md` | Presentation text |
+| `docs/paper_draft.md` | The paper text |
+| `docs/references.md` | References, with what each one supports |
 | `docs/key_numbers.md` | Every number used in the paper, app and slides, with its source file and row |
-| `docs/paper_outline.md` | Structure of the paper and appendix |
 | `docs/project_rules.md` | Data, language and mapping rules for the project |
 
 ## Reproduce everything
@@ -25,27 +33,33 @@ python3.11 -m venv .venv
 bash run_all.sh                     # or: bash run_all.sh --from 09   to resume
 .venv/bin/python -I -m pytest tests -q
 ```
-Scripts are numbered in run order (`scripts/01_download.py` … `scripts/16_export_web.py`) and never modify `data/raw/`.
+Scripts are numbered in run order (`scripts/01_download.py` … `scripts/19_build_documents.py`) and never modify `data/raw/`.
+Scripts 12 and 16 run with QGIS's own Python (`run_all.sh` does this automatically when QGIS is in `/Applications`).
 
 ## App
 `.venv/bin/streamlit run app/app.py` (add `?present=1` for presentation mode). Seven pages (Overview, Access, Allocation, Reporting geography, Cost, District profiles, Data and methods); it displays finished outputs only
-(`app/data/`, written by `scripts/16_export_web.py`). Text: `app/content/`. Deployment: `docs/deploy.md`. Screenshots:
+(`app/data/`, written by `scripts/18_export_web.py`). Text: `app/content/`. Deployment: `docs/deploy.md`. Screenshots:
 `docs/app_screenshots/`.
 
 ## Figures
+Main maps are QGIS Print Layouts (`*_qgis.png/pdf`, `scripts/16_qgis_layouts.py`); charts and appendix maps are matplotlib.
+
 | Figure | File | Where |
 |---|---|---|
 | 1. Study area and matching to boundaries | `fig1_study_area_coverage` | Data and methods |
-| 2. Arhti credit availability by tehsil | `fig2_arhti_share_tehsil` | Result 1 |
-| 3. Bivariate map, arhti × commercial-bank credit availability | `fig3_bivariate_arhti_commercial` | Result 3 |
-| 4. LISA clusters of arhti credit availability | `fig4_lisa_arhti_tehsil` | Result 2 |
-| 5. Small-farm reach by district, with the province headline | `fig5_small_farm_reach` | Result 4 |
-| S1–S6. Classification comparison; district LISA; published-study locations (context); village-level co-reporting (exploratory); three-panel Figure 5; concentration curve | `figS1_…` – `figS6_…` | Appendix |
+| 2. Arhti credit availability by tehsil | `fig2_arhti_share_tehsil_qgis` | H1 |
+| 3. Bivariate map, arhti × commercial-bank credit availability | `fig3_bivariate_arhti_commercial_qgis` | H1 test |
+| 4. LISA clusters of arhti credit availability | `fig4_lisa_arhti_tehsil_qgis` | H1 |
+| 5. Small-farm reach by district | `fig5_small_farm_reach_qgis` | H2 |
+| 6. Dasymetric dots of small farms and proportional circles of borrower records | `fig6_dasymetric_farms_borrowers_qgis` | H2 |
+| A1, R1, P1. Holding-class shares; location quotients; price ladder | `figA1_…`, `figR1_…`, `figP1_…` | H2, H3, cost |
+| S1–S12. Classification comparison; district LISA; published-study locations (context); village co-reporting; three-panel Figure 5; concentration curve; Moran scatterplot; Gi*; trend surface; k-means typology; Tissot indicatrix; classification histograms | `figS1_…` – `figS12_…` | Appendix |
 
 ## Other documents
 `docs/methods_appendix.md` (methods), `docs/decisions.md` (every data and geography decision), `docs/variable_dictionary.md`,
 `docs/validation_mouza.md`, `docs/validation_sbp.md`, `docs/match_audit.md` (checks against published figures),
-`docs/human_checklist.md` (values to verify by hand), `docs/data_inventory.md` (sources and links), `docs/figure_numbers.md`.
+`docs/human_checklist.md` (values to verify by hand), `docs/data_inventory.md` (sources and links), `docs/figure_numbers.md`,
+`docs/qgis_steps.md` (the QGIS GUI steps behind each layout).
 
 ## Data vintages (never contemporaneous)
 Mouza Census Jan–Mar 2020 · SBP FY2023-24 (by loan-booking district) · Agricultural Census 2024 (sample-based) ·

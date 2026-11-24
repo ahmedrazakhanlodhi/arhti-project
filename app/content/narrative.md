@@ -6,11 +6,13 @@ exact heading text. Numbers must match docs/key_numbers.md. Language rules: docs
 # Narrative
 
 ## Central question
-Does the geography of agricultural finance correspond to where farming happens and who farms?
+Is agricultural finance in Punjab organised around farms, or around markets and towns? We test whether arhti credit fills the gaps
+left by banks (H1), whether formal credit reaches small farms in proportion (H2), and whether lending is recorded where farmland is (H3).
 
 ## Main conclusion
-Agricultural finance in Punjab does not follow farming evenly: arhti credit sits alongside formal credit, formal credit reaches
-small farms by count but large holdings by amount, and lending is recorded heavily in a few city districts.
+Finance follows markets and towns more than farms. H1 is rejected: arhti credit clusters with farmland and sits alongside formal
+credit. H2 is rejected: formal credit reaches small farms by count but large holdings by amount. H3 is rejected for large
+holdings: lending is recorded heavily in a few city districts.
 
 ## Introduction
 Punjab's farmers borrow from banks and from arhtis, the commission agents who sell their crops in grain markets. We look at four

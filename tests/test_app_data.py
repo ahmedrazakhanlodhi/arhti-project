@@ -31,7 +31,7 @@ from lib import data as appdata  # noqa: E402
 KN = pd.read_csv(ROOT / "outputs" / "tables" / "key_numbers.csv")
 CODE = sorted((APP / "views").glob("*.py")) + sorted((APP / "lib").glob("*.py")) + [APP / "app.py"]
 CONTENT = sorted((APP / "content").glob("*.md"))
-WRITING = [ROOT / "docs" / f for f in ["paper_draft.md", "slide_text.md", "paper_outline.md", "key_numbers.md"]] + [APP / "content" / "narrative.md"]
+WRITING = [ROOT / "docs" / f for f in ["paper_draft.md", "slide_text.md", "paper_outline.md", "key_numbers.md", "references.md", "qgis_steps.md"]] + [APP / "content" / "narrative.md"]
 PUBLIC_DOCS = WRITING + [ROOT / "README.md", ROOT / "docs" / "methods_appendix.md", ROOT / "docs" / "variable_dictionary.md",
                          ROOT / "docs" / "decisions.md", ROOT / "docs" / "project_rules.md", ROOT / "docs" / "deploy.md",
                          ROOT / "docs" / "human_checklist.md"]
@@ -102,10 +102,16 @@ def test_key_numbers_doc_matches_csv():
 ALLOWED = {  # fixed definitions, dates and labels that are not results
     "2020", "2022", "2023", "2024", "2026", "2013", "2019", "2012", "2018", "FY2023", "12.5", "50", "1,000", "10,000", "0.05", "0.01",
     "3", "5", "9", "1", "2", "4", "6", "7", "8", "11", "30", "3,000", "3,500", "24", "25", "A", "B", "S1", "S2", "S3", "S4", "S5", "S6",
-    "10", "18", "400", "0.5", "k", "38520", "95"}   # 95 = "95% CI"
+    "10", "18", "400", "0.5", "k", "38520", "95",   # 95 = "95% CI"
+    "100", "125", "72", "28", "33", "26", "40"}         # CRS parameters (lat_1 28, lat_2 33, lon_0 72; old CRS 125°E), ~100 m cells, distance bands, 40 km circles
 
 
 def numbers_in(s: str) -> set[str]:
+    s = s.split("## References")[0]                                  # bibliography: volumes, pages, years
+    s = re.sub(r"https?://\S+", "", s)                              # URLs and DOIs
+    s = re.sub(r"\bD\d{3}\b|\b(?:ESRI|EPSG):\d+|\bPK\d+\b|QGIS \d+(?:\.\d+)+", "", s)   # decision IDs, CRS codes, p-codes, versions
+    s = re.sub(r"\b(?:FY)?\d{4}-\d{2}\b", "", s)                    # fiscal years such as FY2012-13 (before bare years)
+    s = re.sub(r"(?<![\d.,])(?:1[89]|20)\d{2}(?![\d%]|[.,]\d)", "", s)   # years (citations, vintages)
     s = re.sub(r"`[^`]*`", "", s)                                   # IDs and file names
     s = re.sub(r"\[[^\]]*\]", "", s)                                 # bracketed key-number IDs and placeholders
     s = re.sub(r"\b(?:Figure|Figures|Fig|Section|Sections|Slide|slides|Table|A\d+)\s*[A-Z]?\d+(?:\.\d+)?(?:[–-]\d+)?", "", s)

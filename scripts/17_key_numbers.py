@@ -1,6 +1,6 @@
-"""15_key_numbers.py: every number used in the main text, the app and the slides, with its source file and row.
+"""17_key_numbers.py: every number used in the main text, the app and the slides, with its source file and row.
 
-    .venv/bin/python -I scripts/15_key_numbers.py
+    .venv/bin/python -I scripts/17_key_numbers.py
 
 Reads finished outputs only (no new analysis). Writes outputs/tables/key_numbers.csv (read by the app and tests) and
 docs/key_numbers.md (for writing). Each number is located by a file, a row filter and a column, so it can be checked by hand.
@@ -198,10 +198,64 @@ def main() -> int:
         dict(item="Bank rates reported by interviewed farmers"), "rate_high", "{:.0f}", "Cost (context)")
     add("kissan_terms", "Punjab CM Kissan Card: terms and dates", PL, dict(item="Punjab CM Kissan Card (interest-free)"), "note", "{}",
         "Cost (context)")
+    # course methods (EXPLORATORY, scripts/15_course_methods.py, D041)
+    WS, GC = "outputs/tables/course_weights_sensitivity.csv", "outputs/tables/course_gistar_counts.csv"
+    TS, DI = "outputs/tables/course_trend_surface.csv", "outputs/tables/course_dissimilarity.csv"
+    KS, KP = "outputs/tables/course_kmeans_silhouette.csv", "outputs/tables/course_kmeans_profiles.csv"
+    TI, HI, DO = "outputs/tables/course_tissot_distortion.csv", "outputs/tables/course_classification_histograms.csv", "outputs/tables/course_dasymetric_dots.csv"
+    ws = pd.read_csv(ROOT / WS)
+    band = ws[ws.weights.str.startswith("Distance band")].weights.iloc[0]
+    inv = ws[ws.weights.str.startswith("Inverse distance")].weights.iloc[0]
+    add("moran_rook", "Global Moran's I, arhti_share, tehsils, Rook (same neighbour sets as Queen)", WS, dict(statistic="Moran's I", weights="Rook"), "value", f3, "Course methods")
+    add("moran_dband", f"Global Moran's I, arhti_share, tehsils, {band}", WS, dict(statistic="Moran's I", weights=band), "value", f3, "Course methods")
+    add("dband_km", "Distance band threshold (km, geodesic; smallest with no unit lacking a neighbour)", WS, dict(statistic="Moran's I", weights=band),
+        "weights", lambda v: v.split("geodesic, ")[1].rstrip(")"), "Course methods")
+    add("moran_invd", f"Global Moran's I, arhti_share, tehsils, {inv}", WS, dict(statistic="Moran's I", weights=inv), "value", f3, "Course methods")
+    add("geary_c", "Geary's C, arhti_share, tehsils, Queen (E[C] = 1; < 1 = positive autocorrelation)", WS, dict(statistic="Geary's C"), "value", f3, "Course methods")
+    add("geary_c_p", "Geary's C pseudo p-value", WS, dict(statistic="Geary's C"), "p_perm", f3, "Course methods")
+    for cl, kk in [("Hot spot", "hot"), ("Cold spot", "cold")]:
+        add(f"gistar_{kk}_p05", f"Gi* {cl.lower()}s, p < 0.05", GC, {"class": cl}, "p05", intc, "Course methods")
+        add(f"gistar_{kk}_fdr", f"Gi* {cl.lower()}s surviving FDR 0.05", GC, {"class": cl}, "fdr05", intc, "Course methods")
+    for o in (1, 2):
+        add(f"trend{o}_r2", f"Trend surface order {o}: R²", TS, dict(order=o), "r2", f2, "Course methods")
+        add(f"trend{o}_resid_I", f"Trend surface order {o}: Moran's I of residuals (Queen)", TS, dict(order=o), "resid_moran_I", f3, "Course methods")
+        add(f"trend{o}_resid_p", f"Trend surface order {o}: residual Moran pseudo p", TS, dict(order=o), "resid_moran_p", f3, "Course methods")
+    for g_, kk in [("mouzas reporting arhti credit", "D_arhti"), ("mouzas reporting commercial-bank credit", "D_commercial"),
+                   ("mouzas reporting ZTBL credit", "D_ztbl"), ("SBP subsistence-holding borrower records", "D_sub_borrowers"),
+                   ("rural scheduled-bank branches", "D_rural_branches"), ("all scheduled-bank branches", "D_all_branches")]:
+        add(kk, f"Index of dissimilarity: {g_} vs reference", DI, dict(group=g_), "D", f3, "Course methods")
+    for sp, kk in [("attributes", "attr"), ("attributes + location", "loc")]:
+        add(f"kmeans_k_{kk}", f"k-means types, {sp}", KP, dict(spec=sp), "type", intc, "Course methods", agg="count")
+        add(f"kmeans_sil_{kk}", f"Silhouette of the chosen k-means solution, {sp}", KS, dict(spec=sp), "silhouette", f2, "Course methods", agg="max")
+    for crs_lab, kk in [("ESRI:102028 (Albers, centred 125°E; previous analysis CRS)", "old"), ("Analysis CRS (Albers, centred 72°E, 30°N; D025)", "new")]:
+        add(f"tissot_angdist_{kk}", f"Maximum angular distortion over the Punjab grid (deg), {crs_lab}", TI, dict(crs=crs_lab), "angular_distortion_deg",
+            f2, "Course methods", agg="max")
+    for sc, kk in [("Equal interval", "ei"), ("Quantiles", "q"), ("Natural breaks (Fisher-Jenks)", "nb")]:
+        add(f"gadf_{kk}", f"GADF, arhti_share, 5 classes, {sc}", HI, dict(scheme=sc), "gadf", f3, "Course methods")
+    LD = dict(level="district", scenario="A", analysis="LISA arhti_share", weights="Queen")
+    for cl, kk in [("High-High", "hh"), ("Low-Low", "ll")]:
+        add(f"lisa_district_{kk}_p05", f"LISA {cl} districts, Queen, p < 0.05 (MAUP comparison)", LC, dict(LD, cluster=cl), "p05", intc, "Course methods")
+        add(f"lisa_district_{kk}_fdr", f"LISA {cl} districts, Queen, FDR 0.05 (MAUP comparison)", LC, dict(LD, cluster=cl), "fdr05", intc, "Course methods")
+    for mt in ["exact", "normalized", "spelling", "rename", "parent_aggregation", "unmatched"]:
+        add(f"xwalk_{mt}", f"Census tehsils matched to OCHA polygons: {mt}", "data/interim/tehsil_crosswalk.csv", dict(match_type=mt),
+            "source_code", intc, "Data", agg="count")
+    add("xwalk_total", "Census tehsils in the crosswalk", "data/interim/tehsil_crosswalk.csv", {}, "source_code", intc, "Data", agg="count")
+    add("kmeans_t1_arhti", "k-means type 1 (attributes): median arhti_share", KP, dict(spec="attributes", type=1), "arhti_share", lambda v: f"{100 * v:.0f}%", "Course methods")
+    add("kmeans_t1_reach", "k-means type 1 (attributes): median small-farm reach", KP, dict(spec="attributes", type=1), "small_farm_reach", "{:.0f}", "Course methods")
+    add("kmeans_t2_reach", "k-means type 2 (attributes): median small-farm reach", KP, dict(spec="attributes", type=2), "small_farm_reach", "{:.0f}", "Course methods")
+    LN = "docs/literature_numbers.csv"
+    for lid in ["aleem_cost", "aleem_bank", "igc_markets", "igc_range_low", "igc_range_high", "kf_large_hh", "kf_large_loans",
+                "kf_small_hh", "kf_small_loans"]:
+        add(f"lit_{lid}", f"Literature: {lid}", LN, dict(id=lid), "display", "{}", "Literature (quoted)")
+    add("n_districts_q1", "Districts in the Q1 MAUP comparison (rural populated mouzas > 0)", MG, dict(q, level="district"), "n", intc, "Robustness")
+    add("n_tehsil_polygons", "OCHA tehsil polygons in Punjab (Q1 layer, incl. 2 with no rural populated mouzas)",
+        "gpkg:q1_tehsils_mouza_census_2020", {}, "adm3_pcode", intc, "Data", agg="count")
+    add("dots_total", "Dasymetric dots (1 dot = 1,000 farms under 12.5 acres)", DO, {}, "dots", intc, "Course methods", agg="sum")
+
     k = pd.DataFrame(ROWS)
     k.to_csv(T / "key_numbers.csv", index=False)
     L = ["# Key numbers", "",
-         "Every number used in the main text, the app and the slides. Written by `scripts/15_key_numbers.py` from finished outputs; "
+         "Every number used in the main text, the app and the slides. Written by `scripts/17_key_numbers.py` from finished outputs; "
          "nothing here is computed anew. Source = file; Row = filter that selects the row; Column = field.", ""]
     for sec, g in k.groupby("section", sort=False):
         L += [f"## {sec}", "", "| ID | Number | Shown as | Source | Row | Column |", "|---|---|---|---|---|---|"]

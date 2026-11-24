@@ -1,6 +1,6 @@
 # Key numbers
 
-Every number used in the main text, the app and the slides. Written by `scripts/15_key_numbers.py` from finished outputs; nothing here is computed anew. Source = file; Row = filter that selects the row; Column = field.
+Every number used in the main text, the app and the slides. Written by `scripts/17_key_numbers.py` from finished outputs; nothing here is computed anew. Source = file; Row = filter that selects the row; Column = field.
 
 ## Data
 
@@ -10,6 +10,14 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `rp_mouzas` | Rural populated mouzas (denominator of every share) | **23,130** | `outputs/tables/q1_descriptives.csv` | level = tehsil; scenario = A | `rp_mouzas` |
 | `excluded_tehsils` | Tehsils with no rural populated mouzas (not in the Q1 sample) | **Lahore Cantt; Lahore City** | `outputs/tables/q1_descriptives.csv` | level = tehsil; scenario = A | `excluded_zero_rp` |
 | `n_districts_q2` | Districts with small-farm reach | **36** | `outputs/arhti_project.gpkg | layer q2_districts_credit_allocation` | all rows (count over 36 rows) | `small_farm_reach` |
+| `xwalk_exact` | Census tehsils matched to OCHA polygons: exact | **115** | `data/interim/tehsil_crosswalk.csv` | match_type = exact (count over 115 rows) | `source_code` |
+| `xwalk_normalized` | Census tehsils matched to OCHA polygons: normalized | **11** | `data/interim/tehsil_crosswalk.csv` | match_type = normalized (count over 11 rows) | `source_code` |
+| `xwalk_spelling` | Census tehsils matched to OCHA polygons: spelling | **9** | `data/interim/tehsil_crosswalk.csv` | match_type = spelling (count over 9 rows) | `source_code` |
+| `xwalk_rename` | Census tehsils matched to OCHA polygons: rename | **2** | `data/interim/tehsil_crosswalk.csv` | match_type = rename (count over 2 rows) | `source_code` |
+| `xwalk_parent_aggregation` | Census tehsils matched to OCHA polygons: parent_aggregation | **8** | `data/interim/tehsil_crosswalk.csv` | match_type = parent_aggregation (count over 8 rows) | `source_code` |
+| `xwalk_unmatched` | Census tehsils matched to OCHA polygons: unmatched | **3** | `data/interim/tehsil_crosswalk.csv` | match_type = unmatched (count over 3 rows) | `source_code` |
+| `xwalk_total` | Census tehsils in the crosswalk | **148** | `data/interim/tehsil_crosswalk.csv` | all rows (count over 148 rows) | `source_code` |
+| `n_tehsil_polygons` | OCHA tehsil polygons in Punjab (Q1 layer, incl. 2 with no rural populated mouzas) | **139** | `outputs/arhti_project.gpkg | layer q1_tehsils_mouza_census_2020` | all rows (count over 139 rows) | `adm3_pcode` |
 
 ## R1 Where
 
@@ -91,6 +99,7 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `mh_or_B` | Mantel-Haenszel odds ratio, arhti x commercial, scenario B | **1.20** | `outputs/tables/mouza_cooccurrence.csv` | record = pooled (Mantel-Haenszel); scenario = B; pair = arhti x commercial | `mh_or` |
 | `mh_lo_B` | 95% CI lower bound, scenario B | **1.11** | `outputs/tables/mouza_cooccurrence.csv` | record = pooled (Mantel-Haenszel); scenario = B; pair = arhti x commercial | `ci95_low` |
 | `mh_hi_B` | 95% CI upper bound, scenario B | **1.29** | `outputs/tables/mouza_cooccurrence.csv` | record = pooled (Mantel-Haenszel); scenario = B; pair = arhti x commercial | `ci95_high` |
+| `n_districts_q1` | Districts in the Q1 MAUP comparison (rural populated mouzas > 0) | **35** | `outputs/tables/moran_global.csv` | level = district; scenario = A; variable = arhti_share; weights = Queen | `n` |
 
 ## Background
 
@@ -190,3 +199,61 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `second_crop_sugarcane` | Districts where sugarcane is the second-largest of the five tracked crops | **3** | `outputs/tables/crop_structure_district.csv` | second_crop = sugarcane (count over 3 rows) | `agc_district` |
 | `second_crop_maize` | Districts where maize is the second-largest of the five tracked crops | **5** | `outputs/tables/crop_structure_district.csv` | second_crop = maize (count over 5 rows) | `agc_district` |
 | `second_crop_wheat` | Districts where wheat is the second-largest of the five tracked crops | **2** | `outputs/tables/crop_structure_district.csv` | second_crop = wheat (count over 2 rows) | `agc_district` |
+
+## Course methods
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `moran_rook` | Global Moran's I, arhti_share, tehsils, Rook (same neighbour sets as Queen) | **0.536** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I; weights = Rook | `value` |
+| `moran_dband` | Global Moran's I, arhti_share, tehsils, Distance band (geodesic, 73.6 km) | **0.470** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I; weights = Distance band (geodesic, 73.6 km) | `value` |
+| `dband_km` | Distance band threshold (km, geodesic; smallest with no unit lacking a neighbour) | **73.6 km** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I; weights = Distance band (geodesic, 73.6 km) | `weights` |
+| `moran_invd` | Global Moran's I, arhti_share, tehsils, Inverse distance within 73.6 km | **0.491** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Moran's I; weights = Inverse distance within 73.6 km | `value` |
+| `geary_c` | Geary's C, arhti_share, tehsils, Queen (E[C] = 1; < 1 = positive autocorrelation) | **0.458** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Geary's C | `value` |
+| `geary_c_p` | Geary's C pseudo p-value | **0.001** | `outputs/tables/course_weights_sensitivity.csv` | statistic = Geary's C | `p_perm` |
+| `gistar_hot_p05` | Gi* hot spots, p < 0.05 | **28** | `outputs/tables/course_gistar_counts.csv` | class = Hot spot | `p05` |
+| `gistar_hot_fdr` | Gi* hot spots surviving FDR 0.05 | **15** | `outputs/tables/course_gistar_counts.csv` | class = Hot spot | `fdr05` |
+| `gistar_cold_p05` | Gi* cold spots, p < 0.05 | **33** | `outputs/tables/course_gistar_counts.csv` | class = Cold spot | `p05` |
+| `gistar_cold_fdr` | Gi* cold spots surviving FDR 0.05 | **18** | `outputs/tables/course_gistar_counts.csv` | class = Cold spot | `fdr05` |
+| `trend1_r2` | Trend surface order 1: R² | **0.32** | `outputs/tables/course_trend_surface.csv` | order = 1 | `r2` |
+| `trend1_resid_I` | Trend surface order 1: Moran's I of residuals (Queen) | **0.340** | `outputs/tables/course_trend_surface.csv` | order = 1 | `resid_moran_I` |
+| `trend1_resid_p` | Trend surface order 1: residual Moran pseudo p | **0.001** | `outputs/tables/course_trend_surface.csv` | order = 1 | `resid_moran_p` |
+| `trend2_r2` | Trend surface order 2: R² | **0.40** | `outputs/tables/course_trend_surface.csv` | order = 2 | `r2` |
+| `trend2_resid_I` | Trend surface order 2: Moran's I of residuals (Queen) | **0.234** | `outputs/tables/course_trend_surface.csv` | order = 2 | `resid_moran_I` |
+| `trend2_resid_p` | Trend surface order 2: residual Moran pseudo p | **0.002** | `outputs/tables/course_trend_surface.csv` | order = 2 | `resid_moran_p` |
+| `D_arhti` | Index of dissimilarity: mouzas reporting arhti credit vs reference | **0.380** | `outputs/tables/course_dissimilarity.csv` | group = mouzas reporting arhti credit | `D` |
+| `D_commercial` | Index of dissimilarity: mouzas reporting commercial-bank credit vs reference | **0.234** | `outputs/tables/course_dissimilarity.csv` | group = mouzas reporting commercial-bank credit | `D` |
+| `D_ztbl` | Index of dissimilarity: mouzas reporting ZTBL credit vs reference | **0.115** | `outputs/tables/course_dissimilarity.csv` | group = mouzas reporting ZTBL credit | `D` |
+| `D_sub_borrowers` | Index of dissimilarity: SBP subsistence-holding borrower records vs reference | **0.216** | `outputs/tables/course_dissimilarity.csv` | group = SBP subsistence-holding borrower records | `D` |
+| `D_rural_branches` | Index of dissimilarity: rural scheduled-bank branches vs reference | **0.214** | `outputs/tables/course_dissimilarity.csv` | group = rural scheduled-bank branches | `D` |
+| `D_all_branches` | Index of dissimilarity: all scheduled-bank branches vs reference | **0.356** | `outputs/tables/course_dissimilarity.csv` | group = all scheduled-bank branches | `D` |
+| `kmeans_k_attr` | k-means types, attributes | **6** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes (count over 6 rows) | `type` |
+| `kmeans_sil_attr` | Silhouette of the chosen k-means solution, attributes | **0.26** | `outputs/tables/course_kmeans_silhouette.csv` | spec = attributes (max over 5 rows) | `silhouette` |
+| `kmeans_k_loc` | k-means types, attributes + location | **5** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes + location (count over 5 rows) | `type` |
+| `kmeans_sil_loc` | Silhouette of the chosen k-means solution, attributes + location | **0.25** | `outputs/tables/course_kmeans_silhouette.csv` | spec = attributes + location (max over 5 rows) | `silhouette` |
+| `tissot_angdist_old` | Maximum angular distortion over the Punjab grid (deg), ESRI:102028 (Albers, centred 125°E; previous analysis CRS) | **29.68** | `outputs/tables/course_tissot_distortion.csv` | crs = ESRI:102028 (Albers, centred 125°E; previous analysis CRS) (max over 25 rows) | `angular_distortion_deg` |
+| `tissot_angdist_new` | Maximum angular distortion over the Punjab grid (deg), Analysis CRS (Albers, centred 72°E, 30°N; D025) | **0.11** | `outputs/tables/course_tissot_distortion.csv` | crs = Analysis CRS (Albers, centred 72°E, 30°N; D025) (max over 25 rows) | `angular_distortion_deg` |
+| `gadf_ei` | GADF, arhti_share, 5 classes, Equal interval | **0.781** | `outputs/tables/course_classification_histograms.csv` | scheme = Equal interval | `gadf` |
+| `gadf_q` | GADF, arhti_share, 5 classes, Quantiles | **0.781** | `outputs/tables/course_classification_histograms.csv` | scheme = Quantiles | `gadf` |
+| `gadf_nb` | GADF, arhti_share, 5 classes, Natural breaks (Fisher-Jenks) | **0.818** | `outputs/tables/course_classification_histograms.csv` | scheme = Natural breaks (Fisher-Jenks) | `gadf` |
+| `lisa_district_hh_p05` | LISA High-High districts, Queen, p < 0.05 (MAUP comparison) | **8** | `outputs/tables/lisa_counts.csv` | level = district; scenario = A; analysis = LISA arhti_share; weights = Queen; cluster = High-High | `p05` |
+| `lisa_district_hh_fdr` | LISA High-High districts, Queen, FDR 0.05 (MAUP comparison) | **1** | `outputs/tables/lisa_counts.csv` | level = district; scenario = A; analysis = LISA arhti_share; weights = Queen; cluster = High-High | `fdr05` |
+| `lisa_district_ll_p05` | LISA Low-Low districts, Queen, p < 0.05 (MAUP comparison) | **5** | `outputs/tables/lisa_counts.csv` | level = district; scenario = A; analysis = LISA arhti_share; weights = Queen; cluster = Low-Low | `p05` |
+| `lisa_district_ll_fdr` | LISA Low-Low districts, Queen, FDR 0.05 (MAUP comparison) | **1** | `outputs/tables/lisa_counts.csv` | level = district; scenario = A; analysis = LISA arhti_share; weights = Queen; cluster = Low-Low | `fdr05` |
+| `kmeans_t1_arhti` | k-means type 1 (attributes): median arhti_share | **63%** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 1 | `arhti_share` |
+| `kmeans_t1_reach` | k-means type 1 (attributes): median small-farm reach | **106** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 1 | `small_farm_reach` |
+| `kmeans_t2_reach` | k-means type 2 (attributes): median small-farm reach | **215** | `outputs/tables/course_kmeans_profiles.csv` | spec = attributes; type = 2 | `small_farm_reach` |
+| `dots_total` | Dasymetric dots (1 dot = 1,000 farms under 12.5 acres) | **4,738** | `outputs/tables/course_dasymetric_dots.csv` | all rows (sum over 36 rows) | `dots` |
+
+## Literature (quoted)
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `lit_aleem_cost` | Literature: aleem_cost | **78.7%** | `docs/literature_numbers.csv` | id = aleem_cost | `display` |
+| `lit_aleem_bank` | Literature: aleem_bank | **12 percent** | `docs/literature_numbers.csv` | id = aleem_bank | `display` |
+| `lit_igc_markets` | Literature: igc_markets | **325** | `docs/literature_numbers.csv` | id = igc_markets | `display` |
+| `lit_igc_range_low` | Literature: igc_range_low | **62** | `docs/literature_numbers.csv` | id = igc_range_low | `display` |
+| `lit_igc_range_high` | Literature: igc_range_high | **80** | `docs/literature_numbers.csv` | id = igc_range_high | `display` |
+| `lit_kf_large_hh` | Literature: kf_large_hh | **4 percent** | `docs/literature_numbers.csv` | id = kf_large_hh | `display` |
+| `lit_kf_large_loans` | Literature: kf_large_loans | **42 percent** | `docs/literature_numbers.csv` | id = kf_large_loans | `display` |
+| `lit_kf_small_hh` | Literature: kf_small_hh | **69 percent** | `docs/literature_numbers.csv` | id = kf_small_hh | `display` |
+| `lit_kf_small_loans` | Literature: kf_small_loans | **23 percent** | `docs/literature_numbers.csv` | id = kf_small_loans | `display` |

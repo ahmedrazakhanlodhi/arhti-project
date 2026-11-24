@@ -1,0 +1,4 @@
+gistar_p05,High-High,Low-High,Low-Low,not significant,note,permutations,seed,fdr_cutoff,vintage
+Cold spot,0,0,32,1,"Gi* (Queen incl. self, binary) at p < 0.05 vs LISA (Queen, row-standardised) at p < 0.05",999,20261031,0.010999999940395355,"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+Hot spot,25,3,0,0,"Gi* (Queen incl. self, binary) at p < 0.05 vs LISA (Queen, row-standardised) at p < 0.05",999,20261031,0.010999999940395355,"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+not significant,0,0,0,76,"Gi* (Queen incl. self, binary) at p < 0.05 vs LISA (Queen, row-standardised) at p < 0.05",999,20261031,0.010999999940395355,"Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"

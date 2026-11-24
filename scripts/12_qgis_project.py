@@ -2,7 +2,7 @@
 
 Runs with QGIS's own Python (PyQGIS), not the project .venv. run_all.sh sets the environment automatically when QGIS is
 installed; manually:  source scripts/qgis_env.sh && "$QGIS_PY" scripts/12_qgis_project.py
-Print layouts are NOT built (the group builds them; docs/qgis_steps.md). Styles mirror outputs/figures/ (09_figures.py).
+Print layouts are added by 16_qgis_layouts.py (Figures 2-6). Styles mirror outputs/figures/ (09_figures.py).
 """
 
 import csv

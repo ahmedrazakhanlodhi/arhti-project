@@ -24,38 +24,39 @@ SCRIPTS=(
   06_raster_context.py      # WorldCover cropland + MAP travel time (network on first run, ~1 GB)
   07_spatial_stats.py       # Moran's I, LISA, OLS / SEM (prespecified, D018)
   08_credit_allocation.py   # SBP × Ag Census district measures + screen (prespecified, D021)
-  09_figures.py             # Figures 1–5, S1–S2, S4–S6 (PNG 300 dpi + PDF)
+  09_figures.py             # Figures 1–5, S1–S2, S4–S6 (matplotlib; PNG 300 dpi + PDF)
   10_export_qgis.py         # outputs/arhti_project.gpkg for QGIS
   11_literature_context.py  # CONTEXT only: published-study locations (geocoded), Fig S3, cluster-context table
 )
 
-for s in "${SCRIPTS[@]}"; do
-  n="${s:0:2}"
-  if [[ "$n" < "$FROM" ]]; then continue; fi
-  echo "=== $s ==="
-  start=$(date +%s)
-  "$PY" -I "scripts/$s"
-  echo "--- $s done in $(( $(date +%s) - start )) s"
-done
-# 12: QGIS project + .qml styles, with QGIS's own Python (skipped if QGIS is not installed)
-if [[ "12" > "$FROM" || "12" == "$FROM" ]] && ls -d /Applications/QGIS*.app >/dev/null 2>&1; then
-  echo "=== 12_qgis_project.py (QGIS Python) ==="
-  ( source scripts/qgis_env.sh && cd /tmp && "$QGIS_PY" -s "$OLDPWD/scripts/12_qgis_project.py" ) 2>&1 | grep -v -E "^ERROR 1: sqlite3|unable to open database|qt.qpa" || true
-else
-  echo "--- 12_qgis_project.py skipped (QGIS not found); styles: see docs/qgis_steps.md"
-fi
-SCRIPTS_AFTER_QGIS=(
-  13_reporting_geography.py # holding classes, crop structure, LQs, city summary, scorecard (D039)
-  14_cost_context.py        # SBP agricultural lending rates, price ladder, Figure P1 (context)
-  15_key_numbers.py         # every number used in text, app and slides, with source file and row
-  16_export_web.py          # simplified GeoJSON + tables + manifest for the Streamlit app (app/data/)
-)
-for s in "${SCRIPTS_AFTER_QGIS[@]}"; do
-  n="${s:0:2}"
-  if [[ "$n" < "$FROM" ]]; then continue; fi
-  echo "=== $s ==="
-  start=$(date +%s)
-  "$PY" -I "scripts/$s"
-  echo "--- $s done in $(( $(date +%s) - start )) s"
-done
+run_py() {   # $1 = script file name; skipped when its number is below --from
+  local n="${1:0:2}"
+  if [[ "$n" < "$FROM" ]]; then return; fi
+  echo "=== $1 ==="
+  local start=$(date +%s)
+  "$PY" -I "scripts/$1"
+  echo "--- $1 done in $(( $(date +%s) - start )) s"
+}
+run_qgis() { # PyQGIS scripts run with QGIS's own Python; skipped if QGIS is not installed
+  local n="${1:0:2}"
+  if [[ "$n" < "$FROM" ]]; then return; fi
+  if ls -d /Applications/QGIS*.app >/dev/null 2>&1; then
+    echo "=== $1 (QGIS Python) ==="
+    ( source scripts/qgis_env.sh && cd /tmp && "$QGIS_PY" -s "$OLDPWD/scripts/$1" ) 2>&1 \
+      | grep -v -E "^ERROR 1: sqlite3|unable to open database|qt.qpa|PNG driver does not support|proj_uom_get_info" || true
+  else
+    echo "--- $1 skipped (QGIS not found); see docs/qgis_steps.md"
+  fi
+}
+
+for s in "${SCRIPTS[@]}"; do run_py "$s"; done
+run_qgis 12_qgis_project.py      # QGIS project + .qml styles
+run_py   13_reporting_geography.py  # holding classes, crop structure, LQs, city summary, scorecard (D039)
+run_py   14_cost_context.py      # SBP agricultural lending rates, price ladder, Figure P1 (context)
+run_py   15_course_methods.py    # EXPLORATORY: weights sensitivity, Moran scatterplot, Gi*, trend surface, dissimilarity,
+                                 #   k-means typology, Tissot indicatrix, classification histograms, dasymetric dots (D041)
+run_qgis 16_qgis_layouts.py      # QGIS Print Layouts for Figures 2-6 -> outputs/figures/*_qgis.{png,pdf}
+run_py   17_key_numbers.py       # every number used in text, app and slides, with source file and row
+run_py   18_export_web.py        # simplified GeoJSON + tables + manifest for the Streamlit app (app/data/)
+run_py   19_build_documents.py   # paper (.docx) and slides (.pptx) from docs/paper_draft.md and docs/slide_text.md
 echo "All done. Review docs/match_audit.md, docs/validation_*.md and docs/crosswalk_manual*.csv."

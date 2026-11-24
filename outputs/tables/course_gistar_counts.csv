@@ -1,0 +1,4 @@
+class,p05,fdr05,fdr_cutoff,permutations,seed,weights,vintage
+Hot spot,28,15,0.010999999940395355,999,20261031,"Queen incl. self (Gi*), binary","Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+Cold spot,33,18,0.010999999940395355,999,20261031,"Queen incl. self (Gi*), binary","Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"
+not significant,76,104,0.010999999940395355,999,20261031,"Queen incl. self (Gi*), binary","Mouza Census 2020 (PBS, Jan-Mar 2020; enumerator-reported availability); OCHA COD-AB boundaries (valid_on 2022-09-09)"

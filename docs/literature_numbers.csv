@@ -1,0 +1,10 @@
+id,study,quantity,value,display,where
+aleem_cost,Aleem (1990),average annual cost of informal commercial borrowing around Chambar (Sindh),78.7,78.7%,"World Bank Economic Review 4(3), 329-349; full text"
+aleem_bank,Aleem (1990),bank rate used for comparison,12,12 percent,as above
+igc_markets,Haq et al. (2013),commodity markets in Punjab from which arthis operate,325,325,"IGC working paper, Executive Summary p. 4"
+igc_range_low,Haq et al. (2013),lowest implicit annual interest (summary range),62,62,"Executive Summary p. 4 (""between 62 percent and 80 percent"")"
+igc_range_high,Haq et al. (2013),highest implicit annual interest (summary range),80,80,as above
+kf_large_hh,Khandker and Faruqee (2003),large landowners as share of rural households,4,4 percent,"Agricultural Economics 28(3), abstract"
+kf_large_loans,Khandker and Faruqee (2003),share of formal loans to large landowners,42,42 percent,as above
+kf_small_hh,Khandker and Faruqee (2003),landless and subsistence households as share of rural households,69,69 percent,as above
+kf_small_loans,Khandker and Faruqee (2003),share of formal loans to landless and subsistence households,23,23 percent,as above

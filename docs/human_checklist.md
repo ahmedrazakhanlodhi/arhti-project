@@ -45,4 +45,7 @@ Page numbers are PDF page numbers (the viewer's page counter), not the printed n
 | K1 | Crops | Table 6.9 wheat area | Ag Census report | PDF p. 135 | BAHAWALNAGAR DISTRICT | area under wheat, total (acres) | 1,056,209 | |
 | K2 | Crops | Table 6.13 sugarcane area | Ag Census report | PDF p. 139 | RAHIM YAR KHAN DISTRICT | area under sugarcane (acres) | 378,161 | |
 | D1 | Attribution | Definition of "district" in SBP agricultural credit returns | ACD Circular 2 of 2007 + annexures; AC&MFD Circular Letter 2 of 2015 + templates (open in a browser; automated access blocked) | — | — | lending-branch district or financed-farm district? | not found (D039) | |
-
+| N1 | References | Each citation in the paper | `docs/references.md` (links) | — | all entries | authors, year, title, journal, pages; the quoted figure (e.g. Aleem 78.7%, Khandker and Faruqee 4% / 42%) | as listed | |
+| N2 | Figure 6 | Dasymetric dots | `outputs/figures/fig6_dasymetric_farms_borrowers_qgis.png` | — | any district | dot count ≈ farms under 12.5 acres / 1,000 (`outputs/tables/course_dasymetric_dots.csv`); dots only on cropland | 4,738 dots | |
+| N3 | Hypotheses | Wording of H1, H1-alt, H2, H3 | `docs/paper_draft.md` §1 | — | — | do they match the questions in our proposal? | as drafted | |
+| N4 | Layouts | QGIS Print Layouts | `outputs/arhti_project.qgz` → Project → Layout Manager | — | Figures 2–6 | open each layout; title, legend, scale bar, north arrow, sources, names present | exported `_qgis` files | |
