@@ -10,8 +10,8 @@ Does arhti credit fill the gaps left by formal credit (H1), does formal credit r
 lending recorded where farmland is (H3)?
 
 ## Main conclusion
-Agricultural credit in Punjab has distinct and uneven geographies. H1 is not supported: arhti credit clusters with farmland and
-shows no negative association with any formal source. H2 is not supported: small holdings appear in borrower records in proportion
+Agricultural credit in Punjab has distinct and uneven geographies. H1 is not supported: arhti credit clusters near grain markets and
+shows no significant negative association with any formal source. H2 is not supported: small holdings appear in borrower records in proportion
 but receive a much smaller share of disbursement. H3 is not supported: lending is recorded heavily in a few city districts.
 
 ## Introduction

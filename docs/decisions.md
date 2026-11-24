@@ -528,3 +528,27 @@ All new analyses are EXPLORATORY. No geographic unit was dropped, merged or rena
   coexists with formal credit; recorded formal lending concentrates by holding size and in a few city districts).
 - **Build fix.** `19_build_documents.py` dropped bullet continuation lines indented by two spaces, truncating the research
   questions, H1, H2 and the appendix list in the .docx; fixed.
+
+## D043 (2026-11-24, DONE): Revisions after a second external review
+All new analyses are EXPLORATORY. No geographic unit was dropped, merged or renamed.
+- **Wording.** H1 results for ZTBL and "any formal source" are "statistically inconclusive" (point estimates slightly below 1,
+  CIs include 1), not "no association"; the cropland association is reported as not robust to the spatial error model; the
+  borderline results of the planned spatial error model (commercial availability +, distance to online banks −) are discussed;
+  Table B5 is labelled "planned" (OLS and spatial error prespecified in D018/D019; spatial lag post hoc).
+- **H1 completeness.** `07_spatial_stats.py` records the full 2×2 over all 23,130 mouzas (arhti × commercial; arhti × any formal)
+  and per-tehsil shares (any formal; neither). `course_h1_by_source.csv` now fills the any-formal row (Spearman, bivariate Moran)
+  and adds Benjamini-Hochberg adjustments across the five sources. New Figure S13 maps the share of mouzas reporting neither arhti
+  nor any formal source (limited reported availability, not exclusion).
+- **Market-distance bands** (`course_market_bands.csv`, Table B9): shares within 10 km, within 25 km and over 50 km of a grain market
+  (Mouza Census bands), each in place of the market term of the exploratory model. Added after the first models; all bands reported.
+- **H2/H3 sensitivity** (`course_h2_h3_sensitivity.csv`, Table B8): headlines without the flagged districts; a rule-based city group
+  (five largest urban populations, Population Census 2023: Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan); leave one city out;
+  benchmarks using district farm counts within each holding class (`course_lq_class_farms.csv`). The paper's five city districts
+  were chosen without a stated rule and are treated as an exploratory group.
+- **Tables.** SBP coverage reconciliation (B6: 36 districts + Islamabad + MFIs = All Punjab), census class-area check (B7),
+  representation ratios (class share ÷ farm share) in `holding_class_shares.csv`.
+- **Wording of the screen.** "Average loan" replaced by "disbursement per borrower record" (08 flag reasons, methods).
+- **Figures.** Figure 5's note now reads the 36-district figures from `holding_class_shares.csv`; Figure 3's key shows the tehsil count
+  in each cell.
+- **Not added:** a land-record (PLRA) eligibility condition for the Kissan Card; it could not be confirmed from an official page
+  (checklist N6).

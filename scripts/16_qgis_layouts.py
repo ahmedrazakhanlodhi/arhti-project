@@ -11,6 +11,7 @@ data sources with vintage, CRS, and authors. Outputs: outputs/figures/fig{2..6}_
 In the QGIS GUI the same layouts are under Project > Layout Manager; docs/qgis_steps.md lists the menu path for each element.
 """
 
+import csv
 import os
 import re
 import sys
@@ -263,16 +264,20 @@ def count(layer_name, prj, expr=None):
     return sum(1 for _ in l.getFeatures()) if not expr else sum(1 for f in l.getFeatures() if expr(f))
 
 
-def biv_key(lay, x, y, cell=6.0):
+def biv_key(lay, x, y, cell=6.0, counts=None):
     for a in range(3):
         for c in range(3):
             s = QgsLayoutItemShape(lay); s.setShapeType(QgsLayoutItemShape.Shape.Rectangle)
             s.setSymbol(QgsFillSymbol.createSimple({"color": BIV[a][c], "outline_color": "#ffffff", "outline_width": "0.2"}))
             s.attemptMove(QgsLayoutPoint(x + 8 + c * cell, y + (2 - a) * cell, MM)); s.attemptResize(QgsLayoutSize(cell, cell, MM))
             lay.addLayoutItem(s)
+            if counts is not None:
+                n = counts.get(f"A{a + 1}-C{c + 1}", 0)
+                t = label(lay, str(n), x + 8 + c * cell, y + (2 - a) * cell + 1.6, cell, 3.5, 6.0, True, "#ffffff" if a + c >= 3 else INK)
+                t.setHAlign(Qt.AlignmentFlag.AlignHCenter)
     label(lay, "Arhti credit →\n(thirds)", x - 1, y + 4, 9, 12, 5.8)
     label(lay, "Commercial-bank credit → (thirds)", x + 7, y + 3 * cell + 1, 40, 4, 5.8)
-    label(lay, "Both low = bottom left; both high = top right.\nSee Table A for the class breaks.", x + 7, y + 3 * cell + 5, 48, 8, 5.6, False, MUTED)
+    label(lay, "Both low = bottom left; both high = top right.\nNumbers = tehsils in each cell.", x + 7, y + 3 * cell + 5, 48, 8, 5.6, False, MUTED)
 
 
 def main():
@@ -319,7 +324,11 @@ def main():
     b3 = lyr(prj, "F3 bivariate arhti x commercial")
     m = main_map(lay, prj, [outline, ict, zero2, b3]); inset(lay, prj, m); furniture(lay, m)
     label(lay, "AVAILABILITY OF TWO SOURCES", RIGHT_X, MAP[1], 45, 5, 8, True)
-    biv_key(lay, RIGHT_X, MAP[1] + 8)
+    bcounts = {}
+    for f in b3.getFeatures():
+        if f["bivariate_class"]:
+            bcounts[f["bivariate_class"]] = bcounts.get(f["bivariate_class"], 0) + 1
+    biv_key(lay, RIGHT_X, MAP[1] + 8, counts=bcounts)
     vals = lambda fld: sorted(f[fld] for f in a2.getFeatures() if f[fld] is not None and f["rp_mouzas"])
     def terc(v):
         n = len(v); return v[int(n / 3)], v[int(2 * n / 3)]
@@ -354,8 +363,12 @@ def main():
     m = main_map(lay, prj, [outline, fl5, ict, r5]); inset(lay, prj, m); furniture(lay, m)
     legend(lay, m, [(r5, "Borrower records per 1,000|small farms (quantiles)"), (fl5, f"Flagged in SBP data-quality|screen (n = {n_of(fl5)})"),
                     (ict, "Islamabad (excluded)")], "ALLOCATION")
-    label(lay, "Province: subsistence holdings are 94.1% of farms and 91.9% of borrower records but 35.9% of the amount disbursed. "
-               "Borrower records may not be unique people.", RIGHT_X, 112, 46, 26, 6.0, False, MUTED)
+    with open(ROOT / "outputs" / "tables" / "holding_class_shares.csv") as fh:
+        hc = {r["holding_class"]: r for r in csv.DictReader(fh)}["subsistence"]
+    label(lay, f"36 districts: subsistence holdings are {100 * float(hc['share_farms_36']):.1f}% of farms and "
+               f"{100 * float(hc['share_borrower_records_36']):.1f}% of borrower records but {100 * float(hc['share_disbursement_36']):.1f}% "
+               "of the amount disbursed (banks; Islamabad and MFI records without a district excluded). Borrower records may not be unique people.",
+          RIGHT_X, 112, 46, 30, 6.0, False, MUTED)
     footer(lay, [f"Data: {V_SBP}; {V_AGC}. Not contemporaneous.", "Flagged districts (Chakwal, Faisalabad, Jhelum, Lahore, Rawalpindi) are marked, not dropped. "
                  "Moran's I of small-farm reach = 0.532 (Queen)."])
     ok &= export(lay, "fig5_small_farm_reach")

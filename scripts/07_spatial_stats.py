@@ -343,6 +343,18 @@ def mouza_cooccurrence():
                              breslow_day_tarone_stat=bd.statistic, breslow_day_tarone_p=bd.pvalue, cmh_stat=cmh.statistic, cmh_p=cmh.pvalue,
                              n_both_sources=int(pooled[0, 0]), n_arhti_only=int(pooled[0, 1]), n_other_only=int(pooled[1, 0]),
                              n_neither=int(pooled[1, 1]), mouzas_in_dropped_strata=int(len(d) - pooled.sum())))
+        # all rural populated mouzas (descriptive, D043): reported sources, no strata dropped
+        for xn, col in [("commercial", "n_commercial"), ("any formal (commercial, ZTBL, cooperative or MFB)", "n_anyformal")]:
+            x = d[col].astype(bool)
+            rows.append(dict(record="all mouzas (descriptive)", scenario=scen, pair=f"arhti x {xn}", n_mouzas=len(d),
+                             n_both_sources=int((a & x).sum()), n_arhti_only=int((a & ~x).sum()), n_other_only=int((~a & x).sum()),
+                             n_neither=int((~a & ~x).sum())))
+        # per tehsil, arhti x any formal source (descriptive): shares for maps and same-tehsil correlations
+        for pc, g in d.groupby("pcode"):
+            ga, gf = g.n_arhti.astype(bool), g.n_anyformal.astype(bool)
+            rows.append(dict(record="tehsil (arhti x any formal)", scenario=scen, pcode=pc, tehsil=names.get(pc), n_mouzas=len(g),
+                             share_anyformal=gf.mean(), share_neither=(~ga & ~gf).mean(), share_arhti_only=(ga & ~gf).mean(),
+                             share_formal_only=(~ga & gf).mean(), share_both=(ga & gf).mean()))
         # per tehsil, arhti x commercial
         for pc, g in d.groupby("pcode"):
             n = len(g); na, nc = int(g.n_arhti.sum()), int(g.n_commercial.sum()); nb = int((g.n_arhti.astype(bool) & g.n_commercial.astype(bool)).sum())
@@ -410,7 +422,7 @@ def write_summary(q1, assigned, gm, lc, bv, ds, wi, md, rg, jr, sens, lsa):
           f(md[["level", "n", "model", "term", "coef", "se", "stat", "p", "vif"]]), "",
           "## Leave-one-out jackknife ranges (POST-HOC)", "", f(jr[["level", "model", "term", "min", "max", "sign_changes", "refits"]]), "",
           "## Mouza-level co-occurrence (EXPLORATORY, D035; pooled statistics only)", "",
-          f(pd.read_csv(OUT / "mouza_cooccurrence.csv").query("record != 'tehsil (arhti x commercial)'").dropna(axis=1, how="all").drop(columns=["vintage", "label"], errors="ignore")), "",
+          f(pd.read_csv(OUT / "mouza_cooccurrence.csv").query("not record.str.startswith('tehsil')", engine="python").dropna(axis=1, how="all").drop(columns=["vintage", "label"], errors="ignore")), "",
           f"## Cholistan sensitivity (B vs A): {len(sens)} changed items (`cholistan_sensitivity.csv`)", "",
           f(sens) if len(sens) else "none", ""]
     (OUT / "spatial_stats_summary.md").write_text("\n".join(L) + "\n")

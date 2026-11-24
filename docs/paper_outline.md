@@ -3,9 +3,10 @@
 **Where the Bank Ends and the Arhti Begins: Mapping Access, Allocation, and the Cost of Agricultural Credit in Punjab.**
 Paper due Dec 9, 2026. Ahmed Raza Khan Lodhi and Hasnain Akram, PPHA 38520, University of Chicago.
 
-**Thesis:** agricultural finance in Punjab is organised around markets and towns more than around farms.
+**Thesis:** agricultural credit in Punjab has distinct and overlapping geographies: arhti credit clusters near grain markets and
+alongside formal credit; recorded formal lending concentrates by holding size and in a few city districts.
 **Hypotheses:** H1 gap-filling vs H1-alt co-location (Q1, tehsils); H2 proportional reach and H3 proportional reporting
-geography (Q2, districts). H1/H2 tests prespecified (D018, D021); all other methods exploratory (D041).
+geography (Q2, districts). H1/H2 tests prespecified (D018, D021); all other methods exploratory (D041–D043).
 
 Numbers come from `docs/key_numbers.md` (IDs in brackets). Rules (`docs/project_rules.md`): descriptive verbs only;
 never "credit desert"; vintages stated; PRESENCE, AVAILABILITY and ALLOCATION kept separate. Every SBP district statistic is "district
@@ -19,11 +20,10 @@ as reported by SBP (attribution under verification)" until the attribution is co
    (Figure S11); normalization and classification (Figures S1, S12); raster processing; spatial statistics; allocation measures;
    typology
 ## 4. Results by hypothesis
-### 4.1 H1 (Figures 2, 3, 4, S7, S8, S9)
-### 4.2 H2 (Figures A1, 5, 6, S6)
-### 4.3 H3 (Figures R1, R2)
-### 4.4 Cost in context (Figure P1)
-### 4.5 District typology (median split; Figure S10)
+### 4.1 H1 (Figures 2, 3, 4, S7, S8, S9, S13; Tables B1, B2, B3, B5, B9)
+### 4.2 H2 (Figures A1, 5, 6, S6; Tables B6, B7, B8)
+### 4.3 H3 (Figures R1, R2; Table B8)
+### 4.4 Cost in context and district typology (Figure P1; median split; Figure S10)
 ## 5. Robustness and the MAUP (weights; scale effect, Figure S2; zoning effect, Cholistan; flagged districts)
 ## 6. Discussion (mechanisms as possibilities; pattern vs process; ecological fallacy; map design choices)
 ## 7. Limitations

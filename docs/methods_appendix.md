@@ -115,8 +115,8 @@ All files were accessed on **31 October 2026** (`docs/download_log.csv` has URLs
 - **POST-HOC association table (D030):** Spearman correlations of `arhti_share` with a fixed list, raw and Benjamini–Hochberg
   p-values, at tehsil and district level, scenarios A and B.
 - **Q2 (D021, D029, D030):** `small_farm_reach`; `tenant_share`, `owner_cum_tenant_share`; `large_farm_area_share` (concentration of
-  *operated* area in farms ≥ 50 acres, not landownership). Average loan size is used only as a data-quality flag.
-  - **Data-quality screen:** F1 = average loan size > 5× or < 0.2× the median; F2 = above-economic loans > 75% of farm-sector disbursement.
+  *operated* area in farms ≥ 50 acres, not landownership). Disbursement per borrower record (not an average loan: records may count repeat transactions) is used only as a data-quality flag.
+  - **Data-quality screen:** F1 = disbursement per borrower record > 5× or < 0.2× the Punjab median for that class; F2 = above-economic loans > 75% of farm-sector disbursement.
   - **Two classifications:** availability-based (commercial_share top half) and presence-based (RURAL branches per 10,000 farms
     top half), each combined with small_farm_reach in the bottom third; the all-branch version is reported as a sensitivity.
   - **Concentration curve and coefficient**; Global Moran's I of small_farm_reach (same weights).
@@ -180,3 +180,8 @@ All run on the Q1 tehsils (scenario A, n = 137) unless stated; 999 permutations,
 - **Distance measures:** no Euclidean buffer of cities or markets is drawn (no mandi coordinates; OCHA lists only provincial capitals).
   The census distance bands to the nearest bank branch and grain market serve as multiple-ring buffer measures, and the MAP travel time
   (cost distance) as the time-based measure.
+- **Second-review additions (D043):** full 2×2 over all 23,130 mouzas and per-tehsil "neither" shares (Figure S13); BH adjustment
+  across the five formal sources; grain-market distance bands (within 10 km, within 25 km, over 50 km) in place of the market term
+  (Table B9); H2/H3 sensitivity without flagged districts, with a rule-based city group (five largest urban populations, 2023
+  census), leaving one city out, and with class-specific farm-count benchmarks (Table B8); SBP coverage reconciliation (Table B6);
+  census class-area check (Table B7).

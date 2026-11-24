@@ -88,6 +88,7 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `head_amount_share` | Above-economic holdings (> 50 acres): share of farm-sector disbursed amount (province only) | **49.4%** | `outputs/tables/sbp_province_headline.csv` | scope = All Punjab (banks + MFIs) | `abv_amount_share` |
 | `head_abv_borrowers` | Above-economic borrower records | **8,024** | `outputs/tables/sbp_province_headline.csv` | scope = All Punjab (banks + MFIs) | `abv_borrowers` |
 | `head_tot_borrowers` | All farm-sector borrower records | **732,856** | `outputs/tables/sbp_province_headline.csv` | scope = All Punjab (banks + MFIs) | `tot_borrowers` |
+| `moran_reach_p` | Pseudo p, Moran's I small_farm_reach (Queen) | **0.001** | `outputs/tables/moran_small_farm_reach.csv` | weights = Queen; sample = all matched districts | `p_perm` |
 
 ## Robustness
 
@@ -280,6 +281,12 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `hc36_tot_records` | Farm-sector borrower records, 36 districts (banks) | **658,112** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `total_borrower_records_36` |
 | `hc_allp_tot_records` | Farm-sector borrower records, SBP All Punjab row (incl. MFIs and Islamabad) | **732,856** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `total_borrower_records_all_punjab` |
 | `hc_mfi_records` | MFI borrower records without a district (All Punjab row only) | **74,494** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `mfi_borrower_records` |
+| `rep_subsistence_records` | subsistence: borrower-record share / farm share (36 districts) | **0.97** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `ratio_records_to_farms_36` |
+| `rep_subsistence_disb` | subsistence: disbursement share / farm share (36 districts) | **0.39** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `ratio_disbursement_to_farms_36` |
+| `rep_economic_records` | economic: borrower-record share / farm share (36 districts) | **1.48** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `ratio_records_to_farms_36` |
+| `rep_economic_disb` | economic: disbursement share / farm share (36 districts) | **2.87** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `ratio_disbursement_to_farms_36` |
+| `rep_above_economic_records` | above_economic: borrower-record share / farm share (36 districts) | **2.35** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `ratio_records_to_farms_36` |
+| `rep_above_economic_disb` | above_economic: disbursement share / farm share (36 districts) | **92.11** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `ratio_disbursement_to_farms_36` |
 
 ## H1 by source
 
@@ -326,6 +333,24 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `h1_any_neither` | Pooled 2x2, arhti x any formal source: n_neither | **3,046** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `n_neither` |
 | `h1_com_dropped` | Pooled 2x2, arhti x commercial: mouzas_in_dropped_strata | **1,456** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mouzas_in_dropped_strata` |
 | `h1_any_dropped` | Pooled 2x2, arhti x any formal source: mouzas_in_dropped_strata | **2,004** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mouzas_in_dropped_strata` |
+| `h1_any_rho` | Spearman rho across tehsils, arhti_share vs any-formal share | **0.136** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `spearman_rho` |
+| `h1_any_share` | Share of rural populated mouzas reporting any formal source | **77.2%** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mouza_share_reporting` |
+| `h1_any_bv` | Bivariate Moran's I, arhti vs neighbours' any-formal share | **0.159** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `bivariate_moran_I` |
+| `h1_com_cmh_bh` | BH-adjusted CMH p (five within-tehsil comparisons), commercial | **< 0.001** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `cmh_p_bh` |
+| `h1_com_rho_bh` | BH-adjusted Spearman p, commercial | **0.006** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `spearman_p_bh` |
+| `h1_com_bv_bh` | BH-adjusted bivariate Moran p, commercial | **0.077** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `bivariate_moran_p_bh` |
+| `h1_ztbl_cmh_bh` | BH-adjusted CMH p (five within-tehsil comparisons), ztbl | **0.682** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `cmh_p_bh` |
+| `h1_ztbl_rho_bh` | BH-adjusted Spearman p, ztbl | **0.065** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `spearman_p_bh` |
+| `h1_ztbl_bv_bh` | BH-adjusted bivariate Moran p, ztbl | **0.015** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `bivariate_moran_p_bh` |
+| `h1_coop_cmh_bh` | BH-adjusted CMH p (five within-tehsil comparisons), coop | **< 0.001** | `outputs/tables/course_h1_by_source.csv` | source = coop | `cmh_p_bh` |
+| `h1_coop_rho_bh` | BH-adjusted Spearman p, coop | **< 0.001** | `outputs/tables/course_h1_by_source.csv` | source = coop | `spearman_p_bh` |
+| `h1_coop_bv_bh` | BH-adjusted bivariate Moran p, coop | **0.028** | `outputs/tables/course_h1_by_source.csv` | source = coop | `bivariate_moran_p_bh` |
+| `h1_mfb_cmh_bh` | BH-adjusted CMH p (five within-tehsil comparisons), mfb | **< 0.001** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `cmh_p_bh` |
+| `h1_mfb_rho_bh` | BH-adjusted Spearman p, mfb | **< 0.001** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `spearman_p_bh` |
+| `h1_mfb_bv_bh` | BH-adjusted bivariate Moran p, mfb | **0.106** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `bivariate_moran_p_bh` |
+| `h1_any_cmh_bh` | BH-adjusted CMH p (five within-tehsil comparisons), any formal | **0.283** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `cmh_p_bh` |
+| `h1_any_rho_bh` | BH-adjusted Spearman p, any formal | **0.114** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `spearman_p_bh` |
+| `h1_any_bv_bh` | BH-adjusted bivariate Moran p, any formal | **0.015** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `bivariate_moran_p_bh` |
 
 ## Market-access model
 
@@ -347,3 +372,105 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `rho_mkt51_pbh` | BH-adjusted p-value | **0.009** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_51plus_share | `p_bh` |
 | `rho_mktin` | Spearman rho, arhti_share vs share of mouzas with a grain market in the mouza | **-0.03** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_in_mouza_share | `rho` |
 | `rho_mktin_pbh` | BH-adjusted p-value | **0.749** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_in_mouza_share | `p_bh` |
+| `mm_sem_aic` | Spatial error model fit (exploratory model) | **-22.2** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = cropland_share | `fit` |
+| `mm_ols_aic` | OLS AIC (exploratory model) | **34.2** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = cropland_share | `fit` |
+| `mm_ols_resid_I` | OLS residual Moran's I (exploratory model) | **0.418** | `outputs/tables/course_market_model.csv` | model = OLS (HC3); term = cropland_share | `fit` |
+| `mm_sem_crop_coef` | Spatial error: cropland coefficient per SD | **-0.026** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = cropland_share | `coef_per_sd` |
+
+## Neither source
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `all_com_both` | All rural populated mouzas, arhti x commercial: n_both_sources | **3,138** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x commercial | `n_both_sources` |
+| `all_com_arhti_only` | All rural populated mouzas, arhti x commercial: n_arhti_only | **4,152** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x commercial | `n_arhti_only` |
+| `all_com_other_only` | All rural populated mouzas, arhti x commercial: n_other_only | **5,694** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x commercial | `n_other_only` |
+| `all_com_neither` | All rural populated mouzas, arhti x commercial: n_neither | **10,146** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x commercial | `n_neither` |
+| `all_com_n` | All rural populated mouzas, arhti x commercial: n_mouzas | **23,130** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x commercial | `n_mouzas` |
+| `all_any_both` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_both_sources | **5,825** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_both_sources` |
+| `all_any_arhti_only` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_arhti_only | **1,465** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_arhti_only` |
+| `all_any_other_only` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_other_only | **12,030** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_other_only` |
+| `all_any_neither` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_neither | **3,810** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_neither` |
+| `all_any_n` | All rural populated mouzas, arhti x any formal (commercial, ZTBL, cooperative or MFB): n_mouzas | **23,130** | `outputs/tables/mouza_cooccurrence.csv` | record = all mouzas (descriptive); scenario = A; pair = arhti x any formal (commercial, ZTBL, cooperative or MFB) | `n_mouzas` |
+| `neither_median` | Median tehsil share of mouzas reporting neither arhti nor any formal source | **9.8%** | `outputs/tables/course_neither_source_tehsil.csv` | all rows (median over 137 rows) | `share_neither` |
+| `neither_max` | Highest tehsil share reporting neither | **100.0%** | `outputs/tables/course_neither_source_tehsil.csv` | all rows (max over 137 rows) | `share_neither` |
+
+## Market bands
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `mb_w10_mean` | Share of mouzas: mkt_grain_within10_share | **40.4%** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `mean_share` |
+| `mb_w10_rho` | Spearman rho, arhti_share vs mkt_grain_within10_share | **0.336** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `spearman_rho` |
+| `mb_w10_rho_bh` | BH-adjusted p, mkt_grain_within10_share | **< 0.001** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `spearman_p_bh` |
+| `mb_w10_ols_p` | ols p-value of the market term (mkt_grain_within10_share) | **0.002** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `ols_p` |
+| `mb_w10_glm_p` | glm p-value of the market term (mkt_grain_within10_share) | **< 0.001** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `glm_p` |
+| `mb_w10_sem_p` | sem p-value of the market term (mkt_grain_within10_share) | **0.013** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within10_share | `sem_p` |
+| `mb_w25_mean` | Share of mouzas: mkt_grain_within25_share | **81.1%** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `mean_share` |
+| `mb_w25_rho` | Spearman rho, arhti_share vs mkt_grain_within25_share | **0.377** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `spearman_rho` |
+| `mb_w25_rho_bh` | BH-adjusted p, mkt_grain_within25_share | **< 0.001** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `spearman_p_bh` |
+| `mb_w25_ols_p` | ols p-value of the market term (mkt_grain_within25_share) | **0.001** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `ols_p` |
+| `mb_w25_glm_p` | glm p-value of the market term (mkt_grain_within25_share) | **< 0.001** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `glm_p` |
+| `mb_w25_sem_p` | sem p-value of the market term (mkt_grain_within25_share) | **0.028** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_within25_share | `sem_p` |
+| `mb_o50_mean` | Share of mouzas: mkt_grain_51plus_share | **3.2%** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `mean_share` |
+| `mb_o50_rho` | Spearman rho, arhti_share vs mkt_grain_51plus_share | **-0.249** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `spearman_rho` |
+| `mb_o50_rho_bh` | BH-adjusted p, mkt_grain_51plus_share | **0.003** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `spearman_p_bh` |
+| `mb_o50_ols_p` | ols p-value of the market term (mkt_grain_51plus_share) | **0.397** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `ols_p` |
+| `mb_o50_glm_p` | glm p-value of the market term (mkt_grain_51plus_share) | **0.061** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `glm_p` |
+| `mb_o50_sem_p` | sem p-value of the market term (mkt_grain_51plus_share) | **0.417** | `outputs/tables/course_market_bands.csv` | band = mkt_grain_51plus_share | `sem_p` |
+
+## Prespecified models
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `b5_sem_com_coef` | Prespecified spatial error model: commercial_share coefficient | **0.193** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = commercial_share | `coef` |
+| `b5_sem_com_p` | Prespecified spatial error model: commercial_share p | **0.045** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = commercial_share | `p` |
+| `b5_sem_ob25_coef` | Prespecified spatial error model: onlinebank_over25km_share coefficient | **-0.442** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = onlinebank_over25km_share | `coef` |
+| `b5_sem_ob25_p` | Prespecified spatial error model: onlinebank_over25km_share p | **0.036** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = onlinebank_over25km_share | `p` |
+| `b5_sem_crop_coef` | Prespecified spatial error model: cropland_share coefficient | **-0.070** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = cropland_share | `coef` |
+| `b5_sem_crop_p` | Prespecified spatial error model: cropland_share p | **0.615** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = cropland_share | `p` |
+| `b5_sem_ztbl_coef` | Prespecified spatial error model: ztbl_share coefficient | **-0.065** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = ztbl_share | `coef` |
+| `b5_sem_ztbl_p` | Prespecified spatial error model: ztbl_share p | **0.450** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial error (ML; prespecified check); term = ztbl_share | `p` |
+| `b5_ols_com_p` | Prespecified OLS: commercial_share p | **0.489** | `outputs/tables/models_arhti.csv` | level = tehsil; model = OLS (HC3); term = commercial_share | `p` |
+| `b5_lag_com_p` | Post-hoc spatial lag: commercial_share p | **0.104** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial lag (ML; POST-HOC); term = commercial_share | `p` |
+| `b5_ols_ob25_p` | Prespecified OLS: onlinebank_over25km_share p | **0.229** | `outputs/tables/models_arhti.csv` | level = tehsil; model = OLS (HC3); term = onlinebank_over25km_share | `p` |
+| `b5_lag_ob25_p` | Post-hoc spatial lag: onlinebank_over25km_share p | **0.130** | `outputs/tables/models_arhti.csv` | level = tehsil; model = Spatial lag (ML; POST-HOC); term = onlinebank_over25km_share | `p` |
+
+## Coverage reconciliation
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `rc_d36_records` | Borrower records: 36 districts (banks) | **658,112** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = 36 districts (banks) | `tot_borrowers` |
+| `rc_d36_bn` | Disbursement, Rs billion: 36 districts (banks) | **848.4** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = 36 districts (banks) | `tot_amount_bn` |
+| `rc_isl_records` | Borrower records: Islamabad row (banks) | **250** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = Islamabad row (banks) | `tot_borrowers` |
+| `rc_isl_bn` | Disbursement, Rs billion: Islamabad row (banks) | **34.2** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = Islamabad row (banks) | `tot_amount_bn` |
+| `rc_mfi_records` | Borrower records: MFIs (Punjab-wide, no district) | **74,494** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = MFIs (Punjab-wide, no district) | `tot_borrowers` |
+| `rc_mfi_bn` | Disbursement, Rs billion: MFIs (Punjab-wide, no district) | **5.1** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = MFIs (Punjab-wide, no district) | `tot_amount_bn` |
+| `rc_allp_records` | Borrower records: SBP All Punjab row | **732,856** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = SBP All Punjab row | `tot_borrowers` |
+| `rc_allp_bn` | Disbursement, Rs billion: SBP All Punjab row | **887.7** | `outputs/tables/sbp_coverage_reconciliation.csv` | scope = SBP All Punjab row | `tot_amount_bn` |
+
+## Census area check
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `agc_c25_avg` | Implied average farm area (acres), class 2.5 TO UNDER 5.0 | **5.38** | `outputs/tables/agc_class_area_check.csv` | size_class = 2.5 TO UNDER 5.0 | `implied_avg_farm_area_ac` |
+| `agc_c5_avg` | Implied average farm area (acres), class 5.0 TO UNDER 7.5 | **9.08** | `outputs/tables/agc_class_area_check.csv` | size_class = 5.0 TO UNDER 7.5 | `implied_avg_farm_area_ac` |
+| `agc_c75_avg` | Implied average farm area (acres), class 7.5 TO UNDER 12.5 | **15.02** | `outputs/tables/agc_class_area_check.csv` | size_class = 7.5 TO UNDER 12.5 | `implied_avg_farm_area_ac` |
+
+## H2/H3 sensitivity
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `sv_ex_D` | Excluding flagged: dissimilarity, borrower records vs small farms | **0.182** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `D_sub_borrowers_vs_small_farms` |
+| `sv_ex_sub_disb` | Excluding flagged: subsistence share of disbursement | **39.7%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `sub_share_of_disbursement` |
+| `sv_ex_abv_disb` | Excluding flagged: above-economic share of disbursement | **42.0%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = excluding the 5 flagged districts | `abv_share_of_disbursement` |
+| `sv_ur_group` | Five most urban districts (Population Census 2023) | **Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group` |
+| `sv_ur_abv` | Five most urban districts: share of above-economic disbursement | **43.5%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_abv_disbursement_share` |
+| `sv_ur_cult` | Five most urban districts: share of cultivated area | **11.2%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_cultivated_share` |
+| `sv_ur_sub` | Five most urban districts: share of subsistence disbursement | **17.3%** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts; five most urban districts (Population Census 2023) | `group_sub_disbursement_share` |
+| `sv_al_abv_ratio` | Five city districts: above-economic disbursement share / cultivated share | **4.49** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_abv_ratio_to_cultivated` |
+| `sv_al_sub_ratio` | Five city districts: subsistence disbursement share / cultivated share | **1.69** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_sub_ratio_to_cultivated` |
+| `sv_al_abv_cls` | Five city districts: above-economic disbursement share / share of farms of 50+ acres | **3.32** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_abv_ratio_to_class_farms` |
+| `sv_al_sub_cls` | Five city districts: subsistence disbursement share / share of farms under 12.5 acres | **1.22** | `outputs/tables/course_h2_h3_sensitivity.csv` | sample = all 36 districts | `group_sub_ratio_to_class_farms` |
+| `sv_loo_abv_min` | Leave one city out: lowest above-economic ratio to cultivated share | **4.41** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (min over 5 rows) | `group_abv_ratio_to_cultivated` |
+| `sv_loo_abv_max` | Leave one city out: highest above-economic ratio to cultivated share | **5.65** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (max over 5 rows) | `group_abv_ratio_to_cultivated` |
+| `sv_loo_sub_min` | Leave one city out: lowest subsistence ratio to cultivated share | **1.33** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (min over 5 rows) | `group_sub_ratio_to_cultivated` |
+| `sv_loo_sub_max` | Leave one city out: highest subsistence ratio to cultivated share | **1.97** | `outputs/tables/course_h2_h3_sensitivity.csv` | kind = leave-one-out (max over 5 rows) | `group_sub_ratio_to_cultivated` |

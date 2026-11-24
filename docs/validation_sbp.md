@@ -61,12 +61,12 @@ Punjab district medians (excl. Islamabad), Rs per disbursed borrower: subsistenc
 | District (SBP name) | Subsistence avg (× median) | Economic avg (×) | Above-econ avg (×) | Above-econ share of amount | Flag reasons |
 |---|---|---|---|---|---|
 | Islamabad | 515,594 (1.1) | 108,926,444 (42.1) | 1,945,801,824 (76.8) | 97% | note: only 9 economic borrowers (ratio not flagged); note: only 17 above_economic borrowers (ratio not flagged); F2 above-economic = 97% of farm-sector disbursement |
-| Rawalpindi | 552,110 (1.2) | 53,310,385 (20.6) | 2,033,653,300 (80.2) | 96% | note: only 13 economic borrowers (ratio not flagged); F1 above_economic avg loan Rs 2,033,653,300 = 80.2x Punjab median (Rs 25,351,177); F2 above-economic = 96% of farm-sector disbursement |
-| Lahore | 1,238,910 (2.7) | 4,540,322 (1.8) | 214,036,239 (8.4) | 78% | F1 above_economic avg loan Rs 214,036,239 = 8.4x Punjab median (Rs 25,351,177); F2 above-economic = 78% of farm-sector disbursement |
-| Faisalabad | 528,607 (1.2) | 3,052,784 (1.2) | 134,156,726 (5.3) | 67% | F1 above_economic avg loan Rs 134,156,726 = 5.3x Punjab median (Rs 25,351,177) |
-| Chakwal | 333,022 (0.7) | 378,309 (0.1) | 12,541,035 (0.5) | 39% | F1 economic avg loan Rs 378,309 = 0.1x Punjab median (Rs 2,585,109) |
+| Rawalpindi | 552,110 (1.2) | 53,310,385 (20.6) | 2,033,653,300 (80.2) | 96% | note: only 13 economic borrowers (ratio not flagged); F1 above_economic disbursement per borrower record Rs 2,033,653,300 = 80.2x Punjab median (Rs 25,351,177); F2 above-economic = 96% of farm-sector disbursement |
+| Lahore | 1,238,910 (2.7) | 4,540,322 (1.8) | 214,036,239 (8.4) | 78% | F1 above_economic disbursement per borrower record Rs 214,036,239 = 8.4x Punjab median (Rs 25,351,177); F2 above-economic = 78% of farm-sector disbursement |
+| Faisalabad | 528,607 (1.2) | 3,052,784 (1.2) | 134,156,726 (5.3) | 67% | F1 above_economic disbursement per borrower record Rs 134,156,726 = 5.3x Punjab median (Rs 25,351,177) |
+| Chakwal | 333,022 (0.7) | 378,309 (0.1) | 12,541,035 (0.5) | 39% | F1 economic disbursement per borrower record Rs 378,309 = 0.1x Punjab median (Rs 2,585,109) |
 | Attock | 2,083,806 (4.6) | 5,444,925 (2.1) | 126,718,250 (5.0) | 12% | note: only 12 above_economic borrowers (ratio not flagged) |
-| Jehlum | 17,689,384 (38.7) | 2,178,511 (0.8) | 122,017,667 (4.8) | 4% | F1 subsistence avg loan Rs 17,689,384 = 38.7x Punjab median (Rs 456,726); note: only 9 above_economic borrowers (ratio not flagged) |
+| Jehlum | 17,689,384 (38.7) | 2,178,511 (0.8) | 122,017,667 (4.8) | 4% | F1 subsistence disbursement per borrower record Rs 17,689,384 = 38.7x Punjab median (Rs 456,726); note: only 9 above_economic borrowers (ratio not flagged) |
 
 ### Suspects named in the brief, and near misses (reported; thresholds NOT changed after seeing the data)
 

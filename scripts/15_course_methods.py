@@ -469,7 +469,7 @@ def dasymetric(d):
 # ------------------------------------------------------------------------------------------ 10 H1 by formal source (D042)
 H1_SOURCES = {"commercial": ("commercial_share", "arhti x commercial"), "ztbl": ("ztbl_share", "arhti x ztbl"),
               "coop": ("coop_share", "arhti x coop"), "mfb": ("mfb_share", "arhti x mfb"),
-              "any formal": (None, "arhti x any formal (commercial, ZTBL, cooperative or MFB)")}
+              "any formal": ("share_anyformal", "arhti x any formal (commercial, ZTBL, cooperative or MFB)")}
 
 
 def h1_by_source(g):
@@ -477,8 +477,11 @@ def h1_by_source(g):
     Mantel-Haenszel odds ratio (from 07) for each formal source. EXPLORATORY; availability, not borrowing."""
     from scipy.stats import spearmanr
     wq = Queen.from_dataframe(g, use_index=False, silence_warnings=True); wq.transform = "r"
-    co = pd.read_csv(T / "mouza_cooccurrence.csv")
-    co = co[(co.record == "pooled (Mantel-Haenszel)") & (co.scenario == "A")].set_index("pair")
+    allco = pd.read_csv(T / "mouza_cooccurrence.csv")
+    co = allco[(allco.record == "pooled (Mantel-Haenszel)") & (allco.scenario == "A")].set_index("pair")
+    anyf = allco[(allco.record == "tehsil (arhti x any formal)") & (allco.scenario == "A")][["pcode", "share_anyformal"]]
+    g = g.merge(anyf, on="pcode", how="left", validate="one_to_one")
+    assert g.share_anyformal.notna().all()
     rows = []
     for src, (col, pair) in H1_SOURCES.items():
         r = dict(source=src, n_tehsils=len(g))
@@ -490,6 +493,7 @@ def h1_by_source(g):
                      spearman_rho=rho, spearman_p=pv, bivariate_moran_I=bv.I, bivariate_moran_p=bv.p_sim)
         m = co.loc[pair]
         r.update(mh_or=m.mh_or, mh_ci95_low=m.ci95_low, mh_ci95_high=m.ci95_high, mh_n_mouzas=int(m.n_mouzas), mh_strata=int(m.n_strata),
+                 cmh_p=m.cmh_p,
                  breslow_day_p=m.breslow_day_tarone_p, n_both_sources=m.get("n_both_sources"), n_arhti_only=m.get("n_arhti_only"),
                  n_other_only=m.get("n_other_only"), n_neither=m.get("n_neither"), mouzas_in_dropped_strata=m.get("mouzas_in_dropped_strata"))
         rows.append(r)
@@ -497,6 +501,8 @@ def h1_by_source(g):
     ok = out.spearman_p.notna()
     from statsmodels.stats.multitest import multipletests
     out.loc[ok, "spearman_p_bh"] = multipletests(out.loc[ok, "spearman_p"], method="fdr_bh")[1]
+    out["cmh_p_bh"] = multipletests(out.cmh_p, method="fdr_bh")[1]      # BH across the five within-tehsil comparisons
+    out["bivariate_moran_p_bh"] = multipletests(out.bivariate_moran_p, method="fdr_bh")[1]
     out.assign(weights="Queen, row-standardised (bivariate Moran)", permutations=PERM, seed=SEED,
                note="EXPLORATORY (D042). Odds ratios compare odds, not probabilities; strata with an empty row or column are dropped.",
                vintage=V_MC).to_csv(T / "course_h1_by_source.csv", index=False)
@@ -540,10 +546,141 @@ def market_model(g):
         if t == "CONSTANT":
             continue
         rows.append(dict(model="Spatial error (ML, Queen)", term=t, label=MKT_X[t], coef_per_sd=float(sem.betas[i][0]),
-                         se=float(sem.std_err[i]), p=float(sem.z_stat[i][1]), n=len(y), fit=f"lambda = {float(sem.lam):.3f}"))
+                         se=float(sem.std_err[i]), p=float(sem.z_stat[i][1]), n=len(y),
+                         fit=f"lambda = {float(sem.lam):.3f}; log-likelihood = {float(sem.logll):.1f}; AIC = {float(sem.aic):.1f}; "
+                             f"OLS AIC = {ols.aic:.1f}"))
     out = pd.DataFrame(rows).assign(y="arhti_share", status="EXPLORATORY (D042); availability, not borrowing; associations, not effects",
                                     permutations=PERM, seed=SEED, vintage=(V_MC + "; ESA WorldCover 2021; MAP travel time 2015"))
     out.to_csv(T / "course_market_model.csv", index=False)
+    return out
+
+
+# ------------------------------------------------------------------------------------------ 12 neither source (D043)
+def neither_map(g):
+    """Share of each tehsil's rural populated mouzas reporting neither arhti credit nor any formal source (commercial, ZTBL,
+    cooperative or MFB). Limited REPORTED availability of these sources, not financial exclusion (other sources exist)."""
+    co = pd.read_csv(T / "mouza_cooccurrence.csv")
+    t = co[(co.record == "tehsil (arhti x any formal)") & (co.scenario == "A")][["pcode", "share_neither", "share_arhti_only",
+                                                                                "share_formal_only", "share_both"]]
+    x = g[["pcode", "unit", "rp_mouzas", "geometry"]].merge(t, on="pcode", how="left", validate="one_to_one")
+    allm = co[(co.record == "all mouzas (descriptive)") & (co.scenario == "A")]
+    breaks = [0.05, 0.10, 0.20, 0.40]
+    k = np.digitize(x.share_neither, breaks)
+    cols = ["#f6f1e7", "#f2d3b6", "#e9a46c", "#c9531f", "#6b280b"]
+    labs = ["< 5%", "5–10%", "10–20%", "20–40%", "≥ 40%"]
+    fig, ax = plt.subplots(figsize=(6.6, 8.4)); fig.subplots_adjust(bottom=0.24)
+    for i, c in enumerate(cols):
+        sub = x[k == i]
+        if len(sub):
+            sub.plot(ax=ax, color=c, edgecolor="#bdbcb6", linewidth=0.3)
+    figs.frame(ax, x); figs.furniture(ax, x)
+    figs.legend(ax, [Patch(facecolor=c, edgecolor="#bdbcb6", label=f"{l}  (n = {int((k == i).sum())})") for i, (c, l) in enumerate(zip(cols, labs))],
+                "Share of rural populated mouzas reporting neither arhti\nnor any formal source (fixed classes)", anchor=(0.0, 0.0))
+    ax.set_title("Figure S13. Limited reported availability: mouzas reporting neither arhti nor formal credit", loc="left",
+                 fontsize=9, fontweight="bold")
+    r = allm[allm.pair.str.contains("any formal")].iloc[0]
+    map_footer(fig, [f"Data: {V_MC}. n = {len(x)} tehsils; {int(r.n_neither):,} of {int(r.n_mouzas):,} rural populated mouzas report neither.",
+                     "Formal = commercial bank, ZTBL, cooperative bank or microfinance bank. Other sources (NGOs, rural support programmes, government) "
+                     "are not counted, so this is limited reported availability of these sources, not financial exclusion."])
+    figs.save(fig, "figS13_neither_source_tehsil")
+    x.drop(columns="geometry").assign(vintage=V_MC).to_csv(T / "course_neither_source_tehsil.csv", index=False)
+    return x
+
+
+# ------------------------------------------------------------------------------------------ 13 H2/H3 sensitivity (D043)
+URBAN_TOP5_N = 5
+
+
+def urban_top(n=URBAN_TOP5_N):
+    """Districts with the largest urban population, Population Census 2023 (PBS Table 1, Punjab): a lending-independent rule."""
+    x = pd.read_excel(ROOT / "data" / "raw" / "pop_census_2023" / "table_1_punjab_districts.xlsx", header=None)
+    d = x[x[0].astype(str).str.upper().str.endswith(" DISTRICT")].copy()
+    d["district"] = d[0].str.upper().str.replace(" DISTRICT", "", regex=False).str.strip().str.title()
+    d["urban_pop"] = d[2].astype(float) * d[8].astype(float) / 100
+    return d.sort_values("urban_pop", ascending=False).head(n)[["district", "urban_pop"]]
+
+
+def sensitivity():
+    """Flagged-district exclusions for H2/H3 headline measures, two city groups (the paper's five; the five most urban by the 2023
+    census), leave-one-out for each city, and class-specific benchmarks using the district distribution of farms in the class."""
+    rg = pd.read_csv(T / "reporting_geography.csv")
+    d = rg[rg.record_type == "district"].copy()
+    rows = []
+
+    def measures(x, label, group=None):
+        r = dict(sample=label, n_districts=len(x))
+        r["D_sub_borrowers_vs_small_farms"] = dissimilarity(x.sub_borrowers, x.sub_farms)
+        for c in ["sub", "abv"]:
+            r[f"{c}_share_of_disbursement"] = x[f"{c}_amount_mn"].sum() / x.tot_amount_mn.sum()
+            r[f"{c}_share_of_records"] = x[f"{c}_borrowers"].sum() / x.tot_borrowers.sum()
+        if group is not None:
+            gm = x.adm2_name.isin(group)
+            r["group"] = ", ".join(group)
+            r["group_districts_in_sample"] = int(gm.sum())
+            r["group_cultivated_share"] = x[gm].cultivated_ac.sum() / x.cultivated_ac.sum()
+            r["group_farm_share"] = x[gm].farms.sum() / x.farms.sum()
+            for c in ["tot", "sub", "abv"]:
+                r[f"group_{c}_disbursement_share"] = x[gm][f"{c}_amount_mn"].sum() / x[f"{c}_amount_mn"].sum()
+                r[f"group_{c}_ratio_to_cultivated"] = r[f"group_{c}_disbursement_share"] / r["group_cultivated_share"]
+            for c in ["sub", "abv"]:
+                r[f"group_{c}_class_farm_share"] = x[gm][f"{c}_farms"].sum() / x[f"{c}_farms"].sum()
+                r[f"group_{c}_ratio_to_class_farms"] = r[f"group_{c}_disbursement_share"] / r[f"group_{c}_class_farm_share"]
+        return r
+
+    paper5 = ["Lahore", "Rawalpindi", "Multan", "Faisalabad", "Rahim Yar Khan"]
+    urban5 = list(urban_top().district)
+    missing = [n for n in urban5 if n not in set(d.adm2_name)]
+    assert not missing, f"census district names not in the district table: {missing}"
+    flagged = list(d[d.flagged == 1].adm2_name)
+    rows.append(measures(d, "all 36 districts", paper5))
+    rows.append(measures(d[d.flagged != 1], "excluding the 5 flagged districts", [c for c in paper5 if c not in flagged]))
+    rows.append(measures(d, "all 36 districts; five most urban districts (Population Census 2023)", urban5))
+    for c in paper5:
+        rows.append(dict(measures(d[d.adm2_name != c], f"leave out {c}", [x for x in paper5 if x != c]), kind="leave-one-out"))
+    out = pd.DataFrame(rows).assign(flagged_districts=", ".join(flagged), note="EXPLORATORY (D043); counts and SBP district rows as reported "
+                                    "(attribution under verification); class farm counts from the Agricultural Census 2024", vintage=V_Q2)
+    out.to_csv(T / "course_h2_h3_sensitivity.csv", index=False)
+    # class-specific benchmark for every district: class disbursement share / class farm share
+    for c in ["sub", "eco", "abv"]:
+        d[f"lq_class_farms_{c}"] = (d[f"{c}_amount_mn"] / d[f"{c}_amount_mn"].sum()) / (d[f"{c}_farms"] / d[f"{c}_farms"].sum())
+    d[["adm2_name", "adm2_pcode", "flagged", "lq_amount_sub", "lq_amount_abv", "lq_class_farms_sub", "lq_class_farms_eco", "lq_class_farms_abv"]
+      ].assign(definition="lq_class_farms_c = district share of class-c disbursement / district share of class-c farms (farm counts, not area)",
+               vintage=V_Q2).to_csv(T / "course_lq_class_farms.csv", index=False)
+    return out
+
+
+# ------------------------------------------------------------------------------------------ 14 grain-market distance bands (D043)
+def market_bands(g):
+    """Spearman correlations of arhti_share with the share of mouzas within 10 km, within 25 km and more than 50 km of a grain market
+    (Mouza Census distance bands), BH-adjusted; and the market term's estimate when each band replaces the > 50 km share in the
+    exploratory model (OLS HC3, quasi-binomial, spatial error)."""
+    import spreg
+    from scipy.stats import norm, spearmanr
+    from statsmodels.stats.multitest import multipletests
+    g = g.assign(tt_city_cropw_hours=g.tt_city_cropw_mean_min / 60,
+                 mkt_grain_within10_share=(g.n_mkt_grain_in_mouza + g.n_mkt_grain_1_10) / g.rp_mouzas,
+                 mkt_grain_within25_share=(g.n_mkt_grain_in_mouza + g.n_mkt_grain_1_10 + g.n_mkt_grain_11_25) / g.rp_mouzas)
+    bands = {"mkt_grain_within10_share": "grain market within 10 km (share of mouzas)",
+             "mkt_grain_within25_share": "grain market within 25 km (share of mouzas)",
+             "mkt_grain_51plus_share": "grain market more than 50 km away (share of mouzas)"}
+    wq = Queen.from_dataframe(g, use_index=False, silence_warnings=True); wq.transform = "r"
+    base = [c for c in MKT_X if c != "mkt_grain_51plus_share"]
+    rows = []
+    for b, lab in bands.items():
+        rho, pv = spearmanr(g.arhti_share, g[b])
+        X = g[base + [b]].astype(float); Z = (X - X.mean()) / X.std(ddof=0)
+        ols = sm.OLS(g.arhti_share.values, sm.add_constant(Z)).fit(cov_type="HC3")
+        glm = sm.GLM(np.column_stack([g.n_arhti, g.rp_mouzas - g.n_arhti]).astype(float), sm.add_constant(Z), family=sm.families.Binomial()).fit()
+        phi = glm.pearson_chi2 / glm.df_resid
+        se = glm.bse[b] * np.sqrt(phi)
+        sem = spreg.ML_Error(g.arhti_share.values.reshape(-1, 1), Z.values, w=wq, name_x=list(Z.columns))
+        j = 1 + list(Z.columns).index(b)
+        rows.append(dict(band=b, label=lab, mean_share=float((g[b] * g.rp_mouzas).sum() / g.rp_mouzas.sum()), spearman_rho=rho, spearman_p=pv,
+                         ols_coef_per_sd=ols.params[b], ols_p=ols.pvalues[b], glm_coef_per_sd=glm.params[b],
+                         glm_p=2 * norm.sf(abs(glm.params[b] / se)), sem_coef_per_sd=float(sem.betas[j][0]), sem_p=float(sem.z_stat[j][1])))
+    out = pd.DataFrame(rows)
+    out["spearman_p_bh"] = multipletests(out.spearman_p, method="fdr_bh")[1]
+    out.assign(controls="; ".join(base), status="EXPLORATORY (D043)", vintage=V_MC).to_csv(T / "course_market_bands.csv", index=False)
     return out
 
 
@@ -560,6 +697,9 @@ def main() -> int:
     dots = dasymetric(d)
     h1 = h1_by_source(g)
     mm = market_model(g)
+    neither_map(g)
+    mb = market_bands(g)
+    sv = sensitivity()
     keep = ["pcode", "unit", "adm2_name", "rp_mouzas", "arhti_share", "gistar_z", "gistar_p", "gistar_p05", "gistar_fdr05",
             "lisa_queen_p05", "trend2_fitted", "trend2_resid", "geometry"]
     save_layer(gpd.GeoDataFrame(g[keep].rename(columns={"pcode": "adm3_pcode", "unit": "adm3_name"}), crs=g.crs).assign(vintage=V_MC),
@@ -571,6 +711,8 @@ def main() -> int:
     print(hist[["scheme", "counts", "gadf"]].to_string(index=False))
     print(h1[["source", "spearman_rho", "bivariate_moran_I", "mh_or", "mh_ci95_low", "mh_ci95_high"]].to_string(index=False))
     print(mm[["model", "term", "coef_per_sd", "p", "fit"]].round(4).to_string(index=False))
+    print(mb.drop(columns=["label"]).round(3).to_string(index=False))
+    print(sv.drop(columns=["note", "vintage", "flagged_districts", "group"]).round(3).T.to_string())
     print(f"distance band {band / 1000:.1f} km; dots {len(dots)}; typology types attr {typ.type_attr.nunique()}, attr+loc {typ.type_attr_loc.nunique()}")
     return 0
 

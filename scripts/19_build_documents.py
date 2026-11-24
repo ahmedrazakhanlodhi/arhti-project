@@ -38,7 +38,7 @@ MAIN_FIGS = [
     ("fig3_bivariate_arhti_commercial_qgis.png", "Figure 3. Arhti and commercial-bank credit availability together (bivariate map)."),
     ("fig4_lisa_arhti_tehsil_qgis.png", "Figure 4. LISA clusters of arhti credit availability, with FDR survivors outlined."),
     ("fig5_small_farm_reach_qgis.png", "Figure 5. Small-farm reach of formal credit by district."),
-    ("fig6_dasymetric_farms_borrowers_qgis.png", "Figure 6. Dasymetric dots of small farms and proportional circles of small-farm borrower records."),
+    ("fig6_dasymetric_farms_borrowers_qgis.png", "Figure 6. Dasymetric dots of small farms (synthetic redistribution on cropland) and perceptually scaled circles of small-farm borrower records."),
     ("figA1_holding_class_shares.png", "Figure A1. Shares of farms, operated area, borrower records and disbursement by holding class (Punjab)."),
     ("figR1_lq_maps.png", "Figure R1. Location quotients of recorded lending relative to cultivated area, by holding class."),
     ("figP1_price_ladder.png", "Figure P1. Formal lending rates and published arhti cost estimates (context)."),
@@ -56,6 +56,7 @@ APPX_FIGS = [
     ("figS10_kmeans_typology.png", "Figure S10. Exploratory k-means typology of districts."),
     ("figS11_tissot_indicatrix.png", "Figure S11. Tissot indicatrix: previous vs current analysis CRS."),
     ("figS12_classification_histograms.png", "Figure S12. Histogram of arhti_share with three 5-class schemes and their GADF."),
+    ("figS13_neither_source_tehsil.png", "Figure S13. Share of mouzas reporting neither arhti nor any formal source (limited reported availability)."),
     ("figR2_city_shares.png", "Figure R2. Five city districts: shares of lending, farmland, farms and branches."),
 ]
 
@@ -155,10 +156,20 @@ def csv_table(doc, title, df, note):
     for ci, c in enumerate(df.columns):
         cell = t.cell(0, ci); cell.text = ""; runs(cell.paragraphs[0], f"**{c}**", 8)
         sh = OxmlElement("w:shd"); sh.set(qn("w:val"), "clear"); sh.set(qn("w:fill"), "ECE4D3"); cell._tc.get_or_add_tcPr().append(sh)
+    pcols = {i for i, c in enumerate(df.columns) if c == "p" or c.endswith(" p") or c.startswith("p ")}
+
+    def fmt(v, ci):
+        if isinstance(v, str):
+            return v
+        if v != v:
+            return ""
+        if ci in pcols and v < 0.001:
+            return "< 0.001"
+        return f"{v:,.0f}" if float(v).is_integer() and abs(v) >= 100 else f"{v:.3f}"
     for ri, row in enumerate(df.itertuples(index=False), 1):
         for ci, v in enumerate(row):
             cell = t.cell(ri, ci); cell.text = ""
-            runs(cell.paragraphs[0], v if isinstance(v, str) else ("" if v != v else (f"{v:,.0f}" if float(v).is_integer() and abs(v) >= 100 else f"{v:.3f}")), 8)
+            runs(cell.paragraphs[0], fmt(v, ci), 8)
     for row in t.rows:
         for cell in row.cells:
             cell.paragraphs[0].paragraph_format.space_after = Pt(0); cell.paragraphs[0].paragraph_format.line_spacing = 1.0
@@ -169,20 +180,24 @@ def appendix_tables(doc):
     import pandas as pd
     T = ROOT / "outputs" / "tables"
     h = pd.read_csv(T / "course_h1_by_source.csv")
-    h = h[["source", "mouza_share_reporting", "spearman_rho", "spearman_p_bh", "bivariate_moran_I", "bivariate_moran_p", "mh_or",
-           "mh_ci95_low", "mh_ci95_high", "mh_strata", "breslow_day_p"]]
-    h.columns = ["Formal source", "Mouzas reporting", "Spearman ρ", "BH p", "Bivariate I", "Pseudo p", "MH odds ratio", "CI low", "CI high",
-                 "Strata", "Breslow–Day p"]
+    h = h[["source", "mouza_share_reporting", "spearman_rho", "spearman_p_bh", "bivariate_moran_I", "bivariate_moran_p_bh", "mh_or",
+           "mh_ci95_low", "mh_ci95_high", "cmh_p_bh", "mh_strata", "breslow_day_p"]]
+    h.columns = ["Formal source", "Mouzas reporting", "Spearman ρ", "Spearman BH p", "Bivariate I", "Bivariate BH p", "MH odds ratio", "CI low",
+                 "CI high", "CMH BH p", "Strata", "Breslow–Day p"]
     csv_table(doc, "Table B1. Arhti credit availability against each formal source", h,
               "Mouza Census 2020 (Jan–Mar 2020); availability reports, not borrowing. Spearman: same tehsil (n = 137). Bivariate Moran: arhti in a "
               "tehsil vs the source in its Queen neighbours (row-standardised; 999 permutations, seed 20261031; one-sided pseudo p). Odds ratio: "
               "Mantel–Haenszel across mouzas within tehsils; tehsils whose 2×2 table has an empty row or column are uninformative and dropped. "
-              "Exploratory.")
-    c = pd.read_csv(T / "course_h1_by_source.csv")
-    c = c[c.source.isin(["commercial", "any formal"])][["source", "n_both_sources", "n_arhti_only", "n_other_only", "n_neither", "mouzas_in_dropped_strata"]]
-    c.columns = ["Formal source", "Both reported", "Arhti only", "Formal only", "Neither", "In dropped strata"]
-    csv_table(doc, "Table B2. Mouzas by reported credit sources (pooled over informative tehsil strata)", c,
-              "Counts of rural populated mouzas, Mouza Census 2020. 'Any formal' = commercial bank, ZTBL, cooperative bank or microfinance bank.")
+              "BH = Benjamini–Hochberg adjustment across the five sources. Confidence intervals are not adjusted for spatial dependence among "
+              "mouzas. Exploratory.")
+    c = pd.read_csv(T / "mouza_cooccurrence.csv")
+    c = c[(c.record == "all mouzas (descriptive)") & (c.scenario == "A")][["pair", "n_mouzas", "n_both_sources", "n_arhti_only", "n_other_only", "n_neither"]]
+    c["pair"] = c.pair.str.replace("arhti x ", "", regex=False)
+    c.columns = ["Formal source", "Mouzas", "Both reported", "Arhti only", "Formal only", "Neither"]
+    csv_table(doc, "Table B2. All 23,130 rural populated mouzas by reported credit sources", c,
+              "Mouza Census 2020. 'Any formal' = commercial bank, ZTBL, cooperative bank or microfinance bank. 'Neither' means none of these sources is "
+              "reported; other sources (NGOs, rural support programmes, government) are not counted, so it is limited reported availability, "
+              "not financial exclusion (map: Figure S13).")
     m = pd.read_csv(T / "course_market_model.csv")[["model", "label", "coef_per_sd", "se", "p", "fit"]]
     m.columns = ["Model", "Predictor (standardised)", "Coefficient per SD", "SE", "p", "Fit"]
     csv_table(doc, "Table B3. Exploratory model of arhti credit availability (tehsils, n = 137)", m,
@@ -199,8 +214,43 @@ def appendix_tables(doc):
     r = pd.read_csv(T / "models_arhti.csv")
     r = r[(r.level == "tehsil")][["model", "term", "coef", "se", "p"]]
     r.columns = ["Model", "Term", "Coefficient", "SE", "p"]
-    csv_table(doc, "Table B5. Prespecified regressions of arhti_share (tehsils, n = 137)", r,
-              "OLS (HC3), spatial error and spatial lag models, Queen weights; unstandardised coefficients. Exploratory; no model is chosen on significance.")
+    csv_table(doc, "Table B5. Planned regressions of arhti_share (tehsils, n = 137)", r,
+              "OLS (HC3) and the spatial error model were specified before the analysis; the spatial lag model was added afterwards. Queen weights; "
+              "unstandardised coefficients. The lag model's rho measures spatial dependence in arhti_share, not a substantive spillover. No model is "
+              "chosen on significance.")
+    rc = pd.read_csv(T / "sbp_coverage_reconciliation.csv")[["scope", "sub_borrowers", "eco_borrowers", "abv_borrowers", "tot_borrowers",
+                                                             "sub_amount_bn", "eco_amount_bn", "abv_amount_bn", "tot_amount_bn"]]
+    rc.columns = ["Scope", "Subsistence records", "Economic records", "Above-economic records", "All records", "Subsistence Rs bn",
+                  "Economic Rs bn", "Above-economic Rs bn", "All Rs bn"]
+    csv_table(doc, "Table B6. SBP farm-sector lending: coverage reconciliation", rc,
+              "SBP FY2023-24, district as reported by SBP. The 36 district rows plus the Islamabad row plus the Punjab-wide MFI row equal SBP's All "
+              "Punjab row. District measures use the 36 district rows.")
+    ac = pd.read_csv(T / "agc_class_area_check.csv")[["size_class", "class_lower_ac", "class_upper_ac", "farms", "farm_area_ac", "implied_avg_farm_area_ac",
+                                                      "within_class_limits"]]
+    ac["within_class_limits"] = ac.within_class_limits.map({True: "yes", False: "NO"})
+    ac.columns = ["Size class (acres)", "Lower", "Upper", "Farms", "Farm area (ac)", "Implied average (ac)", "Within limits"]
+    csv_table(doc, "Table B7. Agricultural Census 2024, Punjab: implied average farm area by size class", ac,
+              "Farm area ÷ farms from the published Punjab Table 3. In three classes below 12.5 acres the implied average exceeds the class's upper "
+              "limit; the cause is not documented. Area shares by class are therefore indicative.")
+    sv = pd.read_csv(T / "course_h2_h3_sensitivity.csv")
+    sv = sv[["sample", "n_districts", "D_sub_borrowers_vs_small_farms", "sub_share_of_disbursement", "abv_share_of_disbursement",
+             "group_cultivated_share", "group_abv_disbursement_share", "group_abv_ratio_to_cultivated", "group_sub_ratio_to_cultivated",
+             "group_abv_ratio_to_class_farms"]]
+    sv.columns = ["Sample", "Districts", "D (records vs small farms)", "Subsistence share of Rs", "Above-econ. share of Rs",
+                  "City group: cultivated share", "City group: above-econ. share", "Above-econ. ratio to cultivated", "Subsistence ratio to cultivated",
+                  "Above-econ. ratio to large farms"]
+    csv_table(doc, "Table B8. H2 and H3 sensitivity: flagged districts, city-group definition, leave one city out", sv,
+              "City group = Lahore, Rawalpindi, Multan, Faisalabad and Rahim Yar Khan, except the third row (the five districts with the largest "
+              "urban population in the 2023 Population Census: Lahore, Faisalabad, Rawalpindi, Gujranwala, Multan). Ratios divide the group's share "
+              "of disbursement by its share of cultivated area, or (last column) by its share of farms of 50 acres or more. SBP FY2023-24; "
+              "Agricultural Census 2024; exploratory.")
+    mb = pd.read_csv(T / "course_market_bands.csv")[["label", "mean_share", "spearman_rho", "spearman_p_bh", "ols_coef_per_sd", "ols_p",
+                                                      "glm_coef_per_sd", "glm_p", "sem_coef_per_sd", "sem_p"]]
+    mb.columns = ["Grain-market measure", "Mouzas", "Spearman ρ", "BH p", "OLS coef", "OLS p", "Quasi-binomial coef", "Quasi-binomial p",
+                  "Spatial error coef", "Spatial error p"]
+    csv_table(doc, "Table B9. Arhti availability and distance to grain markets (three distance bands)", mb,
+              "Each row replaces the market term of the Table B3 model with one band (same controls; coefficients per SD). Bands from the Mouza "
+              "Census distance classes. Added after the first models were run; all three bands are reported. Exploratory.")
 
 
 def build_paper():

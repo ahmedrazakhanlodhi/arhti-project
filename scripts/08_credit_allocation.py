@@ -265,7 +265,7 @@ def flags(rows):
                 continue
             x = r[f"{col}_x_median"]
             if x > 5 or x < 0.2:
-                reasons[r.district].append(f"F1 {CATS[c]} avg loan Rs {r[col]:,.0f} = {x:.1f}x Punjab median (Rs {med:,.0f})")
+                reasons[r.district].append(f"F1 {CATS[c]} disbursement per borrower record Rs {r[col]:,.0f} = {x:.1f}x Punjab median (Rs {med:,.0f})")
     for _, r in f.iterrows():
         if r.abv_amount_share > 0.75:
             reasons[r.district].append(f"F2 above-economic = {r.abv_amount_share:.0%} of farm-sector disbursement")

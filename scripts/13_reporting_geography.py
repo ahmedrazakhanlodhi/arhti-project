@@ -101,12 +101,49 @@ def holding_classes(a, special, rows36):
     for c in ["share_farms", "share_operated_area", "share_borrower_records", "share_disbursement", "share_farms_36",
               "share_operated_area_36", "share_borrower_records_36", "share_disbursement_36"]:
         assert abs(d[c].sum() - 1) < 1e-6, c
+    d["ratio_records_to_farms_36"] = d.share_borrower_records_36 / d.share_farms_36
+    d["ratio_disbursement_to_farms_36"] = d.share_disbursement_36 / d.share_farms_36
     d["sbp_scope"] = ("*_36 (primary) = 36 district rows, banks only (no Islamabad, no MFIs); unsuffixed = All Punjab row (banks + MFIs); "
                      "*_banks_only = district rows incl. Islamabad, no MFIs")
     d["pbs_scope"] = "*_36 = PUNJAB minus Cholistan Area (36 districts); unsuffixed = PUNJAB total incl. Cholistan Area"
     d["note"] = "Province level only; operated (farm) area, not owned area; borrower records may not be unique people"
     d["vintage"] = f"{V_SBP_P}; {V_AGC}"
     return d
+
+
+def coverage_reconciliation(rows, special):
+    """SBP farm-sector totals by holding class: 36 districts + Islamabad + MFIs (no district) = All Punjab (D043)."""
+    cols = ["sub_borrowers", "eco_borrowers", "abv_borrowers", "tot_borrowers", "sub_amount_mn", "eco_amount_mn", "abv_amount_mn", "tot_amount_mn"]
+    isl = rows[rows.district == "Islamabad"][cols].sum()
+    d36 = rows[rows.district != "Islamabad"][cols].sum()
+    mfi = special.loc["MFIs"].reindex(cols).fillna(0)
+    ap = special.loc["All Punjab"].reindex(cols)
+    out = pd.DataFrame([d36, isl, mfi, d36 + isl + mfi, ap], index=["36 districts (banks)", "Islamabad row (banks)", "MFIs (Punjab-wide, no district)",
+                                                                     "Sum of the three", "SBP All Punjab row"])
+    gap = (out.loc["Sum of the three"] - out.loc["SBP All Punjab row"]).abs().max()
+    assert gap < 1, f"reconciliation gap {gap}"
+    out = out.rename_axis("scope").reset_index()
+    for c in [c for c in cols if c.endswith("_mn")]:
+        out[c.replace("_mn", "_bn")] = out[c] / 1000
+    out["vintage"] = f"{V_SBP_R}; farm sector"
+    return out
+
+
+def agc_area_check(a):
+    """Agricultural Census Table 3, Punjab: implied average farm area by size class vs the class limits (D042)."""
+    p = a[(a.unit == "PUNJAB") & (a.size_class != "PRIVATE-FARMS TOTAL")].copy()
+    lims = {"UNDER 1.0": (0, 1), "1.0 TO UNDER 2.5": (1, 2.5), "2.5 TO UNDER 5.0": (2.5, 5), "5.0 TO UNDER 7.5": (5, 7.5),
+            "7.5 TO UNDER 12.5": (7.5, 12.5), "12.5 TO UNDER 25.0": (12.5, 25), "25.0 TO UNDER 50.0": (25, 50),
+            "50.0 TO UNDER 100.0": (50, 100), "100.0 AND ABOVE": (100, None)}
+    p["class_lower_ac"] = p.size_class.map(lambda c: lims[c][0])
+    p["class_upper_ac"] = p.size_class.map(lambda c: lims[c][1])
+    p["implied_avg_farm_area_ac"] = p.farm_area_ac / p.farms
+    p["implied_avg_cultivated_ac"] = p.cultivated_ac / p.farms
+    p["within_class_limits"] = (p.implied_avg_farm_area_ac >= p.class_lower_ac) & (p.class_upper_ac.isna() | (p.implied_avg_farm_area_ac < p.class_upper_ac.fillna(1e9)))
+    p["vintage"] = V_AGC
+    p = p.sort_values("class_lower_ac")
+    return p[["size_class", "class_lower_ac", "class_upper_ac", "farms", "farm_area_ac", "cultivated_ac", "implied_avg_farm_area_ac",
+              "implied_avg_cultivated_ac", "within_class_limits", "vintage"]]
 
 
 def fig_a1(h):
@@ -347,6 +384,8 @@ def main() -> int:
 
     h = holding_classes(a, special, rows[rows.district != "Islamabad"])
     h.to_csv(T / "holding_class_shares.csv", index=False)
+    coverage_reconciliation(rows, special).to_csv(T / "sbp_coverage_reconciliation.csv", index=False)
+    agc_area_check(a).to_csv(T / "agc_class_area_check.csv", index=False)
     fig_a1(h)
     crop, worst = crops()
     crop.to_csv(T / "crop_structure_district.csv", index=False)

@@ -282,7 +282,7 @@ def main() -> int:
         for term, tk in [("cropland_share", "crop"), ("mkt_grain_51plus_share", "mkt"), ("commercial_share", "com")]:
             add(f"mm_{mk}_{tk}_p", f"{mdl}: p-value, {term}", MM, dict(model=mdl, term=term), "p", f3, "Market-access model")
     add("mm_sem_lambda", "Spatial error model: lambda", MM, dict(model="Spatial error (ML, Queen)", term="cropland_share"), "fit",
-        lambda v: v.split("= ")[1], "Market-access model")
+        lambda v: v.split("= ")[1].split(";")[0], "Market-access model")
     add("mm_glm_disp", "Quasi-binomial dispersion", MM, dict(model="Binomial GLM, quasi-binomial SEs (log-odds)", term="cropland_share"), "fit",
         lambda v: v.split("= ")[1].split(";")[0], "Market-access model")
     add("mm_ols_r2", "OLS R²", MM, dict(model="OLS (HC3)", term="cropland_share"), "fit", lambda v: v.split("= ")[1].split(";")[0], "Market-access model")
@@ -292,6 +292,74 @@ def main() -> int:
     mi = dict(level="tehsil", scenario="A", x="mkt_grain_in_mouza_share")
     add("rho_mktin", "Spearman rho, arhti_share vs share of mouzas with a grain market in the mouza", EX, mi, "rho", f2, "Market-access model")
     add("rho_mktin_pbh", "BH-adjusted p-value", EX, mi, "p_bh", f3, "Market-access model")
+    # D043 additions (second review)
+    add("h1_any_rho", "Spearman rho across tehsils, arhti_share vs any-formal share", H1, dict(source="any formal"), "spearman_rho", f3, "H1 by source")
+    add("h1_any_share", "Share of rural populated mouzas reporting any formal source", H1, dict(source="any formal"), "mouza_share_reporting", pct, "H1 by source")
+    add("h1_any_bv", "Bivariate Moran's I, arhti vs neighbours' any-formal share", H1, dict(source="any formal"), "bivariate_moran_I", f3, "H1 by source")
+    for source_, kk in [("commercial", "com"), ("ztbl", "ztbl"), ("coop", "coop"), ("mfb", "mfb"), ("any formal", "any")]:
+        add(f"h1_{kk}_cmh_bh", f"BH-adjusted CMH p (five within-tehsil comparisons), {source_}", H1, dict(source=source_), "cmh_p_bh",
+            lambda v: "< 0.001" if v < 0.001 else f"{v:.3f}", "H1 by source")
+        add(f"h1_{kk}_rho_bh", f"BH-adjusted Spearman p, {source_}", H1, dict(source=source_), "spearman_p_bh", lambda v: "< 0.001" if v < 0.001 else f"{v:.3f}", "H1 by source")
+        add(f"h1_{kk}_bv_bh", f"BH-adjusted bivariate Moran p, {source_}", H1, dict(source=source_), "bivariate_moran_p_bh", f3, "H1 by source")
+    CO2 = "outputs/tables/mouza_cooccurrence.csv"
+    for pair, kk in [("arhti x commercial", "com"), ("arhti x any formal (commercial, ZTBL, cooperative or MFB)", "any")]:
+        for c, ck in [("n_both_sources", "both"), ("n_arhti_only", "arhti_only"), ("n_other_only", "other_only"), ("n_neither", "neither"), ("n_mouzas", "n")]:
+            add(f"all_{kk}_{ck}", f"All rural populated mouzas, {pair}: {c}", CO2, dict(record="all mouzas (descriptive)", scenario="A", pair=pair), c, intc,
+                "Neither source")
+    NE = "outputs/tables/course_neither_source_tehsil.csv"
+    add("neither_median", "Median tehsil share of mouzas reporting neither arhti nor any formal source", NE, {}, "share_neither", pct, "Neither source", agg="median")
+    add("neither_max", "Highest tehsil share reporting neither", NE, {}, "share_neither", pct, "Neither source", agg="max")
+    MB = "outputs/tables/course_market_bands.csv"
+    for band, bk in [("mkt_grain_within10_share", "w10"), ("mkt_grain_within25_share", "w25"), ("mkt_grain_51plus_share", "o50")]:
+        add(f"mb_{bk}_mean", f"Share of mouzas: {band}", MB, dict(band=band), "mean_share", pct, "Market bands")
+        add(f"mb_{bk}_rho", f"Spearman rho, arhti_share vs {band}", MB, dict(band=band), "spearman_rho", f3, "Market bands")
+        add(f"mb_{bk}_rho_bh", f"BH-adjusted p, {band}", MB, dict(band=band), "spearman_p_bh", lambda v: "< 0.001" if v < 0.001 else f"{v:.3f}", "Market bands")
+        for m_, mk in [("ols", "ols"), ("glm", "glm"), ("sem", "sem")]:
+            add(f"mb_{bk}_{mk}_p", f"{m_} p-value of the market term ({band})", MB, dict(band=band), f"{m_}_p", lambda v: "< 0.001" if v < 0.001 else f"{v:.3f}", "Market bands")
+    add("mm_sem_aic", "Spatial error model fit (exploratory model)", MM, dict(model="Spatial error (ML, Queen)", term="cropland_share"), "fit",
+        lambda v: v.split("AIC = ")[1].split(";")[0], "Market-access model")
+    add("mm_ols_aic", "OLS AIC (exploratory model)", MM, dict(model="Spatial error (ML, Queen)", term="cropland_share"), "fit", lambda v: v.split("OLS AIC = ")[1], "Market-access model")
+    add("mm_ols_resid_I", "OLS residual Moran's I (exploratory model)", MM, dict(model="OLS (HC3)", term="cropland_share"), "fit",
+        lambda v: v.split("Moran's I = ")[1].split(" ")[0], "Market-access model")
+    add("mm_sem_crop_coef", "Spatial error: cropland coefficient per SD", MM, dict(model="Spatial error (ML, Queen)", term="cropland_share"), "coef_per_sd", f3, "Market-access model")
+    MA = "outputs/tables/models_arhti.csv"
+    sem5 = dict(level="tehsil", model="Spatial error (ML; prespecified check)")
+    for term, tk in [("commercial_share", "com"), ("onlinebank_over25km_share", "ob25"), ("cropland_share", "crop"), ("ztbl_share", "ztbl")]:
+        add(f"b5_sem_{tk}_coef", f"Prespecified spatial error model: {term} coefficient", MA, dict(sem5, term=term), "coef", f3, "Prespecified models")
+        add(f"b5_sem_{tk}_p", f"Prespecified spatial error model: {term} p", MA, dict(sem5, term=term), "p", f3, "Prespecified models")
+    for term, tk in [("commercial_share", "com"), ("onlinebank_over25km_share", "ob25")]:
+        add(f"b5_ols_{tk}_p", f"Prespecified OLS: {term} p", MA, dict(level="tehsil", model="OLS (HC3)", term=term), "p", f3, "Prespecified models")
+        add(f"b5_lag_{tk}_p", f"Post-hoc spatial lag: {term} p", MA, dict(level="tehsil", model="Spatial lag (ML; POST-HOC)", term=term), "p", f3, "Prespecified models")
+    for cl in ["subsistence", "economic", "above_economic"]:
+        add(f"rep_{cl}_records", f"{cl}: borrower-record share / farm share (36 districts)", HC, dict(holding_class=cl), "ratio_records_to_farms_36", f2, "Allocation (36 districts)")
+        add(f"rep_{cl}_disb", f"{cl}: disbursement share / farm share (36 districts)", HC, dict(holding_class=cl), "ratio_disbursement_to_farms_36", f2, "Allocation (36 districts)")
+    RC = "outputs/tables/sbp_coverage_reconciliation.csv"
+    for sc, sk in [("36 districts (banks)", "d36"), ("Islamabad row (banks)", "isl"), ("MFIs (Punjab-wide, no district)", "mfi"), ("SBP All Punjab row", "allp")]:
+        add(f"rc_{sk}_records", f"Borrower records: {sc}", RC, dict(scope=sc), "tot_borrowers", intc, "Coverage reconciliation")
+        add(f"rc_{sk}_bn", f"Disbursement, Rs billion: {sc}", RC, dict(scope=sc), "tot_amount_bn", "{:.1f}", "Coverage reconciliation")
+    AC = "outputs/tables/agc_class_area_check.csv"
+    for cl, ck in [("2.5 TO UNDER 5.0", "c25"), ("5.0 TO UNDER 7.5", "c5"), ("7.5 TO UNDER 12.5", "c75")]:
+        add(f"agc_{ck}_avg", f"Implied average farm area (acres), class {cl}", AC, dict(size_class=cl), "implied_avg_farm_area_ac", f2, "Census area check")
+    SV = "outputs/tables/course_h2_h3_sensitivity.csv"
+    ex = dict(sample="excluding the 5 flagged districts"); al = dict(sample="all 36 districts")
+    ur = dict(sample="all 36 districts; five most urban districts (Population Census 2023)")
+    add("sv_ex_D", "Excluding flagged: dissimilarity, borrower records vs small farms", SV, ex, "D_sub_borrowers_vs_small_farms", f3, "H2/H3 sensitivity")
+    add("sv_ex_sub_disb", "Excluding flagged: subsistence share of disbursement", SV, ex, "sub_share_of_disbursement", pct, "H2/H3 sensitivity")
+    add("sv_ex_abv_disb", "Excluding flagged: above-economic share of disbursement", SV, ex, "abv_share_of_disbursement", pct, "H2/H3 sensitivity")
+    add("sv_ur_group", "Five most urban districts (Population Census 2023)", SV, ur, "group", "{}", "H2/H3 sensitivity")
+    add("sv_ur_abv", "Five most urban districts: share of above-economic disbursement", SV, ur, "group_abv_disbursement_share", pct, "H2/H3 sensitivity")
+    add("sv_ur_cult", "Five most urban districts: share of cultivated area", SV, ur, "group_cultivated_share", pct, "H2/H3 sensitivity")
+    add("sv_ur_sub", "Five most urban districts: share of subsistence disbursement", SV, ur, "group_sub_disbursement_share", pct, "H2/H3 sensitivity")
+    add("sv_al_abv_ratio", "Five city districts: above-economic disbursement share / cultivated share", SV, al, "group_abv_ratio_to_cultivated", f2, "H2/H3 sensitivity")
+    add("sv_al_sub_ratio", "Five city districts: subsistence disbursement share / cultivated share", SV, al, "group_sub_ratio_to_cultivated", f2, "H2/H3 sensitivity")
+    add("sv_al_abv_cls", "Five city districts: above-economic disbursement share / share of farms of 50+ acres", SV, al, "group_abv_ratio_to_class_farms", f2, "H2/H3 sensitivity")
+    add("sv_al_sub_cls", "Five city districts: subsistence disbursement share / share of farms under 12.5 acres", SV, al, "group_sub_ratio_to_class_farms", f2, "H2/H3 sensitivity")
+    lo = dict(kind="leave-one-out")
+    add("sv_loo_abv_min", "Leave one city out: lowest above-economic ratio to cultivated share", SV, lo, "group_abv_ratio_to_cultivated", f2, "H2/H3 sensitivity", agg="min")
+    add("sv_loo_abv_max", "Leave one city out: highest above-economic ratio to cultivated share", SV, lo, "group_abv_ratio_to_cultivated", f2, "H2/H3 sensitivity", agg="max")
+    add("sv_loo_sub_min", "Leave one city out: lowest subsistence ratio to cultivated share", SV, lo, "group_sub_ratio_to_cultivated", f2, "H2/H3 sensitivity", agg="min")
+    add("sv_loo_sub_max", "Leave one city out: highest subsistence ratio to cultivated share", SV, lo, "group_sub_ratio_to_cultivated", f2, "H2/H3 sensitivity", agg="max")
+    add("moran_reach_p", "Pseudo p, Moran's I small_farm_reach (Queen)", MS, dict(weights="Queen", sample="all matched districts"), "p_perm", f3, "R4 Reach")
     add("dots_total", "Dasymetric dots (1 dot = 1,000 farms under 12.5 acres)", DO, {}, "dots", intc, "Course methods", agg="sum")
 
     k = pd.DataFrame(ROWS)

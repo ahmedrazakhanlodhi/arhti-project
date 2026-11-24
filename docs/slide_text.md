@@ -13,11 +13,11 @@ Notes: Two credit systems lend to Punjab's farmers: banks through branches, arht
 
 ## Slide 2. Problem, thesis and hypotheses
 Headline: Does arhti credit fill the gaps banks leave, and does formal credit reach small farms?
-- Q1 (tehsils): is arhti credit reported where formal credit is weak, or where formal credit and farmland already are?
-- H1 gap-filling: arhti and formal credit negatively associated. H1-alt coexistence: they appear together, with farmland.
+- Q1 (tehsils): is arhti credit reported where formal credit is weak, or where formal credit, markets and farmland already are?
+- H1 gap-filling: arhti and formal credit negatively associated. H1-alt coexistence: they appear together, near markets.
 - Q2 (districts): does formal credit reach small farms in proportion to their share of farms?
 - H2 proportional reach (index of dissimilarity near 0). H3 (exploratory): lending recorded where farmland is (LQ near 1).
-- Thesis: credit has distinct, uneven geographies; arhti credit coexists with formal credit. Descriptive, not causal.
+- Thesis: credit has distinct, overlapping geographies. Descriptive, not causal.
 Notes: H1 and H2 tests were fixed before the analysis; everything else is exploratory. Proportionality is a benchmark, not an optimum.
 
 ## Slide 3. What the literature says
@@ -45,27 +45,27 @@ Headline: Moran's I = 0.536; 25 High-High and 32 Low-Low tehsils
 Figures: fig2_arhti_share_tehsil_qgis.png, fig4_lisa_arhti_tehsil_qgis.png
 Notes: Queen contiguity, row-standardised; 999 permutations, seed 20261031; FDR survivors 15 and 17 (Benjamini–Hochberg cutoff 0.0117).
 
-## Slide 6. H1 test: no sign of gap-filling against any formal source
-Headline: Arhti credit appears alongside commercial, cooperative and microfinance credit; unrelated to ZTBL
-- Within tehsils, odds ratios: commercial 1.18, cooperative 1.72, microfinance 1.76; ZTBL 0.98; any formal source 0.95.
-- Across tehsils every correlation is positive (commercial ρ = 0.245, ZTBL 0.166); none is negative.
-- Varies across tehsils (Breslow–Day p < 0.001): 67 above independence, 53 below.
-- Arhti follows cropland (ρ = 0.49); it is lower where villages are over 50 km from a grain market (ρ = −0.25).
+## Slide 6. H1 test: no significant negative association with any formal source
+Headline: Arhti credit appears alongside commercial, cooperative and microfinance credit; ZTBL and all-formal results inconclusive
+- Within tehsils, odds ratios: commercial 1.18, cooperative 1.72, microfinance 1.76 (adjusted p < 0.001); ZTBL 0.98, any formal 0.95.
+- Arhti availability is higher where more villages have a grain market within 10 km (ρ = 0.336) or 25 km (ρ = 0.377); holds in the spatial error model.
+- Cropland's link (ρ = 0.49) does not survive spatial error modelling.
+- Of 23,130 mouzas, 3,810 report neither arhti nor any formal source.
 Figures: fig3_bivariate_arhti_commercial_qgis.png
-Notes: Odds ratios compare odds, not probabilities. Co-reporting is about availability, not which source a farmer uses.
+Notes: Odds ratios compare odds, not probabilities. Large heterogeneity across tehsils (Breslow–Day p < 0.001): 67 above independence, 53 below. Co-reporting is about availability, not which source a farmer uses.
 
 ## Slide 7. H2: in proportion by count, not by amount
 Headline: 36 districts: small holdings are 94.2% of farms, 90.9% of borrower records, 37.0% of disbursement
-- Above-economic holdings (> 50 acres): 0.5% of farms, 47.8% of disbursement.
-- Small-farm reach ranges from 21.6 to 299.0 records per 1,000 small farms (median 118.5); clustered (I = 0.532).
-- Dissimilarity between borrower records and small farms across districts: D = 0.216.
+- Rs 0.52 million per borrower record for subsistence holdings vs Rs 50.62 million for above-economic holdings.
+- Above-economic holdings: 2.35 times their farm share in records, 92.11 times in disbursement.
+- Borrower records vs small farms across districts: D = 0.216 (0.182 without flagged districts).
 Figures: fig5_small_farm_reach_qgis.png, fig6_dasymetric_farms_borrowers_qgis.png
 Notes: 36 district rows, banks only; the 74,494 microfinance records have no district. Census class areas below 12.5 acres are inconsistent, so we rely on farm counts.
 
 ## Slide 8. H3: lending is recorded in city districts
 Headline: Five city districts: 59.6% of above-economic disbursement, 13.3% of cultivated area
 - Location quotient for above-economic lending: Lahore 14.06, Rawalpindi 7.44, Chakwal 0.09.
-- Same five districts: 43.5% of all bank branches but 19.1% of rural branches.
+- Leave any one city out: still 4.41 to 5.65 times its area share. Five most urban districts (2023 census): 43.5% with 11.2% of area.
 - District = as reported by SBP (attribution under verification): booking place may differ from where the land is.
 Figures: figR1_lq_maps.png
 
@@ -91,7 +91,7 @@ Headline: Availability is not borrowing; districts are not farmers
 
 ## Slide 12. Conclusions
 Headline: Where the bank ends, the arhti has not simply begun: the two overlap
-- H1 not supported: arhti credit clusters with cropland and alongside formal credit.
+- H1 not supported: arhti credit clusters near markets and alongside formal credit; no significant negative association.
 - H2 not supported: in proportion by count, not by amount, and uneven across districts.
-- H3 not supported: lending recorded in a few city districts, most of all for large holdings.
+- H3 not supported: lending recorded in a few city districts, robust to dropping any one of them.
 - Next: confirm SBP attribution and counting rules; observe how farmers combine arhti, bank and Kissan Card credit.
