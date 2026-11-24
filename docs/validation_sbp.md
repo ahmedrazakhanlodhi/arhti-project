@@ -1,4 +1,4 @@
-# Validation: SBP FY2023-24 and Agricultural Census 2024 extraction (2026-10-31)
+# Validation: SBP FY2023-24 and Agricultural Census 2024 extraction (2026-11-24)
 
 Written by `scripts/08_credit_allocation.py`. SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district. Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25.
 

@@ -49,3 +49,4 @@ Page numbers are PDF page numbers (the viewer's page counter), not the printed n
 | N2 | Figure 6 | Dasymetric dots | `outputs/figures/fig6_dasymetric_farms_borrowers_qgis.png` | — | any district | dot count ≈ farms under 12.5 acres / 1,000 (`outputs/tables/course_dasymetric_dots.csv`); dots only on cropland | 4,738 dots | |
 | N3 | Hypotheses | Wording of H1, H1-alt, H2, H3 | `docs/paper_draft.md` §1 | — | — | do they match the questions in our proposal? | as drafted | |
 | N4 | Layouts | QGIS Print Layouts | `outputs/arhti_project.qgz` → Project → Layout Manager | — | Figures 2–6 | open each layout; title, legend, scale bar, north arrow, sources, names present | exported `_qgis` files | |
+| N5 | Ag Census | Class areas in Table 3 | `data/raw/ag_census_2024/Table_3_District.xls`, Punjab block | Sheet1 | classes 2.5–<5, 5–<7.5, 7.5–<12.5 | farm area ÷ farms (implied average) vs class limits | 5.38 / 9.08 / 15.02 acres (exceed upper limits) | |

@@ -29,7 +29,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{e3270c19-e628-43d9-98a9-f1d16413afe0}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{5504aa02-0a8c-4584-abcc-d00ea25d5db6}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"/>
             <Option name="capstyle" type="QString" value="square"/>
@@ -41,7 +41,7 @@
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
             <Option name="draw_inside_polygon" type="QString" value="0"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
-            <Option name="line_color" type="QString" value="140,71,42,255,hsv:0.05000000074505806,0.70196080207824707,0.54901963472366333,1"/>
+            <Option name="line_color" type="QString" value="150,102,185,255,hsv:0.7638888955116272,0.45098039507865906,0.72549021244049072,1"/>
             <Option name="line_style" type="QString" value="solid"/>
             <Option name="line_width" type="QString" value="0.6"/>
             <Option name="line_width_unit" type="QString" value="MM"/>
@@ -78,15 +78,15 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{b865a9d2-909f-46ef-b89e-a869e88da458}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{516c26f4-4eb4-45b8-bad7-239b331aaeb0}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
-            <Option name="color" type="QString" value="140,71,42,255,hsv:0.05000000074505806,0.70196080207824707,0.54901963472366333,1"/>
+            <Option name="color" type="QString" value="150,102,185,255,hsv:0.7638888955116272,0.45098039507865906,0.72549021244049072,1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="100,51,30,255,hsv:0.05000000074505806,0.70196080207824707,0.39215686917304993,1"/>
+            <Option name="outline_color" type="QString" value="107,73,132,255,hsv:0.7638888955116272,0.45098039507865906,0.51819640398025513,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_unit" type="QString" value="MM"/>
@@ -111,18 +111,18 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{fa928343-7d05-499b-943f-7cb21741fa51}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{06ef0e5b-fec6-47d7-9a1d-311cf8a15be9}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"/>
             <Option name="cap_style" type="QString" value="square"/>
-            <Option name="color" type="QString" value="140,71,42,255,hsv:0.05000000074505806,0.70196080207824707,0.54901963472366333,1"/>
+            <Option name="color" type="QString" value="150,102,185,255,hsv:0.7638888955116272,0.45098039507865906,0.72549021244049072,1"/>
             <Option name="horizontal_anchor_point" type="QString" value="1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="name" type="QString" value="diamond"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="100,51,30,255,hsv:0.05000000074505806,0.70196080207824707,0.39215686917304993,1"/>
+            <Option name="outline_color" type="QString" value="107,73,132,255,hsv:0.7638888955116272,0.45098039507865906,0.51819640398025513,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
@@ -146,12 +146,12 @@
   </elevation>
   <renderer-v2 attr="cooc_ratio_class" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="&lt; 0.80" render="true" symbol="0" type="string" uuid="{fc7e748e-241d-4878-acdf-040d07af136e}" value="&lt; 0.80"/>
-      <category label="0.80–0.95" render="true" symbol="1" type="string" uuid="{b81e38de-e61a-4d80-b594-b566fab326bc}" value="0.80–0.95"/>
-      <category label="0.95–1.053 (≈ independence)" render="true" symbol="2" type="string" uuid="{aeaf7fb7-2271-4264-8ff7-4b43e427a4a6}" value="0.95–1.053 (≈ independence)"/>
-      <category label="1.053–1.25" render="true" symbol="3" type="string" uuid="{b0a584a5-6c04-4a5e-b6ec-c84662db02eb}" value="1.053–1.25"/>
-      <category label="> 1.25" render="true" symbol="4" type="string" uuid="{86186542-73ad-4fef-b769-3264986efd9b}" value="> 1.25"/>
-      <category label="not estimable" render="true" symbol="5" type="string" uuid="{fd0cc519-9398-4f9f-8944-bedaa48713ba}" value="not estimable"/>
+      <category label="&lt; 0.80" render="true" symbol="0" type="string" uuid="{449e40fb-989a-4f3d-a744-73d11745df8c}" value="&lt; 0.80"/>
+      <category label="0.80–0.95" render="true" symbol="1" type="string" uuid="{44184aa0-2080-4139-99a3-3c5408b159ca}" value="0.80–0.95"/>
+      <category label="0.95–1.053 (≈ independence)" render="true" symbol="2" type="string" uuid="{dc113ead-7c24-42ff-b1a9-54fa8cef3c44}" value="0.95–1.053 (≈ independence)"/>
+      <category label="1.053–1.25" render="true" symbol="3" type="string" uuid="{2a0d314e-63db-4d56-832e-9d52c5b46d96}" value="1.053–1.25"/>
+      <category label="> 1.25" render="true" symbol="4" type="string" uuid="{27063f70-c182-421f-8d27-abcb6344e762}" value="> 1.25"/>
+      <category label="not estimable" render="true" symbol="5" type="string" uuid="{bd974a95-e92c-42f3-882a-8d69f849e29f}" value="not estimable"/>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
@@ -162,7 +162,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{4ec72633-5e49-41d5-8766-23b84e45f93a}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{5b7ff3e8-e3c3-421a-b16a-62cb128ba36e}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="42,120,214,255,rgb:0.1647059,0.4705882,0.8392157,1"/>
@@ -193,7 +193,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{d10f8083-08b8-4b9a-8cb9-2ec196425de9}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{6ec0ec5f-7151-4311-b345-4a6bf2081205}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="158,197,244,255,rgb:0.6196079,0.772549,0.9568627,1"/>
@@ -224,7 +224,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{301449dc-1d95-4e4f-8903-a61ae2d1a803}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{087c1efe-c69a-4df1-b5db-fbdf2d0d5fba}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="240,239,236,255,rgb:0.9411765,0.9372549,0.9254902,1"/>
@@ -255,7 +255,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{121fac4f-c6bf-42b6-b5fa-fce1154f20e4}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{3721d3ea-d288-4412-9035-ba975a0552c7}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="242,167,166,255,rgb:0.9490196,0.654902,0.6509804,1"/>
@@ -286,7 +286,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{04e6c8b1-1276-416b-99c2-b08e55733d1c}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{c8916511-932b-44d7-bc32-348f260ec5f3}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="227,73,72,255,rgb:0.8901961,0.2862745,0.282353,1"/>
@@ -317,7 +317,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{f8642074-1487-4a13-8900-673c7260f203}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{b8b8430d-6847-420e-865b-b8c03f0d5ea0}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="226,225,220,255,rgb:0.8862745,0.8823529,0.8627451,1"/>
@@ -339,7 +339,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="LinePatternFill" enabled="1" id="{1418cc0c-07ef-4ed6-b3fb-60e4acf9de9c}" locked="0" pass="0">
+        <layer class="LinePatternFill" enabled="1" id="{cc51d84f-e96d-485f-ba42-7c53afa07f10}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="45"/>
             <Option name="clip_mode" type="QString" value="during_render"/>
@@ -372,7 +372,7 @@
                 <Option name="type" type="QString" value="collection"/>
               </Option>
             </data_defined_properties>
-            <layer class="SimpleLine" enabled="1" id="{99fbaafd-331f-4c10-9d5a-46d81a97a833}" locked="0" pass="0">
+            <layer class="SimpleLine" enabled="1" id="{20a60467-31b2-4120-a3b9-795de3f57191}" locked="0" pass="0">
               <Option type="Map">
                 <Option name="align_dash_pattern" type="QString" value="0"/>
                 <Option name="capstyle" type="QString" value="square"/>

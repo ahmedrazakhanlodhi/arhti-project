@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T00:35:16",
+ "generated": "2026-11-24T01:36:37",
  "written_by": "scripts/18_export_web.py",
  "analysis_crs": "+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72 +datum=WGS84 +units=m +no_defs",
  "web_crs": "EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
@@ -74,9 +74,9 @@
   {
    "file": "key_numbers.csv",
    "source": "outputs/tables/key_numbers.csv",
-   "rows": 186,
-   "bytes": 65990,
-   "sha256": "d44211ee8ec66563cc77ecde9af11225afb8abcb0a5c4d05b0bcf9ac2703e75d"
+   "rows": 261,
+   "bytes": 90184,
+   "sha256": "fe27bb9499ef5fb7581d27130b37ca9c44944831fb84ae148ff44ba99cbbc155"
   },
   {
    "file": "classification_comparison.csv",
@@ -96,8 +96,8 @@
    "file": "holding_class_shares.csv",
    "source": "outputs/tables/holding_class_shares.csv",
    "rows": 3,
-   "bytes": 2436,
-   "sha256": "80d8402c58d4e37d6109e76b438f753cbba9ccaa4bc9af6b788e3aee00d4e94f"
+   "bytes": 3714,
+   "sha256": "2e94bad82151c4d2bfd181b0a7d1b64534ee21d5c3eb37f1ca73d69f537697af"
   },
   {
    "file": "crop_structure_district.csv",

@@ -1,4 +1,4 @@
-# Every number shown in Figures 1–5, S1, S2, S4–S6 (S3: scripts/11) (2026-11-23)
+# Every number shown in Figures 1–5, S1, S2, S4–S6 (S3: scripts/11) (2026-11-24)
 
 Written by `scripts/09_figures.py`.
 

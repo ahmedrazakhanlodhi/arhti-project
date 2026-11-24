@@ -1,4 +1,4 @@
-# Credit allocation by holding size: district summary (DESCRIPTIVE, 2026-10-31)
+# Credit allocation by holding size: district summary (DESCRIPTIVE, 2026-11-24)
 
 Data: SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25; Mouza Census 2020 (PBS), Jan-Mar 2020; branches: SBP list of scheduled bank branches as on 30 June 2024. Vintages differ and are not contemporaneous. Unit: OCHA ADM2 district (Q2 keeps all districts, including Lahore, which has no rural populated mouzas, D028). CRS: Albers equal-area centred on Punjab (lat_1 28, lat_2 33, lat_0 30, lon_0 72; WGS84).
 

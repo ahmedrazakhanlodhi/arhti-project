@@ -466,6 +466,87 @@ def dasymetric(d):
     return gd
 
 
+# ------------------------------------------------------------------------------------------ 10 H1 by formal source (D042)
+H1_SOURCES = {"commercial": ("commercial_share", "arhti x commercial"), "ztbl": ("ztbl_share", "arhti x ztbl"),
+              "coop": ("coop_share", "arhti x coop"), "mfb": ("mfb_share", "arhti x mfb"),
+              "any formal": (None, "arhti x any formal (commercial, ZTBL, cooperative or MFB)")}
+
+
+def h1_by_source(g):
+    """Same-tehsil Spearman correlation, bivariate Moran's I (arhti_i vs neighbours' source share) and the within-tehsil
+    Mantel-Haenszel odds ratio (from 07) for each formal source. EXPLORATORY; availability, not borrowing."""
+    from scipy.stats import spearmanr
+    wq = Queen.from_dataframe(g, use_index=False, silence_warnings=True); wq.transform = "r"
+    co = pd.read_csv(T / "mouza_cooccurrence.csv")
+    co = co[(co.record == "pooled (Mantel-Haenszel)") & (co.scenario == "A")].set_index("pair")
+    rows = []
+    for src, (col, pair) in H1_SOURCES.items():
+        r = dict(source=src, n_tehsils=len(g))
+        if col:
+            rho, pv = spearmanr(g.arhti_share, g[col])
+            np.random.seed(SEED)
+            bv = esda.Moran_BV(g.arhti_share.values, g[col].values, wq, permutations=PERM)
+            r.update(mouza_share_reporting=float((g[col] * g.rp_mouzas).sum() / g.rp_mouzas.sum()),   # pooled over tehsils
+                     spearman_rho=rho, spearman_p=pv, bivariate_moran_I=bv.I, bivariate_moran_p=bv.p_sim)
+        m = co.loc[pair]
+        r.update(mh_or=m.mh_or, mh_ci95_low=m.ci95_low, mh_ci95_high=m.ci95_high, mh_n_mouzas=int(m.n_mouzas), mh_strata=int(m.n_strata),
+                 breslow_day_p=m.breslow_day_tarone_p, n_both_sources=m.get("n_both_sources"), n_arhti_only=m.get("n_arhti_only"),
+                 n_other_only=m.get("n_other_only"), n_neither=m.get("n_neither"), mouzas_in_dropped_strata=m.get("mouzas_in_dropped_strata"))
+        rows.append(r)
+    out = pd.DataFrame(rows)
+    ok = out.spearman_p.notna()
+    from statsmodels.stats.multitest import multipletests
+    out.loc[ok, "spearman_p_bh"] = multipletests(out.loc[ok, "spearman_p"], method="fdr_bh")[1]
+    out.assign(weights="Queen, row-standardised (bivariate Moran)", permutations=PERM, seed=SEED,
+               note="EXPLORATORY (D042). Odds ratios compare odds, not probabilities; strata with an empty row or column are dropped.",
+               vintage=V_MC).to_csv(T / "course_h1_by_source.csv", index=False)
+    return out
+
+
+# ------------------------------------------------------------------------------------------ 11 market-access model (D042)
+MKT_X = {"cropland_share": "cropland (share of area)",
+         "mkt_grain_51plus_share": "mouzas > 50 km from a grain market (share)",
+         "commercial_share": "commercial-bank credit reported (share)",
+         "ztbl_share": "ZTBL credit reported (share)",
+         "onlinebank_over25km_share": "mouzas > 25 km from an online bank branch (share)",
+         "tt_city_cropw_hours": "travel time to a city, cropland-weighted (hours)"}
+
+
+def market_model(g):
+    """EXPLORATORY: arhti_share on market access, farmland, formal availability and distance, standardised predictors.
+    OLS (HC3); binomial GLM on mouza counts (n_arhti of rp_mouzas) with Pearson-scaled SEs (quasi-binomial); spatial error
+    model (ML, Queen). Residual Moran's I (Queen) for OLS. Coefficients are per 1 SD of the predictor."""
+    import spreg
+    g = g.assign(tt_city_cropw_hours=g.tt_city_cropw_mean_min / 60)
+    X = g[list(MKT_X)].astype(float)
+    Z = (X - X.mean()) / X.std(ddof=0)
+    y = g.arhti_share.values
+    wq = Queen.from_dataframe(g, use_index=False, silence_warnings=True); wq.transform = "r"
+    rows = []
+    ols = sm.OLS(y, sm.add_constant(Z)).fit(cov_type="HC3")
+    mi = moran(ols.resid, wq)
+    for t in Z.columns:
+        rows.append(dict(model="OLS (HC3)", term=t, label=MKT_X[t], coef_per_sd=ols.params[t], se=ols.bse[t], p=ols.pvalues[t],
+                         n=len(y), fit=f"R² = {ols.rsquared:.3f}; residual Moran's I = {mi.I:.3f} (p = {mi.p_sim:.3f})"))
+    from scipy.stats import norm
+    glm = sm.GLM(np.column_stack([g.n_arhti, g.rp_mouzas - g.n_arhti]).astype(float), sm.add_constant(Z), family=sm.families.Binomial()).fit()
+    phi = glm.pearson_chi2 / glm.df_resid          # quasi-binomial dispersion, computed by hand (statsmodels' scale="X2" is wrong for 2-column endog)
+    for t in Z.columns:
+        se = glm.bse[t] * np.sqrt(phi)
+        rows.append(dict(model="Binomial GLM, quasi-binomial SEs (log-odds)", term=t, label=MKT_X[t], coef_per_sd=glm.params[t], se=se,
+                         p=2 * norm.sf(abs(glm.params[t] / se)), n=len(y), fit=f"dispersion = {phi:.1f}; mouzas = {int(g.rp_mouzas.sum()):,}"))
+    sem = spreg.ML_Error(y.reshape(-1, 1), Z.values, w=wq, name_x=list(Z.columns), name_y="arhti_share")
+    for i, t in enumerate(["CONSTANT"] + list(Z.columns)):
+        if t == "CONSTANT":
+            continue
+        rows.append(dict(model="Spatial error (ML, Queen)", term=t, label=MKT_X[t], coef_per_sd=float(sem.betas[i][0]),
+                         se=float(sem.std_err[i]), p=float(sem.z_stat[i][1]), n=len(y), fit=f"lambda = {float(sem.lam):.3f}"))
+    out = pd.DataFrame(rows).assign(y="arhti_share", status="EXPLORATORY (D042); availability, not borrowing; associations, not effects",
+                                    permutations=PERM, seed=SEED, vintage=(V_MC + "; ESA WorldCover 2021; MAP travel time 2015"))
+    out.to_csv(T / "course_market_model.csv", index=False)
+    return out
+
+
 # ------------------------------------------------------------------------------------------ main
 def main() -> int:
     g = tehsils()
@@ -477,6 +558,8 @@ def main() -> int:
     tissot(gpd.read_file(GPKG, layer="context_punjab_outline"))
     hist = histograms(g)
     dots = dasymetric(d)
+    h1 = h1_by_source(g)
+    mm = market_model(g)
     keep = ["pcode", "unit", "adm2_name", "rp_mouzas", "arhti_share", "gistar_z", "gistar_p", "gistar_p05", "gistar_fdr05",
             "lisa_queen_p05", "trend2_fitted", "trend2_resid", "geometry"]
     save_layer(gpd.GeoDataFrame(g[keep].rename(columns={"pcode": "adm3_pcode", "unit": "adm3_name"}), crs=g.crs).assign(vintage=V_MC),
@@ -486,6 +569,8 @@ def main() -> int:
     print(ts[["order", "r2", "resid_moran_I", "resid_moran_p"]].to_string(index=False))
     print(ev[["level", "group", "D"]].to_string(index=False))
     print(hist[["scheme", "counts", "gadf"]].to_string(index=False))
+    print(h1[["source", "spearman_rho", "bivariate_moran_I", "mh_or", "mh_ci95_low", "mh_ci95_high"]].to_string(index=False))
+    print(mm[["model", "term", "coef_per_sd", "p", "fit"]].round(4).to_string(index=False))
     print(f"distance band {band / 1000:.1f} km; dots {len(dots)}; typology types attr {typ.type_attr.nunique()}, attr+loc {typ.type_attr_loc.nunique()}")
     return 0
 

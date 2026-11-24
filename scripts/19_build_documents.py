@@ -44,19 +44,19 @@ MAIN_FIGS = [
     ("figP1_price_ladder.png", "Figure P1. Formal lending rates and published arhti cost estimates (context)."),
 ]
 APPX_FIGS = [
-    ("figS1_classification_comparison.png", "Figure S1. Classification comparison (equal interval, quantiles, natural breaks)."),
-    ("figS12_classification_histograms.png", "Figure S12. Histogram of arhti_share with three 5-class schemes and their GADF."),
-    ("figS7_moran_scatterplot.png", "Figure S7. Moran scatterplot of arhti_share (Queen weights)."),
-    ("figS8_gistar_arhti_tehsil.png", "Figure S8. Getis-Ord Gi* hot and cold spots of arhti credit availability."),
-    ("figS9_trend_surface.png", "Figure S9. Second-order trend surface and residuals (exploratory)."),
+    ("figS1_classification_comparison.png", "Figure S1. Quantile vs natural-breaks classification for each choropleth."),
     ("figS2_lisa_arhti_district.png", "Figure S2. District-level LISA (MAUP scale comparison)."),
+    ("figS3_literature_locations.png", "Figure S3. Locations of published studies (context only; approximate town centres)."),
     ("figS4_mouza_cooccurrence.png", "Figure S4. Village-level co-reporting of arhti and commercial-bank credit by tehsil (exploratory)."),
     ("figS5_small_farm_reach_classifications.png", "Figure S5. Small-farm reach with availability- and presence-based classes."),
     ("figS6_concentration_curve.png", "Figure S6. Concentration curve of borrower records over small farms."),
-    ("figR2_city_shares.png", "Figure R2. Five city districts: shares of lending, farmland, farms and branches."),
+    ("figS7_moran_scatterplot.png", "Figure S7. Moran scatterplot of arhti_share (Queen weights)."),
+    ("figS8_gistar_arhti_tehsil.png", "Figure S8. Getis-Ord Gi* hot and cold spots of arhti credit availability."),
+    ("figS9_trend_surface.png", "Figure S9. Second-order trend surface and residuals (exploratory)."),
     ("figS10_kmeans_typology.png", "Figure S10. Exploratory k-means typology of districts."),
     ("figS11_tissot_indicatrix.png", "Figure S11. Tissot indicatrix: previous vs current analysis CRS."),
-    ("figS3_literature_locations.png", "Figure S3. Locations of published studies (context only; approximate town centres)."),
+    ("figS12_classification_histograms.png", "Figure S12. Histogram of arhti_share with three 5-class schemes and their GADF."),
+    ("figR2_city_shares.png", "Figure R2. Five city districts: shares of lending, farmland, farms and branches."),
 ]
 
 
@@ -85,7 +85,7 @@ def blocks(md: str):
             yield "table", rows
         elif re.match(r"\s*- ", ln):
             items = []
-            while i < len(lines) and (re.match(r"\s*- ", lines[i]) or (lines[i].startswith("    ") and items)):
+            while i < len(lines) and (re.match(r"\s*- ", lines[i]) or (items and re.match(r"\s+\S", lines[i]))):
                 m = re.match(r"(\s*)- (.*)", lines[i])
                 if m:
                     items.append([len(m.group(1)) // 2, m.group(2).strip()])
@@ -146,6 +146,61 @@ def figure(doc, name, caption, max_w=6.5, max_h=8.3):
     c = doc.add_paragraph(); c.alignment = WD_ALIGN_PARAGRAPH.CENTER
     runs(c, caption, 9, MUTED)
     c.paragraph_format.space_after = Pt(4)
+
+
+def csv_table(doc, title, df, note):
+    p = doc.add_paragraph(); runs(p, f"**{title}**", 10)
+    p.paragraph_format.keep_with_next = True
+    t = doc.add_table(rows=len(df) + 1, cols=len(df.columns)); t.style = "Table Grid"; t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for ci, c in enumerate(df.columns):
+        cell = t.cell(0, ci); cell.text = ""; runs(cell.paragraphs[0], f"**{c}**", 8)
+        sh = OxmlElement("w:shd"); sh.set(qn("w:val"), "clear"); sh.set(qn("w:fill"), "ECE4D3"); cell._tc.get_or_add_tcPr().append(sh)
+    for ri, row in enumerate(df.itertuples(index=False), 1):
+        for ci, v in enumerate(row):
+            cell = t.cell(ri, ci); cell.text = ""
+            runs(cell.paragraphs[0], v if isinstance(v, str) else ("" if v != v else (f"{v:,.0f}" if float(v).is_integer() and abs(v) >= 100 else f"{v:.3f}")), 8)
+    for row in t.rows:
+        for cell in row.cells:
+            cell.paragraphs[0].paragraph_format.space_after = Pt(0); cell.paragraphs[0].paragraph_format.line_spacing = 1.0
+    n = doc.add_paragraph(); runs(n, note, 8.5, MUTED); n.paragraph_format.space_after = Pt(10)
+
+
+def appendix_tables(doc):
+    import pandas as pd
+    T = ROOT / "outputs" / "tables"
+    h = pd.read_csv(T / "course_h1_by_source.csv")
+    h = h[["source", "mouza_share_reporting", "spearman_rho", "spearman_p_bh", "bivariate_moran_I", "bivariate_moran_p", "mh_or",
+           "mh_ci95_low", "mh_ci95_high", "mh_strata", "breslow_day_p"]]
+    h.columns = ["Formal source", "Mouzas reporting", "Spearman ρ", "BH p", "Bivariate I", "Pseudo p", "MH odds ratio", "CI low", "CI high",
+                 "Strata", "Breslow–Day p"]
+    csv_table(doc, "Table B1. Arhti credit availability against each formal source", h,
+              "Mouza Census 2020 (Jan–Mar 2020); availability reports, not borrowing. Spearman: same tehsil (n = 137). Bivariate Moran: arhti in a "
+              "tehsil vs the source in its Queen neighbours (row-standardised; 999 permutations, seed 20261031; one-sided pseudo p). Odds ratio: "
+              "Mantel–Haenszel across mouzas within tehsils; tehsils whose 2×2 table has an empty row or column are uninformative and dropped. "
+              "Exploratory.")
+    c = pd.read_csv(T / "course_h1_by_source.csv")
+    c = c[c.source.isin(["commercial", "any formal"])][["source", "n_both_sources", "n_arhti_only", "n_other_only", "n_neither", "mouzas_in_dropped_strata"]]
+    c.columns = ["Formal source", "Both reported", "Arhti only", "Formal only", "Neither", "In dropped strata"]
+    csv_table(doc, "Table B2. Mouzas by reported credit sources (pooled over informative tehsil strata)", c,
+              "Counts of rural populated mouzas, Mouza Census 2020. 'Any formal' = commercial bank, ZTBL, cooperative bank or microfinance bank.")
+    m = pd.read_csv(T / "course_market_model.csv")[["model", "label", "coef_per_sd", "se", "p", "fit"]]
+    m.columns = ["Model", "Predictor (standardised)", "Coefficient per SD", "SE", "p", "Fit"]
+    csv_table(doc, "Table B3. Exploratory model of arhti credit availability (tehsils, n = 137)", m,
+              "OLS with HC3 standard errors; binomial GLM on mouza counts with quasi-binomial standard errors (dispersion = Pearson χ²/df); spatial "
+              "error model (ML, Queen). Associations, not effects. Data: Mouza Census 2020; ESA WorldCover 2021; MAP travel time 2015.")
+    import geopandas as gpd
+    q = gpd.read_file(ROOT / "outputs" / "arhti_project.gpkg", layer="q2_districts_credit_allocation")
+    q = q[q.flagged == 1][["adm2_name", "flag_reasons"]]
+    q.columns = ["District", "Reason flagged"]
+    csv_table(doc, "Table B4. Districts flagged by the SBP data-quality screen", q,
+              "Screen: F1 = a class's average loan (disbursement ÷ borrower records) above 5× or below 0.2× the Punjab median for that class; "
+              "F2 = above-economic loans over 75% of the district's farm-sector disbursement. Flagged districts are marked, not dropped. "
+              "SBP FY2023-24, district as reported by SBP (attribution under verification).")
+    r = pd.read_csv(T / "models_arhti.csv")
+    r = r[(r.level == "tehsil")][["model", "term", "coef", "se", "p"]]
+    r.columns = ["Model", "Term", "Coefficient", "SE", "p"]
+    csv_table(doc, "Table B5. Prespecified regressions of arhti_share (tehsils, n = 137)", r,
+              "OLS (HC3), spatial error and spatial lag models, Queen weights; unstandardised coefficients. Exploratory; no model is chosen on significance.")
 
 
 def build_paper():
@@ -217,6 +272,7 @@ def build_paper():
         if kind == "bullets":
             for lvl, t in x:
                 p = doc.add_paragraph(style="List Bullet"); runs(p, t, 10)
+    appendix_tables(doc)
     for n, c in APPX_FIGS:
         figure(doc, n, c)
     OUT_P.mkdir(parents=True, exist_ok=True)

@@ -296,7 +296,8 @@ def crs_verification():
        .to_csv(OUT / "crs_verification.csv", index=False))
 
 
-COOC_X = {"commercial": "n_commercial", "ztbl": "n_ztbl", "onlinebank_in_mouza": "n_onlinebank_in_mouza"}
+COOC_X = {"commercial": "n_commercial", "ztbl": "n_ztbl", "onlinebank_in_mouza": "n_onlinebank_in_mouza",
+          "coop": "n_coop", "mfb": "n_mfb", "any formal (commercial, ZTBL, cooperative or MFB)": "n_anyformal"}   # last three: D042
 COOC_BREAKS = [0.80, 0.95, 1.053, 1.25]
 COOC_LABELS = ["< 0.80", "0.80–0.95", "0.95–1.053 (≈ independence)", "1.053–1.25", "> 1.25"]
 
@@ -322,6 +323,7 @@ def mouza_cooccurrence():
         expected_n = PUNJAB_RP if scen == "A" else PUNJAB_RP - int(ind.is_cholistan.sum())
         assert len(d) == expected_n, f"scenario {scen}: {len(d)} mouzas != {expected_n}"
         a = d.n_arhti.astype(bool)
+        d = d.assign(n_anyformal=(d.n_commercial.astype(bool) | d.n_ztbl.astype(bool) | d.n_coop.astype(bool) | d.n_mfb.astype(bool)).astype(int))
         for xn, col in COOC_X.items():
             x = d[col].astype(bool)
             tabs, dropped = [], 0
@@ -332,12 +334,15 @@ def mouza_cooccurrence():
                     dropped += 1; continue
                 tabs.append(t)
             st = StratifiedTable(tabs)
+            pooled = np.sum(tabs, axis=0)                      # summed 2x2 over informative strata (descriptive only)
             lo, hi = st.oddsratio_pooled_confint(0.05)
             bd = st.test_equal_odds(adjust=True)
             cmh = st.test_null_odds(correction=True)
             rows.append(dict(record="pooled (Mantel-Haenszel)", scenario=scen, pair=f"arhti x {xn}", n_mouzas=int(sum(t.sum() for t in tabs)),
                              n_strata=len(tabs), strata_dropped_zero_margin=dropped, mh_or=st.oddsratio_pooled, ci95_low=lo, ci95_high=hi,
-                             breslow_day_tarone_stat=bd.statistic, breslow_day_tarone_p=bd.pvalue, cmh_stat=cmh.statistic, cmh_p=cmh.pvalue))
+                             breslow_day_tarone_stat=bd.statistic, breslow_day_tarone_p=bd.pvalue, cmh_stat=cmh.statistic, cmh_p=cmh.pvalue,
+                             n_both_sources=int(pooled[0, 0]), n_arhti_only=int(pooled[0, 1]), n_other_only=int(pooled[1, 0]),
+                             n_neither=int(pooled[1, 1]), mouzas_in_dropped_strata=int(len(d) - pooled.sum())))
         # per tehsil, arhti x commercial
         for pc, g in d.groupby("pcode"):
             n = len(g); na, nc = int(g.n_arhti.sum()), int(g.n_commercial.sum()); nb = int((g.n_arhti.astype(bool) & g.n_commercial.astype(bool)).sum())

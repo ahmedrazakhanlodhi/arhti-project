@@ -68,13 +68,19 @@ CLASS_MAP = {"subsistence": (ca.SMALL, "up to 12.5 acres", "under 12.5 acres (cl
                                 "farms of exactly 50 acres are 'economic' for SBP and 'large' in the census")}
 
 
-def holding_classes(a, special):
+def holding_classes(a, special, rows36):
+    """Shares by class. Primary (*_36): the 36 districts on both sides (SBP district rows without Islamabad and without the
+    MFI row, which has no district; census Punjab minus the Cholistan Area). Comparison: SBP All Punjab row vs census Punjab (D042)."""
     p = a[a.unit == "PUNJAB"]
+    ch = a[a.unit == "CHOLISTAN AREA"]
     tot = p[p.size_class == "PRIVATE-FARMS TOTAL"].iloc[0]
+    tot36 = tot[["farms", "farm_area_ac", "cultivated_ac"]] - ch[ch.size_class == "PRIVATE-FARMS TOTAL"].iloc[0][["farms", "farm_area_ac", "cultivated_ac"]]
     ap, dr = special.loc["All Punjab"], special.loc["Total"]
+    d36 = rows36[[c for c in rows36.columns if c.endswith(("_borrowers", "_amount_mn"))]].sum()
     rows = []
     for k, (cls, sbp_def, pbs_def, mismatch) in CLASS_MAP.items():
         s = p[p.size_class.isin(cls)][["farms", "farm_area_ac", "cultivated_ac"]].sum()
+        s36 = s - ch[ch.size_class.isin(cls)][["farms", "farm_area_ac", "cultivated_ac"]].sum()
         pre = {"subsistence": "sub", "economic": "eco", "above_economic": "abv"}[k]
         rows.append(dict(
             holding_class=k, sbp_definition=sbp_def, pbs_classes_used=pbs_def, boundary_mismatch=mismatch,
@@ -83,12 +89,21 @@ def holding_classes(a, special):
             share_borrower_records=ap[f"{pre}_borrowers"] / ap.tot_borrowers, share_disbursement=ap[f"{pre}_amount_mn"] / ap.tot_amount_mn,
             share_borrower_records_banks_only=dr[f"{pre}_borrowers"] / dr.tot_borrowers,
             share_disbursement_banks_only=dr[f"{pre}_amount_mn"] / dr.tot_amount_mn,
-            farms=s.farms, operated_area_ac=s.farm_area_ac, borrower_records=ap[f"{pre}_borrowers"], disbursement_mn=ap[f"{pre}_amount_mn"]))
+            farms=s.farms, operated_area_ac=s.farm_area_ac, borrower_records=ap[f"{pre}_borrowers"], disbursement_mn=ap[f"{pre}_amount_mn"],
+            share_farms_36=s36.farms / tot36.farms, share_operated_area_36=s36.farm_area_ac / tot36.farm_area_ac,
+            share_borrower_records_36=d36[f"{pre}_borrowers"] / d36.tot_borrowers, share_disbursement_36=d36[f"{pre}_amount_mn"] / d36.tot_amount_mn,
+            borrower_records_36=d36[f"{pre}_borrowers"], disbursement_mn_36=d36[f"{pre}_amount_mn"], farms_36=s36.farms,
+            disbursement_per_record_mn_36=d36[f"{pre}_amount_mn"] / d36[f"{pre}_borrowers"],
+            total_borrower_records_36=d36.tot_borrowers, total_disbursement_mn_36=d36.tot_amount_mn,
+            total_borrower_records_all_punjab=ap.tot_borrowers, total_disbursement_mn_all_punjab=ap.tot_amount_mn,
+            mfi_borrower_records=special.loc["MFIs"].tot_borrowers))
     d = pd.DataFrame(rows)
-    for c in ["share_farms", "share_operated_area", "share_borrower_records", "share_disbursement"]:
+    for c in ["share_farms", "share_operated_area", "share_borrower_records", "share_disbursement", "share_farms_36",
+              "share_operated_area_36", "share_borrower_records_36", "share_disbursement_36"]:
         assert abs(d[c].sum() - 1) < 1e-6, c
-    d["sbp_scope"] = "All Punjab row (banks + MFIs); *_banks_only = district rows incl. Islamabad, no MFIs"
-    d["pbs_scope"] = "PUNJAB total, all private farms (incl. Cholistan Area)"
+    d["sbp_scope"] = ("*_36 (primary) = 36 district rows, banks only (no Islamabad, no MFIs); unsuffixed = All Punjab row (banks + MFIs); "
+                     "*_banks_only = district rows incl. Islamabad, no MFIs")
+    d["pbs_scope"] = "*_36 = PUNJAB minus Cholistan Area (36 districts); unsuffixed = PUNJAB total incl. Cholistan Area"
     d["note"] = "Province level only; operated (farm) area, not owned area; borrower records may not be unique people"
     d["vintage"] = f"{V_SBP_P}; {V_AGC}"
     return d
@@ -96,8 +111,8 @@ def holding_classes(a, special):
 
 def fig_a1(h):
     fig, ax = plt.subplots(figsize=(9.5, 5.6))
-    bars = [("share_farms", "Share of farms", figs.BLUE5[1]), ("share_operated_area", "Share of operated farm area", figs.BLUE5[3]),
-            ("share_borrower_records", "Share of borrower records", figs.ORANGE5[1]), ("share_disbursement", "Share of disbursement", figs.ORANGE5[3])]
+    bars = [("share_farms_36", "Share of farms", figs.BLUE5[1]), ("share_operated_area_36", "Share of operated farm area (see note)", figs.BLUE5[3]),
+            ("share_borrower_records_36", "Share of borrower records", figs.ORANGE5[1]), ("share_disbursement_36", "Share of disbursement", figs.ORANGE5[3])]
     x = np.arange(len(h)); w = 0.2
     for i, (c, lab, col) in enumerate(bars):
         b = ax.bar(x + (i - 1.5) * w, 100 * h[c], w * 0.92, color=col, label=lab, edgecolor="white", linewidth=1.2)
@@ -110,11 +125,15 @@ def fig_a1(h):
         ax.spines[s].set_visible(False)
     ax.grid(axis="y", color="#eceae5"); ax.set_axisbelow(True)
     ax.legend(frameon=False, fontsize=7.5, ncol=2, loc="upper center")
-    fig.suptitle("Figure A1. Farms, operated area and formal credit by holding class, Punjab", x=0.01, ha="left", fontsize=11, fontweight="bold")
+    fig.suptitle("Figure A1. Farms, operated area and formal credit by holding class, Punjab's 36 districts", x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.text(0.01, -0.06, "\n".join([
         "Classes: SBP 'up to 12.5 / above 12.5-50 / above 50 acres' (CL1 Annex) vs census 'under 12.5 / 12.5-under 50 / 50 and above'; the",
         "boundary farms (exactly 12.5 or 50 acres) fall in different classes. Census area = operated (farm) area, not owned land.",
-        f"Data: {V_SBP_P} (incl. MFIs; borrower records may not be unique people); {V_AGC}. Province level; not contemporaneous.",
+        f"Data: {V_SBP_R}, 36 district rows (banks; Islamabad and the {int(h.mfi_borrower_records.iloc[0]):,} MFI records without a district excluded); "
+        f"{V_AGC}, Punjab minus Cholistan Area.",
+        f"All Punjab row incl. MFIs and Islamabad: subsistence {100 * h.share_borrower_records.iloc[0]:.1f}% of records, {100 * h.share_disbursement.iloc[0]:.1f}% "
+        "of disbursement. Census class areas: in three classes below 12.5 acres the published farm area implies an average above the class "
+        "limit (D042), so area shares are indicative. Not contemporaneous; borrower records may not be unique people.",
         f"{figs.AUTHOR}. Script: scripts/13_reporting_geography.py."]),
         fontsize=6.2, color=figs.MUTED, va="top")
     figs.save(fig, "figA1_holding_class_shares")
@@ -326,7 +345,7 @@ def main() -> int:
     dca = pd.read_csv(T / "district_credit_allocation.csv")
     q2 = gpd.read_file(GPKG, layer="q2_districts_credit_allocation")
 
-    h = holding_classes(a, special)
+    h = holding_classes(a, special, rows[rows.district != "Islamabad"])
     h.to_csv(T / "holding_class_shares.csv", index=False)
     fig_a1(h)
     crop, worst = crops()

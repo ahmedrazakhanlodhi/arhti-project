@@ -250,6 +250,48 @@ def main() -> int:
     add("n_districts_q1", "Districts in the Q1 MAUP comparison (rural populated mouzas > 0)", MG, dict(q, level="district"), "n", intc, "Robustness")
     add("n_tehsil_polygons", "OCHA tehsil polygons in Punjab (Q1 layer, incl. 2 with no rural populated mouzas)",
         "gpkg:q1_tehsils_mouza_census_2020", {}, "adm3_pcode", intc, "Data", agg="count")
+    # D042 additions
+    HC = "outputs/tables/holding_class_shares.csv"
+    for cl in ["subsistence", "economic", "above_economic"]:
+        for col in ["share_farms_36", "share_operated_area_36", "share_borrower_records_36", "share_disbursement_36"]:
+            add(f"hc36_{cl}_{col.replace('share_', '').replace('_36', '')}", f"{cl}: {col} (36 districts; banks; no Islamabad, no MFIs)", HC,
+                dict(holding_class=cl), col, pct, "Allocation (36 districts)")
+        add(f"hc36_{cl}_per_record", f"{cl}: disbursement per borrower record, Rs million (36 districts)", HC, dict(holding_class=cl),
+            "disbursement_per_record_mn_36", "{:.2f}", "Allocation (36 districts)")
+    add("hc36_tot_records", "Farm-sector borrower records, 36 districts (banks)", HC, dict(holding_class="subsistence"), "total_borrower_records_36", intc, "Allocation (36 districts)")
+    add("hc_allp_tot_records", "Farm-sector borrower records, SBP All Punjab row (incl. MFIs and Islamabad)", HC, dict(holding_class="subsistence"),
+        "total_borrower_records_all_punjab", intc, "Allocation (36 districts)")
+    add("hc_mfi_records", "MFI borrower records without a district (All Punjab row only)", HC, dict(holding_class="subsistence"), "mfi_borrower_records", intc,
+        "Allocation (36 districts)")
+    H1 = "outputs/tables/course_h1_by_source.csv"
+    for source_, kk in [("commercial", "com"), ("ztbl", "ztbl"), ("coop", "coop"), ("mfb", "mfb"), ("any formal", "any")]:
+        add(f"h1_{kk}_or", f"Mantel-Haenszel OR, arhti x {source_} (within tehsils)", H1, dict(source=source_), "mh_or", f2, "H1 by source")
+        add(f"h1_{kk}_lo", f"95% CI low, arhti x {source_}", H1, dict(source=source_), "mh_ci95_low", f2, "H1 by source")
+        add(f"h1_{kk}_hi", f"95% CI high, arhti x {source_}", H1, dict(source=source_), "mh_ci95_high", f2, "H1 by source")
+        if kk != "any":
+            add(f"h1_{kk}_rho", f"Spearman rho across tehsils, arhti_share vs {source_} share", H1, dict(source=source_), "spearman_rho", f3, "H1 by source")
+            add(f"h1_{kk}_share", f"Share of rural populated mouzas reporting {source_} credit", H1, dict(source=source_), "mouza_share_reporting", pct, "H1 by source")
+            add(f"h1_{kk}_bv", f"Bivariate Moran's I, arhti vs neighbours' {source_} share (Queen)", H1, dict(source=source_), "bivariate_moran_I", f3, "H1 by source")
+            add(f"h1_{kk}_bvp", f"Pseudo p, bivariate Moran, {source_}", H1, dict(source=source_), "bivariate_moran_p", f3, "H1 by source")
+    for c, kk in [("n_both_sources", "both"), ("n_arhti_only", "arhti_only"), ("n_other_only", "other_only"), ("n_neither", "neither"),
+                  ("mouzas_in_dropped_strata", "dropped")]:
+        add(f"h1_com_{kk}", f"Pooled 2x2, arhti x commercial: {c}", H1, dict(source="commercial"), c, intc, "H1 by source")
+        add(f"h1_any_{kk}", f"Pooled 2x2, arhti x any formal source: {c}", H1, dict(source="any formal"), c, intc, "H1 by source")
+    MM = "outputs/tables/course_market_model.csv"
+    for mdl, mk in [("OLS (HC3)", "ols"), ("Binomial GLM, quasi-binomial SEs (log-odds)", "glm"), ("Spatial error (ML, Queen)", "sem")]:
+        for term, tk in [("cropland_share", "crop"), ("mkt_grain_51plus_share", "mkt"), ("commercial_share", "com")]:
+            add(f"mm_{mk}_{tk}_p", f"{mdl}: p-value, {term}", MM, dict(model=mdl, term=term), "p", f3, "Market-access model")
+    add("mm_sem_lambda", "Spatial error model: lambda", MM, dict(model="Spatial error (ML, Queen)", term="cropland_share"), "fit",
+        lambda v: v.split("= ")[1], "Market-access model")
+    add("mm_glm_disp", "Quasi-binomial dispersion", MM, dict(model="Binomial GLM, quasi-binomial SEs (log-odds)", term="cropland_share"), "fit",
+        lambda v: v.split("= ")[1].split(";")[0], "Market-access model")
+    add("mm_ols_r2", "OLS R²", MM, dict(model="OLS (HC3)", term="cropland_share"), "fit", lambda v: v.split("= ")[1].split(";")[0], "Market-access model")
+    mk = dict(level="tehsil", scenario="A", x="mkt_grain_51plus_share")
+    add("rho_mkt51", "Spearman rho, arhti_share vs share of mouzas > 50 km from a grain market", EX, mk, "rho", f2, "Market-access model")
+    add("rho_mkt51_pbh", "BH-adjusted p-value", EX, mk, "p_bh", f3, "Market-access model")
+    mi = dict(level="tehsil", scenario="A", x="mkt_grain_in_mouza_share")
+    add("rho_mktin", "Spearman rho, arhti_share vs share of mouzas with a grain market in the mouza", EX, mi, "rho", f2, "Market-access model")
+    add("rho_mktin_pbh", "BH-adjusted p-value", EX, mi, "p_bh", f3, "Market-access model")
     add("dots_total", "Dasymetric dots (1 dot = 1,000 farms under 12.5 acres)", DO, {}, "dots", intc, "Course methods", agg="sum")
 
     k = pd.DataFrame(ROWS)

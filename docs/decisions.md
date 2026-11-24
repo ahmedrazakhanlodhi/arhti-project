@@ -505,3 +505,26 @@ dropped, merged or renamed.
   are available; geocoding them would add unverified locations. The Mouza Census distance bands to the nearest bank branch and
   grain market (in mouza, 1-10, 11-25, 26-50, 51+ km) are used as the multiple-ring buffer measure, and MAP travel time (a
   cost-distance surface) as the network/time measure.
+
+## D042 (2026-11-24, DONE): Revisions after an external review
+All new analyses are EXPLORATORY. No geographic unit was dropped, merged or renamed.
+- **SBP coverage, primary basis = 36 districts.** Holding-class shares are now computed on the 36 district rows (banks only;
+  Islamabad and the MFI row, which has no district, excluded) against census Punjab minus the Cholistan Area, so the province
+  comparison uses the same units as the district analysis. The SBP All Punjab row (banks + MFIs, incl. Islamabad) is kept as a
+  comparison (`holding_class_shares.csv`, columns `*_36` vs unsuffixed). Figure A1 shows the 36-district basis.
+- **Agricultural Census class areas.** In the published Punjab Table 3, farm area ÷ farms exceeds the class's upper limit in
+  three classes below 12.5 acres (2.5–<5: 5.38 ac; 5–<7.5: 9.08 ac; 7.5–<12.5: 15.02 ac); the other classes are within bounds.
+  Cause unknown (classification basis, estimation, or a table error); not resolved here. Area shares by class are reported as
+  indicative and H2 rests mainly on farm counts. Added to the limitations and to the human checklist (N5).
+- **H1 against every formal source.** `07_spatial_stats.py` now pools within-tehsil Mantel-Haenszel odds ratios for arhti ×
+  cooperative bank, × MFB and × any formal source (commercial, ZTBL, cooperative or MFB), and records each pooled 2×2 table.
+  `15_course_methods.py` adds `course_h1_by_source.csv` (same-tehsil Spearman, bivariate Moran's I, odds ratio by source).
+- **Market-access model** (`course_market_model.csv`): arhti_share on cropland share, share of mouzas > 50 km from a grain
+  market, commercial and ZTBL availability, share > 25 km from an online bank, and cropland-weighted travel time (standardised);
+  OLS (HC3), binomial GLM on mouza counts with quasi-binomial standard errors (dispersion computed by hand as Pearson χ²/df;
+  statsmodels' `scale="X2"` returns a wrong value for two-column binomial data), and a spatial error model (Queen).
+- **Wording.** H1 is "not supported as a uniform relationship" rather than "rejected"; H3 compares subsistence lending with
+  cultivated area (its stated benchmark); the thesis is restated to what the analysis shows (arhti credit follows farmland and
+  coexists with formal credit; recorded formal lending concentrates by holding size and in a few city districts).
+- **Build fix.** `19_build_documents.py` dropped bullet continuation lines indented by two spaces, truncating the research
+  questions, H1, H2 and the appendix list in the .docx; fixed.

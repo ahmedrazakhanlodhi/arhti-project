@@ -375,11 +375,12 @@ def main():
         e.attemptMove(QgsLayoutPoint(RIGHT_X + 2 + (16 - d_mm) / 2, base_y - d_mm, MM)); e.attemptResize(QgsLayoutSize(d_mm, d_mm, MM))
         lay.addLayoutItem(e)
         label(lay, f"{v:,}", RIGHT_X + 21, base_y - d_mm - 1.2, 20, 4, 6.5)
-    label(lay, f"Circle area is proportional to borrower records, enlarged with Flannery's compensation (exponent 0.57) because readers "
-               f"underestimate circle areas. Largest district: {int(vmax):,} records. Circles sit at a point inside each district; "
+    label(lay, f"Perceptually scaled circles: size follows borrower records with Flannery's compensation (exponent 0.57), because "
+               f"readers underestimate circle areas. Largest district: {int(vmax):,} records. Circles sit at a point inside each district; "
                "SBP districts are as reported (where loans are booked may differ from where the land is).", RIGHT_X, base_y + 6, 46, 40, 5.9, False, MUTED)
     footer(lay, [f"Data: {V_AGC} (farms under 12.5 acres); {V_WC}, cells ≥ 25% cropland (~100 m); {V_SBP}. Not contemporaneous.",
-                 "Dots are placed at random within each district's cropland in proportion to cropland fraction (seed 20261031): they show density, not farm locations."])
+                 "Dots are a synthetic redistribution: placed at random within each district's cropland in proportion to cropland fraction (seed 20261031); "
+                 "they show density, not farm locations. 36 districts; the census Cholistan Area is excluded."])
     ok &= export(lay, "fig6_dasymetric_farms_borrowers")
 
     prj.writeEntry("Paths", "/Absolute", False)

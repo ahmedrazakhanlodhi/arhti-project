@@ -257,3 +257,93 @@ Every number used in the main text, the app and the slides. Written by `scripts/
 | `lit_kf_large_loans` | Literature: kf_large_loans | **42 percent** | `docs/literature_numbers.csv` | id = kf_large_loans | `display` |
 | `lit_kf_small_hh` | Literature: kf_small_hh | **69 percent** | `docs/literature_numbers.csv` | id = kf_small_hh | `display` |
 | `lit_kf_small_loans` | Literature: kf_small_loans | **23 percent** | `docs/literature_numbers.csv` | id = kf_small_loans | `display` |
+
+## Allocation (36 districts)
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `hc36_subsistence_farms` | subsistence: share_farms_36 (36 districts; banks; no Islamabad, no MFIs) | **94.2%** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `share_farms_36` |
+| `hc36_subsistence_operated_area` | subsistence: share_operated_area_36 (36 districts; banks; no Islamabad, no MFIs) | **68.7%** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `share_operated_area_36` |
+| `hc36_subsistence_borrower_records` | subsistence: share_borrower_records_36 (36 districts; banks; no Islamabad, no MFIs) | **90.9%** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `share_borrower_records_36` |
+| `hc36_subsistence_disbursement` | subsistence: share_disbursement_36 (36 districts; banks; no Islamabad, no MFIs) | **37.0%** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `share_disbursement_36` |
+| `hc36_subsistence_per_record` | subsistence: disbursement per borrower record, Rs million (36 districts) | **0.52** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `disbursement_per_record_mn_36` |
+| `hc36_economic_farms` | economic: share_farms_36 (36 districts; banks; no Islamabad, no MFIs) | **5.3%** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `share_farms_36` |
+| `hc36_economic_operated_area` | economic: share_operated_area_36 (36 districts; banks; no Islamabad, no MFIs) | **22.7%** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `share_operated_area_36` |
+| `hc36_economic_borrower_records` | economic: share_borrower_records_36 (36 districts; banks; no Islamabad, no MFIs) | **7.8%** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `share_borrower_records_36` |
+| `hc36_economic_disbursement` | economic: share_disbursement_36 (36 districts; banks; no Islamabad, no MFIs) | **15.2%** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `share_disbursement_36` |
+| `hc36_economic_per_record` | economic: disbursement per borrower record, Rs million (36 districts) | **2.51** | `outputs/tables/holding_class_shares.csv` | holding_class = economic | `disbursement_per_record_mn_36` |
+| `hc36_above_economic_farms` | above_economic: share_farms_36 (36 districts; banks; no Islamabad, no MFIs) | **0.5%** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `share_farms_36` |
+| `hc36_above_economic_operated_area` | above_economic: share_operated_area_36 (36 districts; banks; no Islamabad, no MFIs) | **8.6%** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `share_operated_area_36` |
+| `hc36_above_economic_borrower_records` | above_economic: share_borrower_records_36 (36 districts; banks; no Islamabad, no MFIs) | **1.2%** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `share_borrower_records_36` |
+| `hc36_above_economic_disbursement` | above_economic: share_disbursement_36 (36 districts; banks; no Islamabad, no MFIs) | **47.8%** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `share_disbursement_36` |
+| `hc36_above_economic_per_record` | above_economic: disbursement per borrower record, Rs million (36 districts) | **50.62** | `outputs/tables/holding_class_shares.csv` | holding_class = above_economic | `disbursement_per_record_mn_36` |
+| `hc36_tot_records` | Farm-sector borrower records, 36 districts (banks) | **658,112** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `total_borrower_records_36` |
+| `hc_allp_tot_records` | Farm-sector borrower records, SBP All Punjab row (incl. MFIs and Islamabad) | **732,856** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `total_borrower_records_all_punjab` |
+| `hc_mfi_records` | MFI borrower records without a district (All Punjab row only) | **74,494** | `outputs/tables/holding_class_shares.csv` | holding_class = subsistence | `mfi_borrower_records` |
+
+## H1 by source
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `h1_com_or` | Mantel-Haenszel OR, arhti x commercial (within tehsils) | **1.18** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mh_or` |
+| `h1_com_lo` | 95% CI low, arhti x commercial | **1.09** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mh_ci95_low` |
+| `h1_com_hi` | 95% CI high, arhti x commercial | **1.27** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mh_ci95_high` |
+| `h1_com_rho` | Spearman rho across tehsils, arhti_share vs commercial share | **0.245** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `spearman_rho` |
+| `h1_com_share` | Share of rural populated mouzas reporting commercial credit | **38.2%** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mouza_share_reporting` |
+| `h1_com_bv` | Bivariate Moran's I, arhti vs neighbours' commercial share (Queen) | **0.112** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `bivariate_moran_I` |
+| `h1_com_bvp` | Pseudo p, bivariate Moran, commercial | **0.062** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `bivariate_moran_p` |
+| `h1_ztbl_or` | Mantel-Haenszel OR, arhti x ztbl (within tehsils) | **0.98** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `mh_or` |
+| `h1_ztbl_lo` | 95% CI low, arhti x ztbl | **0.90** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `mh_ci95_low` |
+| `h1_ztbl_hi` | 95% CI high, arhti x ztbl | **1.07** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `mh_ci95_high` |
+| `h1_ztbl_rho` | Spearman rho across tehsils, arhti_share vs ztbl share | **0.166** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `spearman_rho` |
+| `h1_ztbl_share` | Share of rural populated mouzas reporting ztbl credit | **73.5%** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `mouza_share_reporting` |
+| `h1_ztbl_bv` | Bivariate Moran's I, arhti vs neighbours' ztbl share (Queen) | **0.170** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `bivariate_moran_I` |
+| `h1_ztbl_bvp` | Pseudo p, bivariate Moran, ztbl | **0.004** | `outputs/tables/course_h1_by_source.csv` | source = ztbl | `bivariate_moran_p` |
+| `h1_coop_or` | Mantel-Haenszel OR, arhti x coop (within tehsils) | **1.72** | `outputs/tables/course_h1_by_source.csv` | source = coop | `mh_or` |
+| `h1_coop_lo` | 95% CI low, arhti x coop | **1.58** | `outputs/tables/course_h1_by_source.csv` | source = coop | `mh_ci95_low` |
+| `h1_coop_hi` | 95% CI high, arhti x coop | **1.87** | `outputs/tables/course_h1_by_source.csv` | source = coop | `mh_ci95_high` |
+| `h1_coop_rho` | Spearman rho across tehsils, arhti_share vs coop share | **0.391** | `outputs/tables/course_h1_by_source.csv` | source = coop | `spearman_rho` |
+| `h1_coop_share` | Share of rural populated mouzas reporting coop credit | **24.9%** | `outputs/tables/course_h1_by_source.csv` | source = coop | `mouza_share_reporting` |
+| `h1_coop_bv` | Bivariate Moran's I, arhti vs neighbours' coop share (Queen) | **0.156** | `outputs/tables/course_h1_by_source.csv` | source = coop | `bivariate_moran_I` |
+| `h1_coop_bvp` | Pseudo p, bivariate Moran, coop | **0.017** | `outputs/tables/course_h1_by_source.csv` | source = coop | `bivariate_moran_p` |
+| `h1_mfb_or` | Mantel-Haenszel OR, arhti x mfb (within tehsils) | **1.76** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `mh_or` |
+| `h1_mfb_lo` | 95% CI low, arhti x mfb | **1.60** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `mh_ci95_low` |
+| `h1_mfb_hi` | 95% CI high, arhti x mfb | **1.93** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `mh_ci95_high` |
+| `h1_mfb_rho` | Spearman rho across tehsils, arhti_share vs mfb share | **0.380** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `spearman_rho` |
+| `h1_mfb_share` | Share of rural populated mouzas reporting mfb credit | **15.2%** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `mouza_share_reporting` |
+| `h1_mfb_bv` | Bivariate Moran's I, arhti vs neighbours' mfb share (Queen) | **0.088** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `bivariate_moran_I` |
+| `h1_mfb_bvp` | Pseudo p, bivariate Moran, mfb | **0.106** | `outputs/tables/course_h1_by_source.csv` | source = mfb | `bivariate_moran_p` |
+| `h1_any_or` | Mantel-Haenszel OR, arhti x any formal (within tehsils) | **0.95** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mh_or` |
+| `h1_any_lo` | 95% CI low, arhti x any formal | **0.87** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mh_ci95_low` |
+| `h1_any_hi` | 95% CI high, arhti x any formal | **1.04** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mh_ci95_high` |
+| `h1_com_both` | Pooled 2x2, arhti x commercial: n_both_sources | **3,137** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `n_both_sources` |
+| `h1_any_both` | Pooled 2x2, arhti x any formal source: n_both_sources | **5,680** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `n_both_sources` |
+| `h1_com_arhti_only` | Pooled 2x2, arhti x commercial: n_arhti_only | **4,150** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `n_arhti_only` |
+| `h1_any_arhti_only` | Pooled 2x2, arhti x any formal source: n_arhti_only | **1,463** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `n_arhti_only` |
+| `h1_com_other_only` | Pooled 2x2, arhti x commercial: n_other_only | **5,468** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `n_other_only` |
+| `h1_any_other_only` | Pooled 2x2, arhti x any formal source: n_other_only | **10,937** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `n_other_only` |
+| `h1_com_neither` | Pooled 2x2, arhti x commercial: n_neither | **8,919** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `n_neither` |
+| `h1_any_neither` | Pooled 2x2, arhti x any formal source: n_neither | **3,046** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `n_neither` |
+| `h1_com_dropped` | Pooled 2x2, arhti x commercial: mouzas_in_dropped_strata | **1,456** | `outputs/tables/course_h1_by_source.csv` | source = commercial | `mouzas_in_dropped_strata` |
+| `h1_any_dropped` | Pooled 2x2, arhti x any formal source: mouzas_in_dropped_strata | **2,004** | `outputs/tables/course_h1_by_source.csv` | source = any formal | `mouzas_in_dropped_strata` |
+
+## Market-access model
+
+| ID | Number | Shown as | Source | Row | Column |
+|---|---|---|---|---|---|
+| `mm_ols_crop_p` | OLS (HC3): p-value, cropland_share | **0.039** | `outputs/tables/course_market_model.csv` | model = OLS (HC3); term = cropland_share | `p` |
+| `mm_ols_mkt_p` | OLS (HC3): p-value, mkt_grain_51plus_share | **0.397** | `outputs/tables/course_market_model.csv` | model = OLS (HC3); term = mkt_grain_51plus_share | `p` |
+| `mm_ols_com_p` | OLS (HC3): p-value, commercial_share | **0.712** | `outputs/tables/course_market_model.csv` | model = OLS (HC3); term = commercial_share | `p` |
+| `mm_glm_crop_p` | Binomial GLM, quasi-binomial SEs (log-odds): p-value, cropland_share | **0.021** | `outputs/tables/course_market_model.csv` | model = Binomial GLM, quasi-binomial SEs (log-odds); term = cropland_share | `p` |
+| `mm_glm_mkt_p` | Binomial GLM, quasi-binomial SEs (log-odds): p-value, mkt_grain_51plus_share | **0.061** | `outputs/tables/course_market_model.csv` | model = Binomial GLM, quasi-binomial SEs (log-odds); term = mkt_grain_51plus_share | `p` |
+| `mm_glm_com_p` | Binomial GLM, quasi-binomial SEs (log-odds): p-value, commercial_share | **0.800** | `outputs/tables/course_market_model.csv` | model = Binomial GLM, quasi-binomial SEs (log-odds); term = commercial_share | `p` |
+| `mm_sem_crop_p` | Spatial error (ML, Queen): p-value, cropland_share | **0.413** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = cropland_share | `p` |
+| `mm_sem_mkt_p` | Spatial error (ML, Queen): p-value, mkt_grain_51plus_share | **0.417** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = mkt_grain_51plus_share | `p` |
+| `mm_sem_com_p` | Spatial error (ML, Queen): p-value, commercial_share | **0.061** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = commercial_share | `p` |
+| `mm_sem_lambda` | Spatial error model: lambda | **0.715** | `outputs/tables/course_market_model.csv` | model = Spatial error (ML, Queen); term = cropland_share | `fit` |
+| `mm_glm_disp` | Quasi-binomial dispersion | **58.9** | `outputs/tables/course_market_model.csv` | model = Binomial GLM, quasi-binomial SEs (log-odds); term = cropland_share | `fit` |
+| `mm_ols_r2` | OLS R² | **0.126** | `outputs/tables/course_market_model.csv` | model = OLS (HC3); term = cropland_share | `fit` |
+| `rho_mkt51` | Spearman rho, arhti_share vs share of mouzas > 50 km from a grain market | **-0.25** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_51plus_share | `rho` |
+| `rho_mkt51_pbh` | BH-adjusted p-value | **0.009** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_51plus_share | `p_bh` |
+| `rho_mktin` | Spearman rho, arhti_share vs share of mouzas with a grain market in the mouza | **-0.03** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_in_mouza_share | `rho` |
+| `rho_mktin_pbh` | BH-adjusted p-value | **0.749** | `outputs/tables/exploratory_associations.csv` | level = tehsil; scenario = A; x = mkt_grain_in_mouza_share | `p_bh` |

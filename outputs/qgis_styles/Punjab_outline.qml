@@ -29,7 +29,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleLine" enabled="1" id="{8f1e6600-cb4b-44ba-b519-bc598593edb3}" locked="0" pass="0">
+        <layer class="SimpleLine" enabled="1" id="{ee26bfd7-6e02-47d3-b198-e3db426f3860}" locked="0" pass="0">
           <Option type="Map">
             <Option name="align_dash_pattern" type="QString" value="0"/>
             <Option name="capstyle" type="QString" value="square"/>
@@ -41,7 +41,7 @@
             <Option name="dash_pattern_offset_unit" type="QString" value="MM"/>
             <Option name="draw_inside_polygon" type="QString" value="0"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
-            <Option name="line_color" type="QString" value="48,124,137,255,hsv:0.52499997615814209,0.64705884456634521,0.5372549295425415,1"/>
+            <Option name="line_color" type="QString" value="215,72,231,255,hsv:0.81666666269302368,0.69019609689712524,0.90588235855102539,1"/>
             <Option name="line_style" type="QString" value="solid"/>
             <Option name="line_width" type="QString" value="0.6"/>
             <Option name="line_width_unit" type="QString" value="MM"/>
@@ -78,15 +78,15 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{9808e0ae-fc9b-4d01-b5bc-f4e9871f2ff3}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{349bb858-3556-4950-9e19-b88615b802af}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
-            <Option name="color" type="QString" value="48,124,137,255,hsv:0.52499997615814209,0.64705884456634521,0.5372549295425415,1"/>
+            <Option name="color" type="QString" value="215,72,231,255,hsv:0.81666666269302368,0.69019609689712524,0.90588235855102539,1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="35,88,98,255,hsv:0.52499997615814209,0.64705884456634521,0.38374912738800049,1"/>
+            <Option name="outline_color" type="QString" value="154,51,165,255,hsv:0.81666666269302368,0.69019609689712524,0.64705884456634521,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_unit" type="QString" value="MM"/>
@@ -111,18 +111,18 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{6cdb293b-7afb-4ce0-aa87-a1208493fdf2}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{a9c2d97d-3c9a-4dd9-bfbe-ad34e452b8af}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"/>
             <Option name="cap_style" type="QString" value="square"/>
-            <Option name="color" type="QString" value="48,124,137,255,hsv:0.52499997615814209,0.64705884456634521,0.5372549295425415,1"/>
+            <Option name="color" type="QString" value="215,72,231,255,hsv:0.81666666269302368,0.69019609689712524,0.90588235855102539,1"/>
             <Option name="horizontal_anchor_point" type="QString" value="1"/>
             <Option name="joinstyle" type="QString" value="bevel"/>
             <Option name="name" type="QString" value="diamond"/>
             <Option name="offset" type="QString" value="0,0"/>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="offset_unit" type="QString" value="MM"/>
-            <Option name="outline_color" type="QString" value="35,88,98,255,hsv:0.52499997615814209,0.64705884456634521,0.38374912738800049,1"/>
+            <Option name="outline_color" type="QString" value="154,51,165,255,hsv:0.81666666269302368,0.69019609689712524,0.64705884456634521,1"/>
             <Option name="outline_style" type="QString" value="solid"/>
             <Option name="outline_width" type="QString" value="0.2"/>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
@@ -154,7 +154,7 @@
             <Option name="type" type="QString" value="collection"/>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleFill" enabled="1" id="{2e09575f-c359-4c78-8921-ca6a99703765}" locked="0" pass="0">
+        <layer class="SimpleFill" enabled="1" id="{33a448b4-869c-4455-a7f0-6ae28994dd0e}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"/>
             <Option name="color" type="QString" value="0,0,0,0,rgb:0,0,0,0"/>

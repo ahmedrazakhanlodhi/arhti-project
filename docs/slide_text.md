@@ -12,13 +12,13 @@ Figures: fig6_dasymetric_farms_borrowers_qgis.png
 Notes: Two credit systems lend to Punjab's farmers: banks through branches, arhtis (commission agents) through grain markets. We ask where each reaches, and whom.
 
 ## Slide 2. Problem, thesis and hypotheses
-Headline: Is agricultural finance organised around farms, or around markets and towns?
-- Q1 (tehsils): is arhti credit reported where formal credit is weak, or where banks and markets already are?
-- H1 gap-filling: arhti and bank credit negatively associated. H1-alt co-location: they cluster together with farmland.
+Headline: Does arhti credit fill the gaps banks leave, and does formal credit reach small farms?
+- Q1 (tehsils): is arhti credit reported where formal credit is weak, or where formal credit and farmland already are?
+- H1 gap-filling: arhti and formal credit negatively associated. H1-alt coexistence: they appear together, with farmland.
 - Q2 (districts): does formal credit reach small farms in proportion to their share of farms?
-- H2 proportional reach (index of dissimilarity ≈ 0). H3 lending recorded in proportion to farmland (LQ ≈ 1).
-- Thesis: finance follows markets and towns more than farms. Descriptive, not causal.
-Notes: H1 and H2 tests were fixed before the analysis (decisions D018 and D021); everything else is labelled exploratory.
+- H2 proportional reach (index of dissimilarity near 0). H3 (exploratory): lending recorded where farmland is (LQ near 1).
+- Thesis: credit has distinct, uneven geographies; arhti credit coexists with formal credit. Descriptive, not causal.
+Notes: H1 and H2 tests were fixed before the analysis; everything else is exploratory. Proportionality is a benchmark, not an optimum.
 
 ## Slide 3. What the literature says
 Headline: Interlinked credit is old news; mapping it across a province is not
@@ -45,22 +45,22 @@ Headline: Moran's I = 0.536; 25 High-High and 32 Low-Low tehsils
 Figures: fig2_arhti_share_tehsil_qgis.png, fig4_lisa_arhti_tehsil_qgis.png
 Notes: Queen contiguity, row-standardised; 999 permutations, seed 20261031; FDR survivors 15 and 17 (Benjamini–Hochberg cutoff 0.0117).
 
-## Slide 6. H1 test: gap-filling is rejected
-Headline: Arhti credit is reported alongside bank credit, not in its gaps
-- Bivariate Moran's I = 0.112 (p = 0.062): weak, and not negative.
-- Within tehsils, odds ratio 1.18 (95% CI 1.09–1.27): bank-credit villages slightly more likely to report arhti credit.
+## Slide 6. H1 test: no sign of gap-filling against any formal source
+Headline: Arhti credit appears alongside commercial, cooperative and microfinance credit; unrelated to ZTBL
+- Within tehsils, odds ratios: commercial 1.18, cooperative 1.72, microfinance 1.76; ZTBL 0.98; any formal source 0.95.
+- Across tehsils every correlation is positive (commercial ρ = 0.245, ZTBL 0.166); none is negative.
 - Varies across tehsils (Breslow–Day p < 0.001): 67 above independence, 53 below.
-- Arhti availability is higher where land is cropland (ρ = 0.49) and less even than bank credit (D = 0.380 vs 0.234).
+- Arhti follows cropland (ρ = 0.49); it is lower where villages are over 50 km from a grain market (ρ = −0.25).
 Figures: fig3_bivariate_arhti_commercial_qgis.png
-Notes: Co-reporting in a village is about availability, not about which source a farmer uses.
+Notes: Odds ratios compare odds, not probabilities. Co-reporting is about availability, not which source a farmer uses.
 
-## Slide 7. H2: reach by count, not by amount
-Headline: Small holdings: 94.1% of farms, 91.9% of borrower records, 35.9% of disbursement
-- Above-economic holdings (> 50 acres): 0.5% of farms, 49.4% of disbursement.
+## Slide 7. H2: in proportion by count, not by amount
+Headline: 36 districts: small holdings are 94.2% of farms, 90.9% of borrower records, 37.0% of disbursement
+- Above-economic holdings (> 50 acres): 0.5% of farms, 47.8% of disbursement.
 - Small-farm reach ranges from 21.6 to 299.0 records per 1,000 small farms (median 118.5); clustered (I = 0.532).
 - Dissimilarity between borrower records and small farms across districts: D = 0.216.
 Figures: fig5_small_farm_reach_qgis.png, fig6_dasymetric_farms_borrowers_qgis.png
-Notes: Dasymetric dots: 1 dot = 1,000 farms under 12.5 acres, placed only on cropland. Circles: borrower records with Flannery compensation.
+Notes: 36 district rows, banks only; the 74,494 microfinance records have no district. Census class areas below 12.5 acres are inconsistent, so we rely on farm counts.
 
 ## Slide 8. H3: lending is recorded in city districts
 Headline: Five city districts: 59.6% of above-economic disbursement, 13.3% of cultivated area
@@ -90,8 +90,8 @@ Headline: Availability is not borrowing; districts are not farmers
 - Different vintages (2020, FY2023-24, 2024); SBP district attribution under verification; 36 pre-split districts.
 
 ## Slide 12. Conclusions
-Headline: Finance follows markets and towns more than farms
-- H1 rejected: arhti credit clusters with cropland and alongside bank credit.
-- H2 rejected: reach by count, not by amount, and uneven across districts.
-- H3 rejected for large holdings: lending recorded in a few city districts.
-- Next: confirm SBP attribution; observe how farmers combine arhti, bank and Kissan Card credit.
+Headline: Where the bank ends, the arhti has not simply begun: the two overlap
+- H1 not supported: arhti credit clusters with cropland and alongside formal credit.
+- H2 not supported: in proportion by count, not by amount, and uneven across districts.
+- H3 not supported: lending recorded in a few city districts, most of all for large holdings.
+- Next: confirm SBP attribution and counting rules; observe how farmers combine arhti, bank and Kissan Card credit.
