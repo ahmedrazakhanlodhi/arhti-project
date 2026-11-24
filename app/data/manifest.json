@@ -1,0 +1,159 @@
+{
+ "generated": "2026-11-23T23:34:09",
+ "written_by": "scripts/16_export_web.py",
+ "analysis_crs": "+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72 +datum=WGS84 +units=m +no_defs",
+ "web_crs": "EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
+ "layers": [
+  {
+   "file": "tehsils.geojson",
+   "source": "outputs/arhti_project.gpkg | layer q1_tehsils_mouza_census_2020",
+   "features": 139,
+   "bytes": 1655749,
+   "simplify_tolerance_deg": 0.0005,
+   "crs": "EPSG:4326",
+   "sha256": "5e8d6eb77d04944661f6c55937545ce6ed97973924c334889a84e7ea4f917328",
+   "fields": [
+    "adm3_pcode",
+    "adm3_name",
+    "adm2_name",
+    "rp_mouzas",
+    "arhti_share",
+    "commercial_share",
+    "lisa_queen_p05",
+    "lisa_queen_fdr05",
+    "bivariate_class",
+    "contains_cholistan",
+    "vintage"
+   ]
+  },
+  {
+   "file": "districts.geojson",
+   "source": "outputs/arhti_project.gpkg | layer q2_districts_credit_allocation",
+   "features": 36,
+   "bytes": 883191,
+   "simplify_tolerance_deg": 0.0005,
+   "crs": "EPSG:4326",
+   "sha256": "5eee22cf7c5a1da6891262fd8dd9fc75e68fcf2772e89b5740c24b6d2a54fa19",
+   "fields": [
+    "adm2_pcode",
+    "adm2_name",
+    "small_farm_reach",
+    "sub_borrowers",
+    "small_farms",
+    "flagged",
+    "vintage"
+   ]
+  },
+  {
+   "file": "provinces.geojson",
+   "source": "outputs/arhti_project.gpkg | layer context_pakistan_provinces",
+   "features": 7,
+   "bytes": 148506,
+   "simplify_tolerance_deg": 0.005,
+   "crs": "EPSG:4326",
+   "sha256": "b36af33baf768bbebf642075f479bc2f4453b2706d523a419442a6f806d2c799",
+   "fields": [
+    "adm1_pcode",
+    "adm1_name"
+   ]
+  },
+  {
+   "file": "punjab_outline.geojson",
+   "source": "outputs/arhti_project.gpkg | layer context_punjab_outline",
+   "features": 1,
+   "bytes": 49328,
+   "simplify_tolerance_deg": 0.002,
+   "crs": "EPSG:4326",
+   "sha256": "c8784e7950303d0b9779db09094df715a4b398bdaa0bfa26d07978a64a9d57d1",
+   "fields": [
+    "adm1_name"
+   ]
+  }
+ ],
+ "tables": [
+  {
+   "file": "key_numbers.csv",
+   "source": "outputs/tables/key_numbers.csv",
+   "rows": 129,
+   "bytes": 50050,
+   "sha256": "b001a5d020aaeebe8eb63df7166795878fad6a231111da517c491a3c75726c16"
+  },
+  {
+   "file": "classification_comparison.csv",
+   "source": "outputs/tables/classification_comparison.csv",
+   "rows": 62,
+   "bytes": 14407,
+   "sha256": "678dcdc9d5e4101fc31ffbc9bca44b3b7f84806e73a8c55fae79eb489967d99a"
+  },
+  {
+   "file": "figure_numbers.csv",
+   "source": "outputs/tables/figure_numbers.csv",
+   "rows": 94,
+   "bytes": 13122,
+   "sha256": "f935f66dddd854a6042b953a42536873acc4ee286f345b91fe00fae9a5facad1"
+  },
+  {
+   "file": "holding_class_shares.csv",
+   "source": "outputs/tables/holding_class_shares.csv",
+   "rows": 3,
+   "bytes": 2436,
+   "sha256": "80d8402c58d4e37d6109e76b438f753cbba9ccaa4bc9af6b788e3aee00d4e94f"
+  },
+  {
+   "file": "crop_structure_district.csv",
+   "source": "outputs/tables/crop_structure_district.csv",
+   "rows": 36,
+   "bytes": 16763,
+   "sha256": "68a9f1c2cf16378d689b169db880ff7c2487d866c75c72bbd9471a4d6c00d4f9"
+  },
+  {
+   "file": "reporting_geography.csv",
+   "source": "outputs/tables/reporting_geography.csv",
+   "rows": 44,
+   "bytes": 52159,
+   "sha256": "3b90e8c4e2dab9ef6680113ec7b9a4ef44ac9076d2c3583067dab3d318cbde49"
+  },
+  {
+   "file": "district_scorecard.csv",
+   "source": "outputs/tables/district_scorecard.csv",
+   "rows": 36,
+   "bytes": 43535,
+   "sha256": "e055e11551e64e6257971231a693cec4bfd4ff41c0ac133c27b48a2b842f037c"
+  },
+  {
+   "file": "concentration_curve.csv",
+   "source": "outputs/tables/concentration_curve.csv",
+   "rows": 67,
+   "bytes": 16585,
+   "sha256": "8042ac0a8fbcf50625dbae54d44d323873ef7df222497ea3e1331e1ab6e65912"
+  },
+  {
+   "file": "concentration_coefficients.csv",
+   "source": "outputs/tables/concentration_coefficients.csv",
+   "rows": 2,
+   "bytes": 624,
+   "sha256": "4c92d16519815febd3e87b8afcce389693771281071d535da55286b01fa7140b"
+  },
+  {
+   "file": "sbp_agri_lending_rates.csv",
+   "source": "outputs/tables/sbp_agri_lending_rates.csv",
+   "rows": 78,
+   "bytes": 38831,
+   "sha256": "dd1ec0b9e39be97531eb669fad29aaf2524b80dbf6cf51020b2685543d13c564"
+  },
+  {
+   "file": "price_ladder.csv",
+   "source": "docs/price_ladder.csv",
+   "rows": 18,
+   "bytes": 9256,
+   "sha256": "ac59901cf92ecf657e44a058c9a60a49f8d5d843e7dcb40dd327725a04632cce"
+  },
+  {
+   "file": "price_ladder_notes.md",
+   "source": "docs/price_ladder_notes.md",
+   "rows": null,
+   "bytes": 1085,
+   "sha256": "11f68ff159f9114f94d123fd4887e018732d2408a9d677ebe9492cfee6edf96a"
+  }
+ ]
+}

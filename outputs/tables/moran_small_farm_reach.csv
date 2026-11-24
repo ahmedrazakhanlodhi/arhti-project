@@ -1,0 +1,5 @@
+variable,weights,n,islands,components,I,EI,z_perm,p_perm,permutations,seed,sample,vintage
+small_farm_reach,Queen,36,none,1,0.5318540540766177,-0.02857142857142857,5.331289836054888,0.001,999,20261031,all matched districts,"SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"
+small_farm_reach,kNN-5 (geodesic),36,none,1,0.4006179146640911,-0.02857142857142857,4.650853089891617,0.001,999,20261031,all matched districts,"SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"
+small_farm_reach,Queen,31,none,1,0.42810465841371403,-0.03333333333333333,3.7827794967587165,0.001,999,20261031,excluding flagged districts,"SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"
+small_farm_reach,kNN-5 (geodesic),31,none,1,0.3090746635685152,-0.03333333333333333,3.5240922770052707,0.003,999,20261031,excluding flagged districts,"SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"

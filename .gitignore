@@ -1,0 +1,15 @@
+# private working files (not part of the public repository)
+private/
+
+# environment and raw/intermediate data (rebuilt by run_all.sh from downloaded sources)
+.venv/
+data/raw/
+data/interim/
+data/processed/*.tif
+__pycache__/
+.pytest_cache/
+.DS_Store
+.Rhistory
+*.qgz~
+*.gpkg-shm
+*.gpkg-wal

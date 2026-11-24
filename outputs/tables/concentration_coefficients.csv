@@ -1,0 +1,3 @@
+sample,n,concentration_coefficient,definition,vintage
+all matched districts,36,0.2971615302232419,"1 - 2 x area under the curve; districts ordered by small_farm_reach; describes concentration, not fairness","SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"
+excluding flagged districts,31,0.2552643759607883,"1 - 2 x area under the curve; districts ordered by small_farm_reach; describes concentration, not fairness","SBP, FY2023-24 (Jul 2023-Jun 2024), loans by booking district; Agricultural Census 2024 (PBS), sample-based, fieldwork 2024-25"

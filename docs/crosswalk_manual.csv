@@ -1,0 +1,34 @@
+level,source,source_name,source_code,source_district,ocha_name,ocha_pcode,match_type,decision,decided_by,date,historical_name,note
+tehsil,MouzaCensus2020,BAHAWALPUR SADDAR,PB-027-602,BAHAWALPUR DISTRICT,Bahawalpur,PK60302,parent_aggregation,accept,Ahmed,2026-10-31,,Bahawalpur Saddar + Bahawalpur City summed into OCHA Bahawalpur
+tehsil,MouzaCensus2020,BAHAWALPUR CITY,PB-027-075,BAHAWALPUR DISTRICT,Bahawalpur,PK60302,parent_aggregation,accept,Ahmed,2026-10-31,,Bahawalpur Saddar + Bahawalpur City summed into OCHA Bahawalpur
+tehsil,MouzaCensus2020,BHAKKAR TEHSIL,PB-058-194,BHAKKAR DISTRICT,Bhakkar,PK60401,normalized,accept,Ahmed,2026-10-31,,rules: collapse doubled letters; drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,DARYA KHAN TEHSIL,PB-058-195,BHAKKAR DISTRICT,Darya Khan,PK60402,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,KALUR KOT TEHSIL,PB-058-196,BHAKKAR DISTRICT,Kalur Kot,PK60403,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,MANKERA TEHSIL,PB-058-197,BHAKKAR DISTRICT,Mankera,PK60404,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,LAWA,PB-052-174,CHAKWAL DISTRICT,Tala Gang,PK60504,parent_aggregation,accept,Ahmed,2026-10-31,,"Lawa (17 mouzas) summed into Tala Gang; OCHA polygon ~2,975 km2, consistent with the pre-split combined Talagang"
+tehsil,MouzaCensus2020,FORT ABBAS,PB-999-071,CHOLISTAN,Fort Abbas,PK60203,parent_aggregation,accept,Ahmed,2026-10-31,,Cholistan option A: Cholistan Fort Abbas (PBS tehsil code 71) summed into OCHA Fort Abbas
+tehsil,MouzaCensus2020,YAZMAN,PB-999-079,CHOLISTAN,Yazman,PK60305,parent_aggregation,accept,Ahmed,2026-10-31,,Cholistan option A: Cholistan Yazman (PBS tehsil code 79) summed into OCHA Yazman
+tehsil,MouzaCensus2020,LIAQUATPUR,PB-999-081,CHOLISTAN,Liaqatpur,PK62802,parent_aggregation,accept,Ahmed,2026-10-31,,Cholistan option A: Cholistan Liaquatpur (PBS tehsil code 81) summed into OCHA Liaqatpur
+tehsil,MouzaCensus2020,DE-EXCLUDED AREA D.G KHAN,PB-029-084,DERA GHAZI KHAN DISTRICT,D.G Khan (Tribal Area),PK60701,rename,accept,Ahmed,2026-10-31,De-excluded Area D.G. Khan,also known as Koh-e-Suleman (Population Census 2023 name)
+tehsil,MouzaCensus2020,KOT CHHUTTA,PB-029-086,DERA GHAZI KHAN DISTRICT,Kot Chatta,PK60703,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,SAMMUNDRI,PB-034-106,FAISALABAD DISTRICT,Summundri,PK60805,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,GUJRANWALA CITY,PB-037-117,GUJRANWALA DISTRICT,Gujranwala,PK60901,parent_aggregation,accept,Ahmed,2026-10-31,,Gujranwala Saddar + Gujranwala City summed into OCHA Gujranwala
+tehsil,MouzaCensus2020,GUJRANWALA SADDAR,PB-037-118,GUJRANWALA DISTRICT,Gujranwala,PK60901,parent_aggregation,accept,Ahmed,2026-10-31,,Gujranwala Saddar + Gujranwala City summed into OCHA Gujranwala
+tehsil,MouzaCensus2020,18-HAZARI,PB-035-108,JHANG DISTRICT,Athara Hazari,PK61204,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,KOT RADHA KISHON,PB-043-139,KASUR DISTRICT,Kot Radha Kishen,PK61403,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,NOWSHERA,PB-059-597,KHUSHAB DISTRICT,Naushera,PK61602,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,MODEL TOWN,PB-044-547,LAHORE DISTRICT,,,,leave_unmatched,Ahmed,2026-10-31,,0 rural populated mouzas; no OCHA polygon
+tehsil,MouzaCensus2020,RAIWIND,PB-044-548,LAHORE DISTRICT,,,,leave_unmatched,Ahmed,2026-10-31,,0 rural populated mouzas; no OCHA polygon
+tehsil,MouzaCensus2020,SHALIMAR,PB-044-549,LAHORE DISTRICT,,,,leave_unmatched,Ahmed,2026-10-31,,0 rural populated mouzas; no OCHA polygon
+tehsil,MouzaCensus2020,LAYYAH,PB-030-090,LAYYAH DISTRICT,Leiah,PK61803,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,ISA KHEL,PB-060-201,MIANWALI DISTRICT,Isakhel,PK62101,normalized,accept,Ahmed,2026-10-31,,rules: remove spaces
+tehsil,MouzaCensus2020,MAINWALI,PB-060-202,MIANWALI DISTRICT,Mianwali,PK62102,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,LIAQUATPUR,PB-028-081,RAHIM YAR KHAN DISTRICT,Liaqatpur,PK62802,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,DE-EXCLUDED AREA RAJANPUR,PB-032-095,RAJANPUR DISTRICT,Rajanpur (Tribal Area),PK62903,rename,accept,Ahmed,2026-10-31,De-excluded Area Rajanpur,
+tehsil,MouzaCensus2020,FEROZE WALA,PB-046-146,SHEIKHUPURA DISTRICT,Ferozewala,PK63301,normalized,accept,Ahmed,2026-10-31,,rules: remove spaces
+tehsil,MouzaCensus2020,SHEIKHUPRA,PB-046-150,SHEIKHUPURA DISTRICT,Sheikhupura,PK63305,spelling,accept,Ahmed,2026-10-31,,
+tehsil,MouzaCensus2020,DASKA TEHSIL,PB-042-133,SIALKOT DISTRICT,Daska,PK63401,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,PASROOR TEHSIL,PB-042-134,SIALKOT DISTRICT,Pasrur,PK63402,normalized,accept,Ahmed,2026-10-31,,"rules: OO->U, EE->I; drop suffix TEHSIL/DISTRICT; remove spaces"
+tehsil,MouzaCensus2020,SAMBRIAL TEHSIL,PB-042-135,SIALKOT DISTRICT,Sambrial,PK63403,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,SIALKOT TEHSIL,PB-042-136,SIALKOT DISTRICT,Sialkot,PK63404,normalized,accept,Ahmed,2026-10-31,,rules: drop suffix TEHSIL/DISTRICT; remove spaces
+tehsil,MouzaCensus2020,PIRMAHAL,PB-036-115,TOBA TEK SINGH DISTRICT,Pir Mahal,PK63504,normalized,accept,Ahmed,2026-10-31,,rules: remove spaces

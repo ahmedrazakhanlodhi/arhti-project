@@ -1,0 +1,13 @@
+check,value,rel_error_new,rel_error_old,vintage
+district: max |area new/old - 1|,6.0064860391007e-06,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+district: max |area new / OCHA area_sqkm - 1|,4.335616202166825e-06,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+district: units whose kNN-5 set changed (n = 35),22,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+distance Attock–Bahawalpur (km): geodesic / new CRS / old CRS,519.3 / 519.6 / 419.0,0.0006,-0.1932,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+distance Kasur–Multan (km): geodesic / new CRS / old CRS,291.9 / 291.8 / 342.5,-0.0006,0.1733,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+distance Rawalpindi–Rahim Yar Khan (km): geodesic / new CRS / old CRS,615.1 / 615.4 / 550.2,0.0004,-0.1056,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+distance Dera Ghazi Khan–Sialkot (km): geodesic / new CRS / old CRS,447.4 / 447.3 / 518.6,-0.0004,0.159,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+distance Mianwali–Okara (km): geodesic / new CRS / old CRS,298.2 / 298.2 / 309.5,0.0,0.038,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+new CRS: angle between grid north and true north at Punjab centroid (deg),-0.06,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+tehsil: max |area new/old - 1|,1.2544324791585737e-05,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+tehsil: max |area new / OCHA area_sqkm - 1|,8.405353123852599e-06,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
+tehsil: units whose kNN-5 set changed (n = 137),93,,,OCHA COD-AB Pakistan boundaries (valid_on 2022-09-09); Q1 units (scenario A)
