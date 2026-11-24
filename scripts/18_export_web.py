@@ -35,7 +35,7 @@ MAX_BYTES = 3 * 1024 * 1024
 LAYERS = {  # web name: (gpkg layer, expected features, first tolerance in degrees, fields kept)
     "tehsils": ("q1_tehsils_mouza_census_2020", 139, 0.0005,
                 ["adm3_pcode", "adm3_name", "adm2_name", "rp_mouzas", "arhti_share", "commercial_share", "lisa_queen_p05",
-                 "lisa_queen_fdr05", "bivariate_class", "contains_cholistan", "vintage"]),
+                 "lisa_queen_fdr05", "bivariate_class", "contains_cholistan", "ztbl_share", "coop_share", "mfb_share", "vintage"]),
     "districts": ("q2_districts_credit_allocation", 36, 0.0005,
                   ["adm2_pcode", "adm2_name", "small_farm_reach", "sub_borrowers", "small_farms", "flagged", "vintage"]),
     "provinces": ("context_pakistan_provinces", 7, 0.005, ["adm1_pcode", "adm1_name"]),
@@ -43,11 +43,22 @@ LAYERS = {  # web name: (gpkg layer, expected features, first tolerance in degre
 }
 TABLES = ["key_numbers.csv", "classification_comparison.csv", "figure_numbers.csv", "holding_class_shares.csv",
           "crop_structure_district.csv", "reporting_geography.csv", "district_scorecard.csv", "concentration_curve.csv",
-          "concentration_coefficients.csv", "sbp_agri_lending_rates.csv"]
+          "concentration_coefficients.csv", "sbp_agri_lending_rates.csv",
+          # D045: results added in the paper revisions
+          "app_tehsil_access.csv", "app_district_access.csv", "course_h1_by_source.csv", "course_market_bands.csv",
+          "course_h2_h3_sensitivity.csv", "sbp_coverage_reconciliation.csv", "agc_class_area_check.csv", "course_lq_class_farms.csv"]
+STORY = {  # presentation-mode images: QGIS Print Layout exports and charts from outputs/figures, downsized for the web
+    "story_2_clusters.png": "fig4_lisa_arhti_tehsil_qgis.png", "story_3_markets.png": "fig7_markets_neither_tehsil_qgis.png",
+    "story_4_overlap.png": "fig3_bivariate_arhti_commercial_qgis.png", "story_5_holdings.png": "figA1_holding_class_shares.png",
+    "story_6_cities.png": "figR2_city_shares.png", "story_1_arhti.png": "fig2_arhti_share_tehsil_qgis.png",
+    "story_7_neither.png": "figS13_neither_source_tehsil.png"}
+STORY_MAX_PX = 1500
 DOC_FILES = ["price_ladder.csv", "price_ladder_notes.md"]            # from docs/
 # District AMOUNT-based columns (shares of disbursement, LQs, credit per acre) are allowed only in these two tables, which the app
 # shows on the reporting-geography page (maps) and the district-profile page (labelled table values) (D039).
-AMOUNT_OK = {"reporting_geography.csv", "district_scorecard.csv", "holding_class_shares.csv"}
+AMOUNT_OK = {"reporting_geography.csv", "district_scorecard.csv", "holding_class_shares.csv",
+             "sbp_coverage_reconciliation.csv",    # province-level totals by coverage scope (36 districts, Islamabad, MFIs)
+             "course_lq_class_farms.csv"}          # district LQs with class-farm benchmarks: shown on the reporting-geography page only
 FORBIDDEN = re.compile(r"avg_loan|mouza_(name|code|id)|mauza|vil_", re.I)
 AMOUNT = re.compile(r"amount", re.I)
 
@@ -93,6 +104,12 @@ def main() -> int:
         (OUT / f).write_bytes(src.read_bytes())
         tables.append(dict(file=f, source=f"docs/{f}", rows=(len(pd.read_csv(src)) if f.endswith(".csv") else None),
                            bytes=(OUT / f).stat().st_size, sha256=sha(OUT / f)))
+    from PIL import Image
+    for web, src_name in STORY.items():
+        im = Image.open(ROOT / "outputs" / "figures" / src_name).convert("RGB")
+        im.thumbnail((STORY_MAX_PX, STORY_MAX_PX))
+        im.save(OUT / web, optimize=True)
+        tables.append(dict(file=web, source=f"outputs/figures/{src_name}", rows=None, bytes=(OUT / web).stat().st_size, sha256=sha(OUT / web)))
     for r in layers:
         print(f"{r['file']:24s} {r['features']:4d} features  {r['bytes'] / 1e6:5.2f} MB  tol={r['simplify_tolerance_deg']}")
     man = dict(generated=dt.datetime.now().isoformat(timespec="seconds"), written_by="scripts/18_export_web.py",

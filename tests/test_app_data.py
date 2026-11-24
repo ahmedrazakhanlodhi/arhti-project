@@ -134,10 +134,10 @@ def test_writing_uses_only_key_numbers():
 def test_overview_cards_show_key_numbers():
     t = text(run_page("1_overview"))
     k = KN.set_index("id").display
-    for kid in ["mh_or", "mh_lo", "mh_hi", "bd_p", "n_districts_q2", "lahore_total_branches_10k", "lahore_rural_branches_10k",
-                "rate_comm_prod_2023", "lit_igc_rates"]:
+    for kid in ["all_any_overlap", "h1_any_share", "mb_w10_sem_pp", "mb_w10_sem_holm", "hc36_subsistence_farms",
+                "hc36_subsistence_disbursement", "five_credit_share_abv", "five_area_share", "all_any_neither_share", "all_any_neither",
+                "hc36_abv_ratio_sub", "rp_mouzas", "n_tehsils", "n_districts_q2"]:
         assert k[kid] in t, kid
-    assert f"{k['reach_min']}–{k['reach_max']}" in t
     assert "Descriptive results. Sources differ in date and geographic unit." in t
 
 
@@ -145,10 +145,10 @@ def test_pages_show_their_numbers_and_note():
     k = KN.set_index("id").display
     want = {"2_access": ["arhti_pooled", "rp_mouzas", "moran_arhti_queen", "permutations", "seed", "mh_or", "mh_lo", "mh_hi", "bd_p",
                          "tehsils_ratio_above1", "tehsils_ratio_below1", "rho_cropland", "bv_queen", "moran_arhti_knn", "moran_arhti_B"],
-            "3_allocation": ["reach_median", "moran_reach", "top_crop_wheat", "rho_tenant"],
+            "3_allocation": ["reach_median", "moran_reach", "top_crop_wheat", "rho_tenant", "hc36_abv_ratio_sub", "D_sub_borrowers"],
             "4_reporting": ["five_credit_share_tot", "five_credit_share_abv", "five_area_share", "five_farm_share", "isb_credit_share_tot",
                             "lahore_total_branches_10k", "lahore_rural_branches_10k"],
-            "5_cost": ["kissan_terms"]}
+            "5_cost": ["rate_comm_prod_2023", "rate_comm_deve_2023"]}
     for page, ids in want.items():
         t = text(run_page(page))
         assert "Descriptive results. Sources differ in date and geographic unit." in t and "Data vintage · " in t, page
@@ -157,6 +157,9 @@ def test_pages_show_their_numbers_and_note():
     t = text(run_page("2_access", acc_view="Clusters (LISA)"))
     assert k["bh_cutoff_queen"] in t
     assert "attribution under verification" in text(run_page("4_reporting"))
+    assert "Punjab Land Records Authority" in text(run_page("5_cost"))
+    t = text(run_page("2_access", acc_src="ztbl"))
+    assert k["h1_ztbl_or"] in t and "inconclusive" in t
 
 
 def test_profile_page_matches_scorecard():
@@ -225,10 +228,12 @@ def test_amounts_only_on_reporting_geography():
     for f in list(DATA.glob("*.csv")) + list(DATA.glob("*.geojson")):
         cols = (pd.read_csv(f, nrows=0).columns if f.suffix == ".csv" else json.loads(f.read_text())["features"][0]["properties"].keys())
         assert not [c for c in cols if re.search(r"avg_loan", c)], f.name
-        if f.name not in {"reporting_geography.csv", "district_scorecard.csv", "holding_class_shares.csv"}:
+        if f.name not in {"reporting_geography.csv", "district_scorecard.csv", "holding_class_shares.csv", "sbp_coverage_reconciliation.csv",
+                          "course_lq_class_farms.csv"}:
             assert not [c for c in cols if re.search(r"amount|credit_share|lq_", c)], f.name
     hits = sorted(p.name for p in CODE if re.search(DISTRICT_AMOUNT, p.read_text()))
-    assert hits == ["4_reporting.py", "6_profiles.py"], hits
+    # overview and story show one labelled five-city figure (no map), as in the paper text; maps of amounts stay on 4_reporting (D045)
+    assert hits == ["0_story.py", "1_overview.py", "4_reporting.py", "6_profiles.py"], hits
     prof = (APP / "views" / "6_profiles.py").read_text()
     call = prof[prof.index("maps.layer("):].split(")", 1)[0]
     assert not re.search(DISTRICT_AMOUNT, call)                           # locator map is not coloured by amounts
@@ -250,7 +255,8 @@ def test_no_banned_language_in_app_and_writing():
 
 
 def test_no_ai_references_anywhere_public():
-    files = CODE + CONTENT + PUBLIC_DOCS + list(DATA.glob("*")) + sorted(p for p in (ROOT / "scripts").glob("*") if p.is_file()) + [ROOT / "run_all.sh"]
+    files = CODE + CONTENT + PUBLIC_DOCS + [p for p in DATA.glob("*") if p.suffix not in {".png", ".jpg"}]       # images are binary
+    files += sorted(p for p in (ROOT / "scripts").glob("*") if p.is_file()) + [ROOT / "run_all.sh"]
     for p in files:
         s = p.read_text(errors="ignore")
         for b in AI_TERMS:

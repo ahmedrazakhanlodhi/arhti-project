@@ -21,8 +21,9 @@ st.set_page_config(page_title="Where the Bank Ends and the Arhti Begins", page_i
                    initial_sidebar_state="collapsed" if st.session_state.present else "expanded")
 
 V = Path(__file__).resolve().parent / "views"
-pages = [
-    st.Page(V / "1_overview.py", title="Overview", icon=":material/home:", default=True),
+story = [st.Page(V / "0_story.py", title="Story", icon=":material/slideshow:", url_path="story", default=True)] if st.session_state.present else []
+pages = story + [
+    st.Page(V / "1_overview.py", title="Overview", icon=":material/home:", default=not st.session_state.present),
     st.Page(V / "2_access.py", title="Access", icon=":material/map:", url_path="access"),
     st.Page(V / "3_allocation.py", title="Allocation", icon=":material/agriculture:", url_path="allocation"),
     st.Page(V / "4_reporting.py", title="Reporting geography", icon=":material/account_balance:", url_path="reporting"),

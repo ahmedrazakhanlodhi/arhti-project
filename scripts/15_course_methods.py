@@ -695,6 +695,44 @@ def market_bands(g):
     return out
 
 
+# ------------------------------------------------------------------------------------------ 15 access tables for the app (D045)
+def access_tables(g):
+    """Tehsil and district shares of rural populated mouzas reporting each source, any formal source, neither, and a grain market
+    within 10 / 25 km. District shares are pooled (counts summed over the district's tehsils / rural populated mouzas), never averaged."""
+    co = pd.read_csv(T / "mouza_cooccurrence.csv")
+    t = co[(co.record == "tehsil (arhti x any formal)") & (co.scenario == "A")][["pcode", "share_anyformal", "share_neither", "share_arhti_only",
+                                                                                "share_formal_only", "share_both", "n_mouzas"]]
+    x = g[["pcode", "unit", "adm2_name", "rp_mouzas", "n_arhti", "n_commercial", "n_ztbl", "n_coop", "n_mfb", "n_mkt_grain_in_mouza",
+           "n_mkt_grain_1_10", "n_mkt_grain_11_25"]].merge(t, on="pcode", how="left", validate="one_to_one")
+    assert (x.n_mouzas == x.rp_mouzas).all()
+    x["n_anyformal"] = (x.share_anyformal * x.rp_mouzas).round()
+    x["n_neither"] = (x.share_neither * x.rp_mouzas).round()
+    x["n_mkt10"] = x.n_mkt_grain_in_mouza + x.n_mkt_grain_1_10
+    x["n_mkt25"] = x.n_mkt10 + x.n_mkt_grain_11_25
+    out_t = x[["pcode", "unit", "adm2_name", "rp_mouzas"]].rename(columns={"pcode": "adm3_pcode", "unit": "adm3_name"})
+    for c in ["arhti", "commercial", "ztbl", "coop", "mfb", "anyformal", "neither", "mkt10", "mkt25"]:
+        out_t[f"{c}_share"] = x[f"n_{c}"] / x.rp_mouzas
+    # bivariate classes (arhti tercile x source tercile), same rule as Figure 3 (10_export_qgis.py): pandas quantiles 1/3, 2/3, right-closed
+    qa = out_t.arhti_share.quantile([1 / 3, 2 / 3]).values
+    ra = np.digitize(out_t.arhti_share, qa, right=True) + 1
+    for c in ["commercial", "ztbl", "coop", "mfb", "anyformal"]:
+        qc = out_t[f"{c}_share"].quantile([1 / 3, 2 / 3]).values
+        rc = np.digitize(out_t[f"{c}_share"], qc, right=True) + 1
+        out_t[f"biv_{c}"] = [f"A{i}-C{j}" for i, j in zip(ra, rc)]
+        out_t[f"biv_{c}_cut1"], out_t[f"biv_{c}_cut2"] = qc
+    out_t["biv_arhti_cut1"], out_t["biv_arhti_cut2"] = qa
+    fig3 = gpd.read_file(GPKG, layer="q1_tehsils_mouza_census_2020")[["adm3_pcode", "bivariate_class"]]
+    chk = out_t.merge(fig3, on="adm3_pcode", how="left")
+    assert (chk.biv_commercial == chk.bivariate_class).all(), "commercial bivariate classes differ from Figure 3"
+    out_t.assign(vintage=V_MC).to_csv(T / "app_tehsil_access.csv", index=False)
+    dd = x.groupby("adm2_name")[["rp_mouzas", "n_arhti", "n_commercial", "n_ztbl", "n_coop", "n_mfb", "n_anyformal", "n_neither", "n_mkt10"]].sum()
+    out_d = pd.DataFrame({"adm2_name": dd.index, "rp_mouzas": dd.rp_mouzas.values})
+    for c in ["arhti", "commercial", "ztbl", "coop", "mfb", "anyformal", "neither", "mkt10"]:
+        out_d[f"{c}_share"] = (dd[f"n_{c}"] / dd.rp_mouzas).values
+    out_d.assign(vintage=V_MC).to_csv(T / "app_district_access.csv", index=False)
+    return out_t, out_d
+
+
 # ------------------------------------------------------------------------------------------ main
 def main() -> int:
     g = tehsils()
@@ -711,6 +749,7 @@ def main() -> int:
     neither_map(g)
     mb = market_bands(g)
     sv = sensitivity()
+    access_tables(g)
     nb = pd.read_csv(T / "course_neither_source_tehsil.csv")[["pcode", "share_neither"]]
     g = g.merge(nb, on="pcode", how="left", validate="one_to_one")
     g["mkt_grain_within10_share"] = (g.n_mkt_grain_in_mouza + g.n_mkt_grain_1_10) / g.rp_mouzas

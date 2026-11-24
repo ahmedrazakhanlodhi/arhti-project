@@ -569,3 +569,18 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
   source; classes include their lower bound, as in S13, which is now superseded in the paper); Figure R2 adds the subsistence
   disbursement series.
 - **Document:** appendix tables on landscape pages with repeated header rows, integer formatting, renamed columns.
+
+## D045 (2026-11-24, DONE): App synchronized with the paper; layout refresh
+- **Content:** the app now shows the final paper's results: 36-district holding-class shares (with a toggle to the SBP All Punjab
+  row), disbursement per borrower record and representation ratios, the census class-area note, H1 against every formal source
+  (selector drives the bivariate map; classes use the Figure 3 rule and reproduce it exactly for commercial banks), grain-market
+  proximity (map and Table B9 results), mouzas reporting neither source (map and counts), H3 robustness and benchmark selector
+  (cultivated area / farms in the class / all farms), the Kissan Card land-record condition, and the repository link.
+- **New data in app/data** (written by 15 and 18): `app_tehsil_access.csv` and `app_district_access.csv` (pooled shares, never
+  averaged), the H1, market-band, sensitivity, reconciliation, census-check and class-LQ tables, and downsized figure images for the
+  presentation story.
+- **Amounts rule:** the overview and presentation story show the five-city share of above-economic disbursement as one labelled figure
+  (district as reported by SBP), as the paper does; district amounts are still mapped only on the reporting-geography page.
+- **Design:** finding-first overview (six equal-height cards), collapsible data-vintage notes, authors once plus a page footer, shared
+  chart style, district tiles and comparison, and a guided seven-screen story in presentation mode. Internal notes and file paths
+  removed from the Cost page; the PMN/MEDA focus-group markup is no longer shown there.

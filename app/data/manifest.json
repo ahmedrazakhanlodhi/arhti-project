@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T02:22:11",
+ "generated": "2026-11-24T02:55:17",
  "written_by": "scripts/18_export_web.py",
  "analysis_crs": "+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72 +datum=WGS84 +units=m +no_defs",
  "web_crs": "EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
@@ -8,10 +8,10 @@
    "file": "tehsils.geojson",
    "source": "outputs/arhti_project.gpkg | layer q1_tehsils_mouza_census_2020",
    "features": 139,
-   "bytes": 1655749,
+   "bytes": 1668924,
    "simplify_tolerance_deg": 0.0005,
    "crs": "EPSG:4326",
-   "sha256": "5e8d6eb77d04944661f6c55937545ce6ed97973924c334889a84e7ea4f917328",
+   "sha256": "596e25931c9982d7654183a6d4055b71c257d660a25a663c229475dc98bc3b34",
    "fields": [
     "adm3_pcode",
     "adm3_name",
@@ -23,6 +23,9 @@
     "lisa_queen_fdr05",
     "bivariate_class",
     "contains_cholistan",
+    "ztbl_share",
+    "coop_share",
+    "mfb_share",
     "vintage"
    ]
   },
@@ -142,6 +145,62 @@
    "sha256": "dd1ec0b9e39be97531eb669fad29aaf2524b80dbf6cf51020b2685543d13c564"
   },
   {
+   "file": "app_tehsil_access.csv",
+   "source": "outputs/tables/app_tehsil_access.csv",
+   "rows": 137,
+   "bytes": 78288,
+   "sha256": "7be3c66c18679dfbf1108c7a0389ece605f014846632c9f9070e3da9bc410d84"
+  },
+  {
+   "file": "app_district_access.csv",
+   "source": "outputs/tables/app_district_access.csv",
+   "rows": 35,
+   "bytes": 10245,
+   "sha256": "45794fa54fbf1b950e9191e83d5eb7956de25383b17cd78d7953dec349346c8b"
+  },
+  {
+   "file": "course_h1_by_source.csv",
+   "source": "outputs/tables/course_h1_by_source.csv",
+   "rows": 5,
+   "bytes": 3097,
+   "sha256": "a50aeaeee0cc87327bf8ad8a6ba07bda908712fdd66076616fbef7175f785a06"
+  },
+  {
+   "file": "course_market_bands.csv",
+   "source": "outputs/tables/course_market_bands.csv",
+   "rows": 3,
+   "bytes": 2370,
+   "sha256": "0eab23a267654edca96d1cf7d1ba39d644f6dc51cbff8d3f7b13164446d025f9"
+  },
+  {
+   "file": "course_h2_h3_sensitivity.csv",
+   "source": "outputs/tables/course_h2_h3_sensitivity.csv",
+   "rows": 8,
+   "bytes": 7181,
+   "sha256": "a47152672c0c39a58b27d3daeb22d67330a4f4120ea0e973e411b937d3414a5f"
+  },
+  {
+   "file": "sbp_coverage_reconciliation.csv",
+   "source": "outputs/tables/sbp_coverage_reconciliation.csv",
+   "rows": 5,
+   "bytes": 1558,
+   "sha256": "769ee3fd7178b09556846cd5686b95a2efcd583d04cd4b57f1abb243cf038ea5"
+  },
+  {
+   "file": "agc_class_area_check.csv",
+   "source": "outputs/tables/agc_class_area_check.csv",
+   "rows": 9,
+   "bytes": 1851,
+   "sha256": "dcbb265692fe785b5bf9ff06b3d925d0a268cf093069ab4e54f84d9355fe2a79"
+  },
+  {
+   "file": "course_lq_class_farms.csv",
+   "source": "outputs/tables/course_lq_class_farms.csv",
+   "rows": 36,
+   "bytes": 16218,
+   "sha256": "6fa60fbd8d0cd8327a47b2cb3d67079af98a670fbb8e87ff56d48cec2b49de0d"
+  },
+  {
    "file": "price_ladder.csv",
    "source": "docs/price_ladder.csv",
    "rows": 18,
@@ -154,6 +213,55 @@
    "rows": null,
    "bytes": 1085,
    "sha256": "11f68ff159f9114f94d123fd4887e018732d2408a9d677ebe9492cfee6edf96a"
+  },
+  {
+   "file": "story_2_clusters.png",
+   "source": "outputs/figures/fig4_lisa_arhti_tehsil_qgis.png",
+   "rows": null,
+   "bytes": 478200,
+   "sha256": "34060f2a2fcdc0b10f634ed0052ed452c9f4acdd5ee6a1c0b9088271980c3db0"
+  },
+  {
+   "file": "story_3_markets.png",
+   "source": "outputs/figures/fig7_markets_neither_tehsil_qgis.png",
+   "rows": null,
+   "bytes": 594552,
+   "sha256": "b0b1a3156608e83413cd66e9891726672a807ef462efaad050becb1bb0521253"
+  },
+  {
+   "file": "story_4_overlap.png",
+   "source": "outputs/figures/fig3_bivariate_arhti_commercial_qgis.png",
+   "rows": null,
+   "bytes": 535410,
+   "sha256": "e6c49ca241b36bc0f2fca7156851a27493a4f08a5c8f3203c50a63710f9ba127"
+  },
+  {
+   "file": "story_5_holdings.png",
+   "source": "outputs/figures/figA1_holding_class_shares.png",
+   "rows": null,
+   "bytes": 137831,
+   "sha256": "20878c242260085437a97cd7ea94948b01acd3c222ae70954a140babd0728971"
+  },
+  {
+   "file": "story_6_cities.png",
+   "source": "outputs/figures/figR2_city_shares.png",
+   "rows": null,
+   "bytes": 130359,
+   "sha256": "1bd1b0dcc80c53b1b191c57f040faac21b6f1ef41a628fd841e909b49bfdafce"
+  },
+  {
+   "file": "story_1_arhti.png",
+   "source": "outputs/figures/fig2_arhti_share_tehsil_qgis.png",
+   "rows": null,
+   "bytes": 611850,
+   "sha256": "a0cad3b20a150feffcdc0adb1d7e55a72a45580f8ce414195bb90d92fa06b17d"
+  },
+  {
+   "file": "story_7_neither.png",
+   "source": "outputs/figures/figS13_neither_source_tehsil.png",
+   "rows": null,
+   "bytes": 288947,
+   "sha256": "410bc5d9afb2ee0cc3e5b9aa61c33fe771b21e3753125a101bbbdcd14f0a7e91"
   }
  ]
 }
