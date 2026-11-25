@@ -76,6 +76,8 @@ def blocks(md: str):
             yield "h1", ln[3:].strip(); i += 1
         elif ln.startswith("### "):
             yield "h2", ln[4:].strip(); i += 1
+        elif re.fullmatch(r"\[Figure: \S+\.png\]", ln.strip()):
+            yield "figure", ln.strip()[9:-1]; i += 1
         elif ln.startswith("|"):
             rows = []
             while i < len(lines) and lines[i].startswith("|"):
@@ -208,7 +210,7 @@ def appendix_tables(doc):
     csv_table(doc, "Table B2. All 23,130 rural populated mouzas by reported credit sources", c,
               "Mouza Census 2020. 'Any formal' = commercial bank, ZTBL, cooperative bank or microfinance bank. 'Neither' means none of these sources is "
               "reported; other sources (NGOs, rural support programmes, government) are not counted, so it is limited reported availability, "
-              "not financial exclusion (map: Figure S13).")
+              "not financial exclusion (map: Figure 7B).")
     m = pd.read_csv(T / "course_market_model.csv")[["model", "label", "coef_per_sd", "se", "p", "fit"]]
     m.columns = ["Model", "Predictor (standardised)", "Coefficient per SD", "SE", "p", "Fit"]
     csv_table(doc, "Table B3. Exploratory model of arhti credit availability (tehsils, n = 137)", m,
@@ -264,12 +266,15 @@ def appendix_tables(doc):
     mb.columns = ["Grain-market measure", "Tehsils", "Share of mouzas", "Spearman ρ", "Spearman BH p", "OLS coef", "OLS p", "Quasi-binomial coef",
                   "Quasi-binomial p", "Spatial error coef", "SE", "CI low", "CI high", "Spatial error p", "BH p (3 bands)", "Holm p (3 bands)",
                   "λ", "AIC", "Residual Moran's I"]
-    csv_table(doc, "Table B9. Arhti availability and distance to grain markets (three distance bands)", mb,
+    csv_table(doc, "Table B9a. Arhti availability and distance to grain markets: descriptives and non-spatial models", mb.iloc[:, :9],
               "Each row replaces the market term of the Table B3 model with one band (same controls; coefficients per SD of the band share; "
               "arhti_share is a proportion, so 0.055 = 5.5 percentage points). 'Within 10 km' includes markets in the mouza. Bands from the Mouza "
-              "Census distance classes. Added after the first models were run; all three bands are reported and the spatial error p-values are "
-              "adjusted across the three. Residual Moran's I is for the spatially filtered residuals (Queen). Conventional stratified inference; "
-              "exploratory.")
+              "Census distance classes, added after the first models were run. OLS with HC3 standard errors; quasi-binomial standard errors "
+              "(dispersion = Pearson χ²/df). Exploratory.")
+    csv_table(doc, "Table B9b. Arhti availability and distance to grain markets: spatial error model", mb.iloc[:, [0] + list(range(9, 19))],
+              "Same bands and controls as Table B9a; spatial error model (ML, Queen weights). All three bands are reported and the spatial error "
+              "p-values are adjusted across the three (Benjamini–Hochberg and Holm). Residual Moran's I is for the spatially filtered residuals. "
+              "Exploratory.")
     ut = pd.read_csv(T / "course_urban_population_top.csv")[["rank", "district", "urban_pop"]]
     ut.columns = ["Rank", "District", "Urban population, 2023"]
     csv_table(doc, "Table B10. Punjab districts with the largest urban populations (Population Census 2023)", ut,
@@ -298,7 +303,12 @@ def build_paper():
     page_number_footer(sec, "Lodhi and Akram, PPHA 38520")
 
     first_para = True
+    captions = dict(MAIN_FIGS + APPX_FIGS)
+    inline = [x for k, x in blocks(main) if k == "figure"]          # key figures placed beside their findings
     for kind, x in blocks(main):
+        if kind == "figure":
+            figure(doc, x, captions[x], max_h=4.3)
+            continue
         if kind == "title":
             p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             r = p.add_run(x); r.bold = True; r.font.size = Pt(15)
@@ -338,8 +348,13 @@ def build_paper():
             p.paragraph_format.space_after = Pt(3); p.paragraph_format.line_spacing = 1.0
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
     doc.add_heading("Figures", level=1)
+    if inline:
+        nums = [re.match(r"Figure (\w+)", captions[n]).group(1) for n in inline]
+        note = doc.add_paragraph()
+        runs(note, f"Figures {', '.join(nums[:-1])} and {nums[-1]} appear in the text beside the findings they show.", 10, MUTED)
     for n, c in MAIN_FIGS:
-        figure(doc, n, c)
+        if n not in inline:
+            figure(doc, n, c)
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
     doc.add_heading("Appendix", level=1)
     for kind, x in blocks(appx):

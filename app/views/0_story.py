@@ -32,7 +32,7 @@ STEPS = [
      f"The arhti does not begin where the bank ends: the sharpest contrasts are by farm size and booking place. Yet "
      f"{k('all_any_neither_share')} of villages report neither source. Expanding formal availability alone may be insufficient; "
      "market-linked products and better location reporting are candidate directions.", "story_7_neither.png",
-     "Figure S13. Share of villages reporting neither source (limited reported availability, not exclusion)."),
+     "Share of villages reporting neither source, by tehsil (as in Figure 7B; limited reported availability, not exclusion)."),
 ]
 n = len(STEPS)
 i = int(st.session_state.get("story_step", 0))

@@ -613,3 +613,23 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
   key number `all_any_overlap_nonarhti`), shown beside the 79.9% overlap in the paper, slide 6 and the app. Rs 4,000 in the
   opening account is an author's illustrative observation, not data, and is allowlisted as such in the tests.
 - No geographic unit was dropped, merged or renamed.
+
+## D049 (2026-11-24, DONE): Review round on the final draft (religion, figure placement, Table B9, verification)
+- **Conclusion.** Religion returns in the closing paragraph beside trust, collateral and flexible repayment ("a contract they
+  regarded as permissible trade rather than interest"). The IGC questionnaire lists "religious reasons" among barriers to banks
+  (PDF p. 66), so the point is grounded beyond the opening account.
+- **Figures.** Figures 2, 7 and 5 now sit in the text beside the findings they show (`[Figure: file.png]` markers in
+  `docs/paper_draft.md`, read by `scripts/19_build_documents.py`); the other figures stay in the Figures section, which says so.
+  The rubric limit is 12 pages exclusive of figures: without the three inline figures, text and references end at mid-page 12;
+  with them, at the same point on page 14 (the figures take exactly two pages).
+- **Tables.** Table B9 (19 columns) is split into B9a (descriptives, OLS, quasi-binomial) and B9b (spatial error model). Table B2
+  now points to Figure 7B; Figure S13, which is not in the paper, is no longer cited in the paper, the app story or the outline.
+- **Verification.** Raw files: all 85 logged SHA-256 checksums match `docs/download_log.csv`. IGC 2013 figures machine-checked
+  against the PDF (Table 11 on PDF p. 40; farmer-reported bank rates of 9 to 18 percent on p. 44; bank accounts pp. 6 and 44;
+  325 markets pp. 5 and 24); `docs/human_checklist.md` updated. SBP district attribution remains unresolved: every sbp.org.pk page
+  returned HTTP 403 to automated access (again), and neither the SBP workbook nor its PDF defines the district basis.
+- **Replication.** `bash run_all.sh` from raw data (19 scripts, exit 0): raw files unchanged; all CSV tables and matplotlib PNGs
+  byte-identical; all six QGIS layout PNGs pixel-identical; every layer of the five committed GeoPackages identical in attributes and
+  geometry. Remaining byte differences are run dates, timings, file metadata and random IDs/colours in unused fallback symbols of
+  the .qml styles. Tests 16/16.
+- No geographic unit was dropped, merged or renamed; no number changed.

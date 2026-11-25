@@ -20,7 +20,7 @@ as reported by SBP (attribution under verification)" until the attribution is co
    (Figure S11); normalization and classification (Figures S1, S12); raster processing; spatial statistics; allocation measures;
    typology
 ## 4. Results by hypothesis
-### 4.1 H1 (Figures 2, 3, 4, S7, S8, S9, S13; Tables B1, B2, B3, B5, B9)
+### 4.1 H1 (Figures 2, 3, 4, S7, S8, S9, 7B; Tables B1, B2, B3, B5, B9a, B9b)
 ### 4.2 H2 (Figures A1, 5, 6, S6; Tables B6, B7, B8)
 ### 4.3 H3 (Figures R1, R2; Table B8)
 ### 4.4 Cost in context and district typology (Figure P1; median split; Figure S10)

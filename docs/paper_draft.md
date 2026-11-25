@@ -77,7 +77,7 @@ regressions).
 
 Proportionality is a benchmark, not a prescription: nobody expects a two-acre farm and a hundred-acre farm to need the same loan.
 We keep three ideas apart: *presence* (physical banking facilities), *availability* (credit sources reported to serve a village)
-and *allocation* (lending as SBP records it). Our datasets differ in date and unit, and we never treat them as contemporaneous.
+and *allocation* (lending as SBP records it). Our datasets differ in date and unit and are never treated as contemporaneous.
 
 ## 2. Literature and background
 
@@ -193,7 +193,7 @@ same across tehsils, and p-values for the five within-tehsil comparisons are adj
 intervals assume independent mouzas and are not adjusted for spatial dependence. The planned regressions (OLS and a spatial error
 model, Table B5) relate arhti_share to commercial and ZTBL availability, distance to an online bank branch, travel time, cropland
 and metalled roads. An exploratory model added later replaces roads with distance to grain markets and is fitted by OLS, by a
-binomial model on mouza counts with quasi-binomial standard errors, and by a spatial error model (Table B3); Table B9 repeats it
+binomial model on mouza counts with quasi-binomial standard errors, and by a spatial error model (Table B3); Tables B9a and B9b repeat it
 with three market-distance bands (within 10 km, including markets in the mouza; within 25 km; over 50 km), adjusting the spatial
 error p-values across the three.
 
@@ -227,6 +227,8 @@ Start with the map. Arhti credit is reported in 31.5% of Punjab's rural populate
 zero to 100% (median 19.2%); 15 tehsils report none. Formal sources are reported in 73.5% of mouzas for ZTBL, 38.2% for commercial
 banks, 24.9% for the cooperative bank and 15.2% for microfinance banks. The bank and the arhti leave different footprints.
 
+[Figure: fig2_arhti_share_tehsil_qgis.png]
+
 The pattern is strongly clustered. Global Moran's I is 0.536 (p = 0.001; 0.470 to 0.568 across five weighting specifications),
 against 0.297 for commercial-bank credit; Geary's C is 0.458, and the Moran scatterplot places most tehsils in the High-High and
 Low-Low quadrants (Figure S7). LISA (Figure 4) finds 25 High-High and 32 Low-Low tehsils at p < 0.05, 15 and 17 after the
@@ -259,7 +261,7 @@ not evidence of financial exclusion: NGOs, rural support programmes and governme
 villages have an online commercial-bank branch, a measure of presence (ρ = −0.40). Market proximity is the more consistent
 correlate: arhti availability is higher where more mouzas have a grain market within 10 km (ρ = 0.336; Figure 7A) or 25 km (ρ =
 0.377), and both are positively associated in OLS, the quasi-binomial model and the spatial error model before multiple-testing
-correction (Table B9). In the spatial error model, one standard deviation more of mouzas within 10 km of a market goes with 5.5
+correction (Tables B9a, B9b). In the spatial error model, one standard deviation more of mouzas within 10 km of a market goes with 5.5
 percentage points more arhti availability (95% CI 0.012 to 0.098; p = 0.013, 0.039 adjusted across the three bands); the 25 km
 result survives Benjamini–Hochberg (0.042) but not Holm (0.056). Cropland, by contrast, is associated in the non-spatial models
 (OLS p = 0.039; quasi-binomial p = 0.021) but not in the spatial error model (−0.026, p = 0.413), which fits far better (λ =
@@ -270,6 +272,8 @@ not hold in the other models; we read them as consistent with arhtis working ins
 established effects. **Verdict on H1: the evidence favours coexistence over gap-filling.** No formal source shows a significant
 negative association and three show positive ones; the inconclusive results for ZTBL and combined formal availability, and the
 local heterogeneity, rule out a universal verdict about substitution.
+
+[Figure: fig7_markets_neither_tehsil_qgis.png]
 
 ### 4.2 H2: Counting borrowers is not the same as counting rupees
 
@@ -299,6 +303,8 @@ tenants, whose own borrowing these data cannot show. **Verdict on H2: formal len
 close to proportionally represented in borrower records but receive a much smaller share of disbursement, and borrower records are
 spread unevenly relative to small farms. Without the flagged districts the subsistence share of disbursement is 39.7%, so the
 finding does not depend on them.
+
+[Figure: fig5_small_farm_reach_qgis.png]
 
 ### 4.3 H3: Where is agricultural lending recorded?
 
@@ -383,16 +389,16 @@ All findings are descriptive associations.
 
 ## 8. Conclusion
 
-Punjab's maps challenge a simple view of agricultural finance. The arhti is not just the lender of places banks have failed to
-reach. His credit is strongly clustered (Moran's I = 0.536; 0.470 to 0.568 across weighting specifications), most consistently
-associated with proximity to grain markets, and more likely, within tehsils, where commercial, cooperative or microfinance credit
-is reported (H1). Small holdings account for 90.9% of borrower records but 37.0% of disbursement (H2), and five city districts
-record 59.6% of above-economic lending with 13.3% of cultivated area, robust to alternative group definitions and exclusion tests
-(H3).
+Punjab's maps challenge a simple view of agricultural finance. Arhti credit is strongly clustered (Moran's I = 0.536; 0.470 to
+0.568 across weighting specifications), most consistently associated with proximity to grain markets, and more likely, within
+tehsils, where commercial, cooperative or microfinance credit is reported (H1). Small holdings account for 90.9% of borrower
+records but 37.0% of disbursement (H2), and five city districts record 59.6% of above-economic lending with 13.3% of cultivated
+area, robust to alternative group definitions and exclusion tests (H3).
 
 Where the bank ends, the arhti has not simply begun: the two often work in the same places. Recall the farmers who knew the arhti
 was expensive and stayed with him anyway. They were not comparing two identical loans; they were comparing a financial product
-with a relationship that had survived generations, weddings and failed harvests. The central policy mistake would be to confuse
+with a relationship that had survived generations, weddings and failed harvests: trust in place of collateral, flexible repayment
+and, for many, a contract they regarded as permissible trade rather than interest. The central policy mistake would be to confuse
 the expansion of a banking network with the expansion of farmers' choices. The test of financial inclusion is not how many
 branches a regulator can count, but whether a farmer has a credible alternative when the arhti sets the terms. That is the
 question for household research, alongside SBP's loan attribution and an evaluation of the Kissan Card.
@@ -490,7 +496,7 @@ OCHA. Pakistan subnational administrative boundaries (COD-AB), valid_on 2022-09-
 
 - Tables B1 (arhti against each formal source), B2 (all mouzas by reported sources), B3 (exploratory model of arhti
   availability), B4 (districts flagged by the SBP data-quality screen), B5 (planned regressions), B6 (SBP coverage
-  reconciliation), B7 (census class-area check), B8 (H2 and H3 sensitivity), B9 (grain-market distance bands) and B10 (districts
+  reconciliation), B7 (census class-area check), B8 (H2 and H3 sensitivity), B9a and B9b (grain-market distance bands) and B10 (districts
   with the largest urban populations).
 - Figures S1 to S12 and R2: classification comparison; district LISA; published-study locations (context only); village-level
   co-reporting; three-panel Figure 5; concentration curve; Moran scatterplot; Gi*; trend surface; k-means typology; Tissot

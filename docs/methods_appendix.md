@@ -180,8 +180,8 @@ All run on the Q1 tehsils (scenario A, n = 137) unless stated; 999 permutations,
 - **Distance measures:** no Euclidean buffer of cities or markets is drawn (no mandi coordinates; OCHA lists only provincial capitals).
   The census distance bands to the nearest bank branch and grain market serve as multiple-ring buffer measures, and the MAP travel time
   (cost distance) as the time-based measure.
-- **Second-review additions (D043):** full 2×2 over all 23,130 mouzas and per-tehsil "neither" shares (Figure S13); BH adjustment
+- **Second-review additions (D043):** full 2×2 over all 23,130 mouzas and per-tehsil "neither" shares (Figure 7B; the earlier Figure S13 is superseded); BH adjustment
   across the five formal sources; grain-market distance bands (within 10 km, within 25 km, over 50 km) in place of the market term
-  (Table B9); H2/H3 sensitivity without flagged districts, with a rule-based city group (five largest urban populations, 2023
+  (Tables B9a, B9b); H2/H3 sensitivity without flagged districts, with a rule-based city group (five largest urban populations, 2023
   census), leaving one city out, and with class-specific farm-count benchmarks (Table B8); SBP coverage reconciliation (Table B6);
   census class-area check (Table B7).
