@@ -364,6 +364,8 @@ def main() -> int:
     ap = dict(record="all mouzas (descriptive)", scenario="A", pair="arhti x any formal (commercial, ZTBL, cooperative or MFB)")
     add("all_any_unadj_or", "Province-wide unadjusted odds ratio, arhti x any formal source (all mouzas, no strata)", CO2, ap, "unadjusted_or", f2, "Neither source")
     add("all_any_overlap", "Share of arhti-reporting mouzas that also report a formal source", CO2, ap, "share_arhti_mouzas_with_other", pct, "Neither source")
+    add("all_any_overlap_nonarhti", "Share of mouzas not reporting arhti credit that report a formal source", CO2, ap,
+        "share_nonarhti_mouzas_with_other", pct, "Neither source")
     add("all_any_either", "Share of mouzas reporting arhti or a formal source", CO2, ap, "share_either", pct, "Neither source")
     add("all_any_arhti_only_share", "Share of mouzas reporting arhti credit only", CO2, ap, "share_arhti_only", pct, "Neither source")
     add("all_any_neither_share", "Share of mouzas reporting neither", CO2, ap, "share_neither_all", pct, "Neither source")

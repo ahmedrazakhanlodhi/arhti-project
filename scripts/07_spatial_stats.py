@@ -351,6 +351,7 @@ def mouza_cooccurrence():
                              n_both_sources=nb_, n_arhti_only=na_, n_other_only=no_, n_neither=nn_,
                              unadjusted_or=(nb_ * nn_) / (na_ * no_),                       # province-wide, no strata
                              share_arhti_mouzas_with_other=nb_ / (nb_ + na_), share_other=(nb_ + no_) / len(d),
+                             share_nonarhti_mouzas_with_other=no_ / (no_ + nn_),
                              share_either=(nb_ + na_ + no_) / len(d), share_arhti_only=na_ / len(d), share_neither_all=nn_ / len(d)))
         # per tehsil, arhti x any formal source (descriptive): shares for maps and same-tehsil correlations
         for pc, g in d.groupby("pcode"):

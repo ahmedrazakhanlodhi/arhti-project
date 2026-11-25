@@ -103,7 +103,8 @@ ALLOWED = {  # fixed definitions, dates and labels that are not results
     "2020", "2022", "2023", "2024", "2026", "2013", "2019", "2012", "2018", "FY2023", "12.5", "50", "1,000", "10,000", "0.05", "0.01",
     "3", "5", "9", "1", "2", "4", "6", "7", "8", "11", "30", "3,000", "3,500", "24", "25", "A", "B", "S1", "S2", "S3", "S4", "S5", "S6",
     "10", "18", "400", "0.5", "k", "38520", "95",   # 95 = "95% CI"
-    "100", "125", "72", "28", "33", "26", "40", "0.2", "75"}   # data-quality screen thresholds (0.2x, 75%); CRS parameters (lat_1 28, lat_2 33, lon_0 72; old CRS 125°E), ~100 m cells, distance bands, 40 km circles
+    "100", "125", "72", "28", "33", "26", "40", "0.2", "75",   # data-quality screen thresholds (0.2x, 75%); CRS parameters (lat_1 28, lat_2 33, lon_0 72; old CRS 125°E), ~100 m cells, distance bands, 40 km circles
+    "4,000"}   # Rs 4,000: illustrative deferred fertilizer price in the paper's opening account (an author's observation, not data)
 
 
 def numbers_in(s: str) -> set[str]:

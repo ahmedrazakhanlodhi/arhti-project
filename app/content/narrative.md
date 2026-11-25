@@ -66,7 +66,7 @@ high reach and 7 high arhti with low reach; Lahore is not classified. The groups
 
 ## Conclusion
 Agricultural credit in Punjab runs on two geographies. Informal credit follows grain markets and overlaps formal credit: 79.9% of
-arhti-reporting villages also report a formal source, and no formal source shows a significant negative association. Formal money
+arhti-reporting villages also report a formal source (75.9% of other villages do), and no formal source shows a significant negative association. Formal money
 concentrates by farm size and by place: small holdings hold 90.9% of borrower records but receive 37.0% of disbursement (36 districts),
 and five city districts record 59.6% of above-economic disbursement with 13.3% of cultivated area. The sharpest contrasts in formal
 credit are therefore not between places where it is reported and places where it is not, but between small and large holdings, and

@@ -601,3 +601,15 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
   sentences. Literature, methods, results and limitations are unchanged apart from removing one repeated sentence.
 - **Unchanged:** hypotheses, tests, numbers, hedges and descriptive language. Body plus references still end on page 12 (limit:
   12 pages excluding figures).
+
+## D048 (2026-11-24, DONE): Final paper voice, with the authors' opening account
+- **Text.** Adopted the authors' final revision: the introduction opens with one author's professional observations from bank
+  supervision (deferred fertilizer pricing, family ties to arhti families, documentation delays, religious views on deferred
+  prices) before the province-wide evidence. Limitations state that the account is not a systematic sample or a Shariah ruling.
+- **Edits on adoption.** Banned terms removed ("credit deserts"; "explain" wording); H1 verdict kept as "the evidence favours
+  coexistence over gap-filling", with its reason; thesis paragraph restored; prose tightened so text and references still end on
+  page 12 (limit: 12 pages excluding figures). Methods section unchanged.
+- **New number.** 75.9% of mouzas not reporting arhti credit report a formal source (script 07, `share_nonarhti_mouzas_with_other`;
+  key number `all_any_overlap_nonarhti`), shown beside the 79.9% overlap in the paper, slide 6 and the app. Rs 4,000 in the
+  opening account is an author's illustrative observation, not data, and is allowlisted as such in the tests.
+- No geographic unit was dropped, merged or renamed.
