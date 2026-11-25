@@ -633,3 +633,14 @@ No geographic unit was dropped, merged or renamed; new results are EXPLORATORY.
   geometry. Remaining byte differences are run dates, timings, file metadata and random IDs/colours in unused fallback symbols of
   the .qml styles. Tests 16/16.
 - No geographic unit was dropped, merged or renamed; no number changed.
+
+## D050 (2026-11-24, DONE): Slides and app aligned with the final paper
+- **Slides.** Slide 1 notes open with the paper's opening account ("one of us" supervised banks); section titles follow the paper
+  (6: the arhti is not simply a substitute for the bank; 7: counting borrowers is not the same as counting rupees; 8: where is
+  agricultural lending recorded?; 9: the economics of an expensive loan, adding what the farmer buys and the religious dimension);
+  slide 2 states the paper's thesis; slide 12 ends on the paper's test of financial inclusion. Methods notes trimmed to hold the
+  talk at about 10 minutes (1,310 words at 130 wpm).
+- **App.** Central question opens with the puzzle; Introduction carries the opening account with its caveat; Cost adds what the
+  farmer buys (possibilities, not findings); Conclusion and Limitations follow the paper; story screens retitled to match. The
+  neither-source map no longer carries the label "Figure S13" (not a paper figure); it now says "as Figure 7B".
+- No number changed.

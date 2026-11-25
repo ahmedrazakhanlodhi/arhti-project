@@ -576,7 +576,7 @@ def neither_map(g):
     figs.frame(ax, x); figs.furniture(ax, x)
     figs.legend(ax, [Patch(facecolor=c, edgecolor="#bdbcb6", label=f"{l}  (n = {int((k == i).sum())})") for i, (c, l) in enumerate(zip(cols, labs))],
                 "Share of rural populated mouzas reporting neither arhti\nnor any formal source (fixed classes)", anchor=(0.0, 0.0))
-    ax.set_title("Figure S13. Limited reported availability: mouzas reporting neither arhti nor formal credit", loc="left",
+    ax.set_title("Limited reported availability: mouzas reporting neither arhti nor formal credit (as Figure 7B)", loc="left",
                  fontsize=9, fontweight="bold")
     r = allm[allm.pair.str.contains("any formal")].iloc[0]
     map_footer(fig, [f"Data: {V_MC}. n = {len(x)} tehsils; {int(r.n_neither):,} of {int(r.n_mouzas):,} rural populated mouzas report neither.",

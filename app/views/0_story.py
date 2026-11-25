@@ -8,9 +8,9 @@ from lib import data, ui
 ui.page("Where the Bank Ends and the Arhti Begins", "Indus Data Folio · presentation")
 k = data.kn
 STEPS = [
-    ("Research questions", f"{k('rp_mouzas')} villages", "Where are arhti and formal credit available, and whom does formal lending reach?",
-     "Does arhti credit fill the gaps left by formal credit (H1)? Does formal credit reach small farms in proportion (H2)? Is lending "
-     "recorded where farmland is (H3)?", "story_1_arhti.png", "Figure 2. Reported arhti credit availability by tehsil, Mouza Census 2020."),
+    ("The puzzle", f"{k('rp_mouzas')} villages", "Why pay several times the bank's rate when the bank is there?",
+     "The bank starts counting time when the documents are ready; the farmer, when the rain arrives. Does arhti credit fill the gaps "
+     "left by formal credit (H1)? Does formal credit reach small farms in proportion (H2)? Is lending recorded where farmland is (H3)?", "story_1_arhti.png", "Figure 2. Reported arhti credit availability by tehsil, Mouza Census 2020."),
     ("Clusters", f"Moran's I {k('moran_arhti_queen')}", "Informal credit is geographically clustered.",
      f"{k('lisa_hh_p05')} High-High and {k('lisa_ll_p05')} Low-Low tehsils (p < 0.05); the pattern holds across weighting choices.",
      "story_2_clusters.png", "Figure 4. LISA clusters, Queen weights, 999 permutations; heavy border = survives FDR 0.05."),
@@ -18,20 +18,20 @@ STEPS = [
      f"Arhti availability per one-SD rise in villages within 10 km of a grain market (spatial error model; Holm-adjusted p "
      f"{k('mb_w10_sem_holm')}). Cropland's link does not survive spatial modelling.", "story_3_markets.png",
      "Figure 7. A: villages within 10 km of a grain market. B: villages reporting neither source. Exploratory."),
-    ("Overlap", k("all_any_overlap"), "Banks and arhtis overlap.",
+    ("Overlap", k("all_any_overlap"), "The arhti is not simply a substitute for the bank.",
      f"of arhti-reporting villages also report a formal source. Within tehsils the odds are higher where commercial ({k('h1_com_or')}), "
      f"cooperative ({k('h1_coop_or')}) or microfinance ({k('h1_mfb_or')}) credit is reported.", "story_4_overlap.png",
      "Figure 3. Arhti and commercial-bank availability, terciles."),
-    ("Allocation", f"{k('hc36_subsistence_farms')} vs {k('hc36_subsistence_disbursement')}", "Small holdings get a small share of the money.",
+    ("Allocation", f"{k('hc36_subsistence_farms')} vs {k('hc36_subsistence_disbursement')}", "Counting borrowers is not the same as counting rupees.",
      f"Subsistence holdings' share of farms vs recorded disbursement (36 districts). Per borrower record, above-economic holdings receive "
      f"about {k('hc36_abv_ratio_sub')} times as much.", "story_5_holdings.png", "Figure A1. Holding classes, SBP FY2023-24 and Agricultural Census 2024."),
     ("Reporting geography", f"{k('five_credit_share_abv')} vs {k('five_area_share')}", "Recorded lending concentrates in city districts.",
      f"Five city districts' share of above-economic disbursement vs cultivated area ({ui.ATTRIBUTION}). Robust to leaving out any one city.",
      "story_6_cities.png", "Figure R2. Five city districts' shares of lending, farmland, farms and branches."),
     ("Conclusion", f"{k('all_any_neither')} villages", "The two systems overlap; formal money concentrates.",
-     f"The arhti does not begin where the bank ends: the sharpest contrasts are by farm size and booking place. Yet "
-     f"{k('all_any_neither_share')} of villages report neither source. Expanding formal availability alone may be insufficient; "
-     "market-linked products and better location reporting are candidate directions.", "story_7_neither.png",
+     "The arhti does not begin where the bank ends. The test of financial inclusion is not how many branches a regulator can count, "
+     f"but whether a farmer has a credible alternative when the arhti sets the terms. Yet {k('all_any_neither_share')} of villages "
+     "report neither source.", "story_7_neither.png",
      "Share of villages reporting neither source, by tehsil (as in Figure 7B; limited reported availability, not exclusion)."),
 ]
 n = len(STEPS)

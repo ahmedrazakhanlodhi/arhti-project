@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T20:11:38",
+ "generated": "2026-11-24T20:39:01",
  "written_by": "scripts/18_export_web.py",
  "analysis_crs": "+proj=aea +lat_1=28 +lat_2=33 +lat_0=30 +lon_0=72 +datum=WGS84 +units=m +no_defs",
  "web_crs": "EPSG:4326 (display copies; statistics were computed in the analysis CRS)",
@@ -260,8 +260,8 @@
    "file": "story_7_neither.png",
    "source": "outputs/figures/figS13_neither_source_tehsil.png",
    "rows": null,
-   "bytes": 288947,
-   "sha256": "410bc5d9afb2ee0cc3e5b9aa61c33fe771b21e3753125a101bbbdcd14f0a7e91"
+   "bytes": 289350,
+   "sha256": "8a02b3badd70fb5ad755ce45001ef6bc8930af30d11435798c41f1fb920f8221"
   }
  ]
 }
